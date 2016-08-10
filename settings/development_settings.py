@@ -126,6 +126,7 @@ INSTALLED_APPS = [
     'oscar_accounts',
     'oscarapicheckout',
     'oauth2_provider',
+    'whoosh',
     'xapian_backend',
     'widget_tweaks',
  #   'custom.users',
@@ -200,12 +201,6 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'commerce.urls'
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'xapian_backend.XapianEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
-    },
-}
 
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
@@ -253,7 +248,11 @@ TEMPLATES = [
     },
 ]
 
-
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
 
 WSGI_APPLICATION = 'commerce.wsgi.application'
 
