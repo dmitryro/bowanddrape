@@ -19,7 +19,6 @@ from oscar import OSCAR_MAIN_TEMPLATE_DIR
 from oscar_support.defaults import *
 from oscar import OSCAR_MAIN_TEMPLATE_DIR, get_core_apps
 from oscar.defaults import *  # noqa
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.abspath(
@@ -27,7 +26,7 @@ PROJECT_ROOT = os.path.abspath(
 )
 
 sys.setrecursionlimit(20000)
-from accounts import TEMPLATE_DIR as ACCOUNTS_TEMPLATE_DIR
+from oscar_accounts import TEMPLATE_DIR as ACCOUNTS_TEMPLATE_DIR
 from oscar.defaults import *
 
 # Quick-start development settings - unsuitable for production
@@ -48,6 +47,7 @@ SCOPES = ['https://www.googleapis.com/plus/v1/people/me',
           'https://www.googleapis.com/auth/plus.stream.write']
 VERIFY_SSL = False
 
+
 ADMIN_USERNAME='admin'
 SESSION_PROTECTION = 'weak'
 # Application definition
@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.redirects',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'admin_tools',
     'admin_tools.menu',
     'adminsortable',
@@ -118,11 +119,13 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    "pinax.stripe",
     'paypal',
     'oscarapi',
-    'accounts',
+    'oscar_accounts',
     'oscarapicheckout',
     'oauth2_provider',
+    'whoosh',
     'xapian_backend',
     'widget_tweaks',
  #   'custom.users',
@@ -141,11 +144,15 @@ ORDER_STATUS_PENDING = 'Pending'
 ORDER_STATUS_PAYMENT_DECLINED = 'Payment Declined'
 ORDER_STATUS_AUTHORIZED = 'Authorized'
 
+# settings.py
+PINAX_STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "your test public key")
+PINAX_STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "your test secret key")
 # Other statuses
 ORDER_STATUS_SHIPPED = 'Shipped'
 ORDER_STATUS_CANCELED = 'Canceled'
 
 # Pipeline Config
+
 OSCAR_INITIAL_ORDER_STATUS = ORDER_STATUS_PENDING
 OSCARAPI_INITIAL_ORDER_STATUS = ORDER_STATUS_PENDING
 OSCAR_ORDER_STATUS_PIPELINE = {
@@ -172,6 +179,7 @@ API_ENABLED_PAYMENT_METHODS = [
         'permission': 'oscarapicheckout.permissions.Public',
     },
 ]
+
 SITE_ID=1
 
 MIDDLEWARE_CLASSES = [
@@ -192,12 +200,6 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'commerce.urls'
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'xapian_backend.XapianEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
-    },
-}
 
 HAYSTACK_DEFAULT_OPERATOR = 'AND'
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
@@ -245,7 +247,11 @@ TEMPLATES = [
     },
 ]
 
-
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
 
 WSGI_APPLICATION = 'commerce.wsgi.application'
 
@@ -643,9 +649,9 @@ BOWER_INSTALLED_APPS = (
 )
 ########## COMPRESSION CONFIGURATION
 
-PIPELINE_COMPILERS = (
-    'pipeline.compilers.less.LessCompiler',
-)
+#PIPELINE_COMPILERS = (
+#    'pipeline.compilers.less.LessCompiler',
+#)
 # CSS Files.
 PIPELINE_CSS = {
     # Project libraries.
@@ -693,7 +699,7 @@ PIPELINE = {
         }
     }
 }
-USE_LESS = True
+USE_LESS = False
 COMPRESS_ENABLED = False
 #USER_LASTSEEN_TIMEOUT = 300
 SOCIAL_AUTH_LOGIN_URL = '/'
@@ -732,4 +738,20 @@ OSCAR_DASHBOARD_NAVIGATION.append(
                 'url_name': 'report-profit-loss',
             },
         ]
-    })
+    },
+    {
+        'label':'Store manager',
+        'icon': 'icon-map-marker',
+        'children': [
+            {
+                'label':'Stores',
+                'url_name': 'your-reverse-url-lookup-name',
+            },
+         ]
+    }
+)
+
+
+
+OSCAR_ALLOW_ANON_CHECKOUT=True
+OSCAR_ALLOW_ANON_REVIEWS=True

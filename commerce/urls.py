@@ -29,6 +29,7 @@ urlpatterns = [
  #   url(r'^giftcard-balance/', AccountBalanceView.as_view(),
   #      name="account-balance"),
     # urls.py
+    url(r'^admin_tools/', include('admin_tools.urls')),
     url(r"^payments/", include("pinax.stripe.urls")),
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

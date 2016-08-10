@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.9/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
+from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse_lazy
 
 import os
 import sys
@@ -19,7 +21,6 @@ from oscar import OSCAR_MAIN_TEMPLATE_DIR
 from oscar_support.defaults import *
 from oscar import OSCAR_MAIN_TEMPLATE_DIR, get_core_apps
 from oscar.defaults import *  # noqa
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.abspath(
@@ -114,22 +115,16 @@ INSTALLED_APPS = [
     'rest_framework_oauth',
     'rest_framework_extensions',
     'rest_framework_filters',
-    'restless',
-    'rules_light',
-    'tastypie',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     "pinax.stripe",
     'paypal',
     'oscarapi',
+    'custom.oscar_extensions',
     'oscar_accounts',
+    'oscar_shipping',
     'oscarapicheckout',
     'oauth2_provider',
-    'whoosh',
-    'xapian_backend',
     'widget_tweaks',
- #   'custom.users',
+    'custom.users',
  #   'custom.metaprop',
  #   'custom.cases',
  #   'custom.signup',
@@ -138,7 +133,8 @@ INSTALLED_APPS = [
  #   'custom.chat',
  #   'custom.tasks',
  #   'custom.gui',
-]+get_core_apps([])
+]+get_core_apps(['oscar.apps.shipping','oscar.apps.voucher'])
+
 
 # Needed by oscarapicheckout
 ORDER_STATUS_PENDING = 'Pending'
@@ -155,7 +151,9 @@ ORDER_STATUS_CANCELED = 'Canceled'
 # Pipeline Config
 
 OSCAR_INITIAL_ORDER_STATUS = ORDER_STATUS_PENDING
+
 OSCARAPI_INITIAL_ORDER_STATUS = ORDER_STATUS_PENDING
+
 OSCAR_ORDER_STATUS_PIPELINE = {
     ORDER_STATUS_PENDING: (ORDER_STATUS_PAYMENT_DECLINED, ORDER_STATUS_AUTHORIZED, ORDER_STATUS_CANCELED),
     ORDER_STATUS_PAYMENT_DECLINED: (ORDER_STATUS_AUTHORIZED, ORDER_STATUS_CANCELED),
@@ -195,7 +193,6 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
-    'rules_light.middleware.Middleware',
     'oscar.apps.basket.middleware.BasketMiddleware',
 ]
 
@@ -305,7 +302,6 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookAppOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'social.backends.linkedin.LinkedinOAuth2',
-    "allauth.account.auth_backends.AuthenticationBackend",
     'social.backends.instagram.InstagramOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -717,6 +713,19 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE=False
 #whether the session cookie should be secure (https:// only)
 SESSION_COOKIE_SECURE=False
 #ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value
+new_nav = OSCAR_DASHBOARD_NAVIGATION
+new_nav.append(
+    {
+        'label': 'Datacash',
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': 'Transactions',
+                'url_name': 'datacash-transaction-list',
+            },
+        ]
+    })
+OSCAR_DASHBOARD_NAVIGATION = new_nav
 OSCAR_DASHBOARD_NAVIGATION.append(
     {
         'label': 'Accounts',
@@ -739,14 +748,27 @@ OSCAR_DASHBOARD_NAVIGATION.append(
                 'url_name': 'report-profit-loss',
             },
         ]
-    })
-
-OSCAR_DASHBOARD_NAVIGATION.append(
+    }
+)
+new_nav = OSCAR_DASHBOARD_NAVIGATION
+new_nav.append(
     {
-        'label': 'Manual Charges',
-        'icon': 'icon-globe',
-    })
+        'label':'Store manager',
+        'icon': 'icon-map-marker',
+        'children': [
+            {
+                'label':('Stores'),
+                'url_name': 'your-reverse-url-lookup-name',
+            },
+         ]
+    }
+)
 
+
+OSCAR_DASHBOARD_NAVIGATION=new_nav
 
 OSCAR_ALLOW_ANON_CHECKOUT=True
 OSCAR_ALLOW_ANON_REVIEWS=True
+
+
+
