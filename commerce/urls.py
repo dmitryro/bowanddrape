@@ -37,8 +37,7 @@ urlpatterns = [
     url(r'^pages/', include('django.contrib.flatpages.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^dashboard/accounts/', include(accounts_app.urls)),
+    url(r'^ocapi/', include(oscar_api_checkout.urls)), # Must be before oscar_api.urls
     url(r'^ocapi/', include(oscar_api.urls)),
-    url(r'^occheckout_api/', include(oscar_api_checkout.urls)), # Must be before oscar_api.urls
-    url(r'^api/', include(oscar_api.urls)),
     url(r'', include(application.urls)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

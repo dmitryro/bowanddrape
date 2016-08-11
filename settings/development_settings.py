@@ -84,16 +84,16 @@ INSTALLED_APPS = [
     "pinax.stripe",
     'redis_cache',
     'redis_sessions',
-    'paypal',
     'oscarapi',
     'custom.oscar_extensions',
     'oscar_accounts',
     'oscar_shipping',
     'oscarapicheckout',
     'oauth2_provider',
+    'paypal',
     'widget_tweaks',
     'custom.users',
-]+get_core_apps([])
+]+get_core_apps(['custom.apps.checkout','custom.apps.shipping'])
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -196,6 +196,30 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGE_CODE = 'en-us'
+
+gettext_noop = lambda s: s
+LANGUAGES = (
+    ('en-us', gettext_noop('American English')),
+    ('zh-cn', gettext_noop('Simplified Chinese')),
+    ('nl', gettext_noop('Dutch')),
+    ('it', gettext_noop('Italian')),
+    ('pl', gettext_noop('Polish')),
+    ('ru', gettext_noop('Russian')),
+    ('sk', gettext_noop('Slovak')),
+    ('pt-br', gettext_noop('Brazilian Portuguese')),
+    ('fr', gettext_noop('French')),
+    ('de', gettext_noop('German')),
+    ('ko', gettext_noop('Korean')),
+    ('uk', gettext_noop('Ukrainian')),
+    ('es', gettext_noop('Spanish')),
+    ('da', gettext_noop('Danish')),
+    ('ar', gettext_noop('Arabic')),
+    ('ca', gettext_noop('Catalan')),
+    ('cs', gettext_noop('Czech')),
+    ('el', gettext_noop('Greek')),
+)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -233,6 +257,7 @@ DATABASES = {
         'managed': False,
    },
 }
+ATOMIC_REQUESTS = True
 
 GRAPPELLI_ADMIN_TITLE = 'Bow & Drape'
 GRAPPELLI_CLEAN_INPUT_TYPES = True
@@ -306,7 +331,11 @@ ORDER_STATUS_CANCELED = 'Canceled'
 
 REST_SESSION_LOGIN = False
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'dmitryro@gmail.com'
+EMAIL_HOST_PASSWORD = 'nu45edi1'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 
 STATICFILES_FINDERS = (
@@ -328,6 +357,14 @@ OSCAR_DASHBOARD_NAVIGATION.append(
             },
             {
                 'label': 'Transfers',
+                'url_name': 'transfers-list',
+            },
+            {
+                'label': 'Manual Charges',
+                'url_name': 'transfers-list',
+            },
+            {
+                'label': 'Transactions',
                 'url_name': 'transfers-list',
             },
             {
@@ -365,6 +402,8 @@ OSCAR_DASHBOARD_NAVIGATION.append(
          ]
     }
 )
+
+
 
 OSCAR_INITIAL_ORDER_STATUS = 'Pending'
 OSCAR_INITIAL_LINE_STATUS = 'Pending'
@@ -405,3 +444,78 @@ CACHES = {
         }
     },
 }
+
+    # Needed by oscarapicheckout
+ORDER_STATUS_PENDING = 'Pending'
+ORDER_STATUS_PAYMENT_DECLINED = 'Payment Declined'
+ORDER_STATUS_AUTHORIZED = 'Authorized'
+
+    # Other statuses
+ORDER_STATUS_SHIPPED = 'Shipped'
+ORDER_STATUS_CANCELED = 'Canceled'
+
+    # Pipeline Config
+OSCAR_INITIAL_ORDER_STATUS = ORDER_STATUS_PENDING
+OSCARAPI_INITIAL_ORDER_STATUS = ORDER_STATUS_PENDING
+
+OSCAR_ORDER_STATUS_PIPELINE = {
+        ORDER_STATUS_PENDING: (ORDER_STATUS_PAYMENT_DECLINED, ORDER_STATUS_AUTHORIZED, ORDER_STATUS_CANCELED),
+        ORDER_STATUS_PAYMENT_DECLINED: (ORDER_STATUS_AUTHORIZED, ORDER_STATUS_CANCELED),
+        ORDER_STATUS_AUTHORIZED: (ORDER_STATUS_SHIPPED, ORDER_STATUS_CANCELED),
+        ORDER_STATUS_SHIPPED: (),
+        ORDER_STATUS_CANCELED: (),
+}
+
+OSCAR_INITIAL_LINE_STATUS = ORDER_STATUS_PENDING
+OSCAR_LINE_STATUS_PIPELINE = {
+        ORDER_STATUS_PENDING: (ORDER_STATUS_SHIPPED, ORDER_STATUS_CANCELED),
+        ORDER_STATUS_SHIPPED: (),
+        ORDER_STATUS_CANCELED: (),
+}
+
+API_ENABLED_PAYMENT_METHODS = [
+        {
+            'method': 'oscarapicheckout.methods.Cash',
+            'permission': 'oscarapicheckout.permissions.StaffOnly',
+        },
+        {
+            'method': 'oscarapichedkout.methods.CreditCard',
+            'permission': 'oscarapicheckout.permissions.Public',
+        },
+]
+
+OSCAR_SHOP_TAGLINE = 'PayPal'
+
+# Add Payflow dashboard stuff to settings
+from django.utils.translation import ugettext_lazy as _
+OSCAR_DASHBOARD_NAVIGATION.append(
+    {
+        'label': _('PayPal'),
+        'icon': 'icon-globe',
+        'children': [
+            {
+                'label': _('PayFlow transactions'),
+                'url_name': 'paypal-payflow-list',
+            },
+            {
+                'label': _('Express transactions'),
+                'url_name': 'paypal-express-list',
+            },
+        ]
+    })
+
+
+PAYPAL_SANDBOX_MODE = True
+PAYPAL_CALLBACK_HTTPS = False
+PAYPAL_API_VERSION = '119'
+
+# These are the standard PayPal sandbox details from the docs - but I don't
+# think you can get access to the merchant dashboard.
+PAYPAL_API_USERNAME = 'sdk-three_api1.sdk.com'
+PAYPAL_API_PASSWORD = 'QFZCWN5HZM8VBG7Q'
+PAYPAL_API_SIGNATURE = 'A-IzJhZZjhg29XQ2qnhapuwxIDzyAZQ92FRP5dqBzVesOkzbdUONzmOU'
+
+# Standard currency is GBP
+PAYPAL_CURRENCY = PAYPAL_PAYFLOW_CURRENCY = 'GBP'
+PAYPAL_PAYFLOW_DASHBOARD_FORMS = True
+
