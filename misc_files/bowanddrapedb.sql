@@ -7015,7 +7015,7 @@ ZW	ZWE	716	Zimbabwe	Republic of Zimbabwe	0	t
 --
 
 COPY address_useraddress (id, title, first_name, last_name, line1, line2, line3, line4, state, postcode, search_text, phone_number, notes, is_default_for_shipping, is_default_for_billing, num_orders, hash, date_created, country_id, user_id) FROM stdin;
-1	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		f	f	3	-628364552	2016-08-09 23:47:04.34496-04	US	1
+1	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		f	f	8	-628364552	2016-08-09 23:47:04.34496-04	US	1
 \.
 
 
@@ -7061,7 +7061,8 @@ SELECT pg_catalog.setval('admin_tools_menu_bookmark_id_seq', 1, false);
 --
 
 COPY analytics_productrecord (id, num_views, num_basket_additions, num_purchases, score, product_id) FROM stdin;
-1	8	22	14	0	3
+1	15	30	20	0	3
+3	0	3	2	0	6
 \.
 
 
@@ -7069,7 +7070,7 @@ COPY analytics_productrecord (id, num_views, num_basket_additions, num_purchases
 -- Name: analytics_productrecord_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_productrecord_id_seq', 1, true);
+SELECT pg_catalog.setval('analytics_productrecord_id_seq', 3, true);
 
 
 --
@@ -7085,6 +7086,12 @@ COPY analytics_userproductview (id, date_created, product_id, user_id) FROM stdi
 6	2016-08-11 00:24:24.497723-04	3	1
 7	2016-08-11 08:22:01.293205-04	3	1
 8	2016-08-11 08:27:52.368572-04	3	1
+9	2016-08-11 10:22:22.190913-04	3	1
+15	2016-08-11 12:28:59.462184-04	3	1
+16	2016-08-11 12:29:07.564809-04	3	1
+17	2016-08-11 12:31:35.857003-04	3	1
+18	2016-08-11 12:31:41.001432-04	3	1
+19	2016-08-11 12:45:33.918541-04	3	1
 \.
 
 
@@ -7092,7 +7099,7 @@ COPY analytics_userproductview (id, date_created, product_id, user_id) FROM stdi
 -- Name: analytics_userproductview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_userproductview_id_seq', 8, true);
+SELECT pg_catalog.setval('analytics_userproductview_id_seq', 24, true);
 
 
 --
@@ -7100,7 +7107,7 @@ SELECT pg_catalog.setval('analytics_userproductview_id_seq', 8, true);
 --
 
 COPY analytics_userrecord (id, num_product_views, num_basket_additions, num_orders, num_order_lines, num_order_items, total_spent, date_last_order, user_id) FROM stdin;
-1	8	7	3	3	11	218.40	2016-08-11 00:24:02.515532-04	1
+1	24	25	8	9	23	456.00	2016-08-11 13:37:06.446241-04	1
 \.
 
 
@@ -7125,6 +7132,7 @@ COPY analytics_usersearch (id, query, date_created, user_id) FROM stdin;
 7	shirt	2016-08-09 21:48:35.807072-04	1
 8	sweat	2016-08-09 21:48:49.960685-04	1
 9	shirt	2016-08-10 09:56:25.445403-04	1
+10	shirt	2016-08-11 12:28:45.843523-04	1
 \.
 
 
@@ -7132,7 +7140,7 @@ COPY analytics_usersearch (id, query, date_created, user_id) FROM stdin;
 -- Name: analytics_usersearch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_usersearch_id_seq', 9, true);
+SELECT pg_catalog.setval('analytics_usersearch_id_seq', 10, true);
 
 
 --
@@ -7612,7 +7620,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 427, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$24000$tiQs6H4WxB9h$jaBqWmeWuIAX6HfGb/30yoR6pCABEIuzGIva5bIwpWQ=	2016-08-11 08:55:16.753958-04	t	root	Bow &	Drape	dmitryro@gmail.com	t	t	2016-08-09 06:34:02-04
+1	pbkdf2_sha256$24000$tiQs6H4WxB9h$jaBqWmeWuIAX6HfGb/30yoR6pCABEIuzGIva5bIwpWQ=	2016-08-11 11:51:53.558713-04	t	root	Bow &	Drape	dmitryro@gmail.com	t	t	2016-08-09 06:34:02-04
 \.
 
 
@@ -7676,7 +7684,12 @@ COPY basket_basket (id, status, date_created, date_merged, date_submitted, owner
 9	Merged	2016-08-10 11:02:54.095235-04	2016-08-10 12:14:34.647665-04	\N	\N
 11	Merged	2016-08-11 00:11:03.324412-04	2016-08-11 00:23:18.774507-04	\N	\N
 8	Submitted	2016-08-10 00:06:56.739938-04	\N	2016-08-11 00:24:02.740545-04	1
-12	Open	2016-08-11 00:24:24.600962-04	\N	\N	1
+12	Submitted	2016-08-11 00:24:24.600962-04	\N	2016-08-11 11:02:47.425989-04	1
+13	Submitted	2016-08-11 11:05:56.221791-04	\N	2016-08-11 12:00:49.892507-04	1
+14	Submitted	2016-08-11 12:11:59.846865-04	\N	2016-08-11 12:21:32.789335-04	1
+15	Submitted	2016-08-11 12:21:52.896104-04	\N	2016-08-11 12:29:31.508092-04	1
+16	Submitted	2016-08-11 12:29:41.190036-04	\N	2016-08-11 13:37:06.671784-04	1
+17	Open	2016-08-11 13:37:18.450738-04	\N	\N	1
 \.
 
 
@@ -7684,7 +7697,7 @@ COPY basket_basket (id, status, date_created, date_merged, date_submitted, owner
 -- Name: basket_basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('basket_basket_id_seq', 12, true);
+SELECT pg_catalog.setval('basket_basket_id_seq', 17, true);
 
 
 --
@@ -7711,6 +7724,12 @@ COPY basket_line (id, line_reference, quantity, price_currency, price_excl_tax, 
 1	3_1	3	USD	20.00	20.00	2016-08-09 13:56:04.789611-04	1	3	1
 6	3_1	1	USD	20.00	20.00	2016-08-10 00:06:03.981702-04	7	3	1
 7	3_1	7	USD	20.00	20.00	2016-08-10 09:56:18.23057-04	8	3	1
+10	3_1	1	USD	20.00	20.00	2016-08-11 09:01:17.576337-04	12	3	1
+13	3_1	1	USD	20.00	20.00	2016-08-11 12:21:08.580916-04	14	3	1
+14	3_1	4	USD	20.00	20.00	2016-08-11 12:22:02.359548-04	15	3	1
+16	6_3	2	USD	20.00	20.00	2016-08-11 13:34:32.451938-04	16	6	3
+17	3_1	2	USD	20.00	20.00	2016-08-11 13:43:47.22157-04	17	3	1
+18	6_3	1	USD	20.00	20.00	2016-08-11 13:49:40.129233-04	17	6	3
 \.
 
 
@@ -7718,7 +7737,7 @@ COPY basket_line (id, line_reference, quantity, price_currency, price_excl_tax, 
 -- Name: basket_line_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('basket_line_id_seq', 9, true);
+SELECT pg_catalog.setval('basket_line_id_seq', 18, true);
 
 
 --
@@ -7771,7 +7790,9 @@ SELECT pg_catalog.setval('catalogue_attributeoptiongroup_id_seq', 1, false);
 --
 
 COPY catalogue_category (id, path, depth, numchild, name, description, image, slug) FROM stdin;
-1	0001	1	0	sweatshirts	<p>Sweatshirts Category</p>	categories/image_shirt_2f0Olug.jpg	sweathirts
+1	00020002	2	0	sweatshirts	<p>Sweatshirts Category</p>	categories/image_shirt_2f0Olug.jpg	sweathirts
+3	00020001	2	0	T-Shirts	<p>T-Shirts</p>	categories/tease.jpg_canvas_430_430_6wj6wTK.png	t-shirts
+2	0002	1	2	Women's Clothing	<p>Women's Clothing</p>	categories/image_shirt_8Sth07S.jpg	womens-clothing
 \.
 
 
@@ -7779,7 +7800,7 @@ COPY catalogue_category (id, path, depth, numchild, name, description, image, sl
 -- Name: catalogue_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_category_id_seq', 1, true);
+SELECT pg_catalog.setval('catalogue_category_id_seq', 3, true);
 
 
 --
@@ -7802,7 +7823,8 @@ SELECT pg_catalog.setval('catalogue_option_id_seq', 1, false);
 --
 
 COPY catalogue_product (id, structure, upc, title, slug, description, rating, date_created, date_updated, is_discountable, parent_id, product_class_id) FROM stdin;
-3	standalone	10012	Cool Sweatshirt	cool-sweatshirt	<p>Cool Sweatshirt</p>	5	2016-08-09 11:51:50.661853-04	2016-08-11 08:59:15.571789-04	t	\N	1
+3	standalone	10012	Cool Sweatshirt	cool-sweatshirt	<p>Cool Sweatshirt</p>	5	2016-08-09 11:51:50.661853-04	2016-08-11 12:39:37.056706-04	t	\N	1
+6	standalone	01231	Cool T-Shirt	cool-t-shirt	<p>Cool T-Shirt</p>	\N	2016-08-11 13:33:19.981998-04	2016-08-11 13:38:05.086647-04	t	\N	3
 \.
 
 
@@ -7810,7 +7832,7 @@ COPY catalogue_product (id, structure, upc, title, slug, description, rating, da
 -- Name: catalogue_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_product_id_seq', 3, true);
+SELECT pg_catalog.setval('catalogue_product_id_seq', 6, true);
 
 
 --
@@ -7865,6 +7887,8 @@ SELECT pg_catalog.setval('catalogue_productattributevalue_id_seq', 1, false);
 
 COPY catalogue_productcategory (id, category_id, product_id) FROM stdin;
 1	1	3
+3	3	6
+4	2	6
 \.
 
 
@@ -7872,7 +7896,7 @@ COPY catalogue_productcategory (id, category_id, product_id) FROM stdin;
 -- Name: catalogue_productcategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_productcategory_id_seq', 1, true);
+SELECT pg_catalog.setval('catalogue_productcategory_id_seq', 4, true);
 
 
 --
@@ -7914,6 +7938,7 @@ SELECT pg_catalog.setval('catalogue_productclass_options_id_seq', 1, false);
 
 COPY catalogue_productimage (id, original, caption, display_order, date_created, product_id) FROM stdin;
 8	images/products/2016/08/image_shirt_ljNBxZC.jpg		0	2016-08-11 08:59:15.633776-04	3
+10	images/products/2016/08/tease.jpg_canvas_430_430_5a44c8s.png		0	2016-08-11 13:33:20.143061-04	6
 \.
 
 
@@ -7921,7 +7946,7 @@ COPY catalogue_productimage (id, original, caption, display_order, date_created,
 -- Name: catalogue_productimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_productimage_id_seq', 8, true);
+SELECT pg_catalog.setval('catalogue_productimage_id_seq', 10, true);
 
 
 --
@@ -7929,6 +7954,7 @@ SELECT pg_catalog.setval('catalogue_productimage_id_seq', 8, true);
 --
 
 COPY catalogue_productrecommendation (id, ranking, primary_id, recommendation_id) FROM stdin;
+2	10	6	6
 \.
 
 
@@ -7936,7 +7962,7 @@ COPY catalogue_productrecommendation (id, ranking, primary_id, recommendation_id
 -- Name: catalogue_productrecommendation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_productrecommendation_id_seq', 1, false);
+SELECT pg_catalog.setval('catalogue_productrecommendation_id_seq', 2, true);
 
 
 --
@@ -7963,6 +7989,11 @@ COPY customer_email (id, subject, body_text, body_html, date_sent, user_id) FROM
 1	Confirmation of order 100001	Hello,\n\nWe are pleased to confirm your order 100001 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 3 - price: $60.00\n\nCart total: $60.00\nShipping: $0.00\nOrder Total: $60.00\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100001 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 3 - price: $60.00</li>\n    \n</ul>\n<p>\nCart total: $60.00<br/>\nShipping: $0.00<br/>\nOrder Total: $60.00\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-09 23:47:04.595112-04	1
 2	Confirmation of order 100007	Hello,\n\nWe are pleased to confirm your order 100007 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n\nCart total: $19.80\nShipping: $0.00\nOrder Total: $19.80\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100007 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $19.80<br/>\nShipping: $0.00<br/>\nOrder Total: $19.80\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-10 00:06:42.832549-04	1
 5	Confirmation of order 100008	Hello,\n\nWe are pleased to confirm your order 100008 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 7 - price: $138.60\n\nCart total: $138.60\nShipping: $0.00\nOrder Total: $138.60\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100008 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 7 - price: $138.60</li>\n    \n</ul>\n<p>\nCart total: $138.60<br/>\nShipping: $0.00<br/>\nOrder Total: $138.60\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 00:24:02.79794-04	1
+6	Confirmation of order 100012	Hello,\n\nWe are pleased to confirm your order 100012 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n\nCart total: $19.80\nShipping: $0.00\nOrder Total: $19.80\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100012 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $19.80<br/>\nShipping: $0.00<br/>\nOrder Total: $19.80\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 11:02:47.482654-04	1
+7	Confirmation of order 100013	Hello,\n\nWe are pleased to confirm your order 100013 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool T-Shirt - quantity: 2 - price: $39.60\n\nCart total: $39.60\nShipping: $0.00\nOrder Total: $39.60\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100013 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool T-Shirt - quantity: 2 - price: $39.60</li>\n    \n</ul>\n<p>\nCart total: $39.60<br/>\nShipping: $0.00<br/>\nOrder Total: $39.60\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 12:00:49.95397-04	1
+8	Confirmation of order 100014	Hello,\n\nWe are pleased to confirm your order 100014 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool T-Shirt - quantity: 2 - price: $39.60\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n\nCart total: $59.40\nShipping: $0.00\nOrder Total: $59.40\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100014 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool T-Shirt - quantity: 2 - price: $39.60</li>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $59.40<br/>\nShipping: $0.00<br/>\nOrder Total: $59.40\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 12:21:32.873972-04	1
+9	Confirmation of order 100015	Hello,\n\nWe are pleased to confirm your order 100015 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 4 - price: $79.20\n\nCart total: $79.20\nShipping: $0.00\nOrder Total: $79.20\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100015 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 4 - price: $79.20</li>\n    \n</ul>\n<p>\nCart total: $79.20<br/>\nShipping: $0.00<br/>\nOrder Total: $79.20\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 12:29:31.562826-04	1
+10	Confirmation of order 100016	Hello,\n\nWe are pleased to confirm your order 100016 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool T-Shirt - quantity: 2 - price: $39.60\n\nCart total: $39.60\nShipping: $0.00\nOrder Total: $39.60\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100016 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool T-Shirt - quantity: 2 - price: $39.60</li>\n    \n</ul>\n<p>\nCart total: $39.60<br/>\nShipping: $0.00<br/>\nOrder Total: $39.60\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 13:37:06.737871-04	1
 \.
 
 
@@ -7970,7 +8001,7 @@ COPY customer_email (id, subject, body_text, body_html, date_sent, user_id) FROM
 -- Name: customer_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('customer_email_id_seq', 5, true);
+SELECT pg_catalog.setval('customer_email_id_seq', 10, true);
 
 
 --
@@ -7978,6 +8009,7 @@ SELECT pg_catalog.setval('customer_email_id_seq', 5, true);
 --
 
 COPY customer_notification (id, subject, body, category, location, date_sent, date_read, recipient_id, sender_id) FROM stdin;
+1	\n\n<a href="/catalogue/cool-sweatshirt_3/">Cool Sweatshirt</a> is back in stock\n\n			Inbox	2016-08-11 12:39:37.126499-04	2016-08-11 13:47:52.042887-04	1	\N
 \.
 
 
@@ -7985,7 +8017,7 @@ COPY customer_notification (id, subject, body, category, location, date_sent, da
 -- Name: customer_notification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('customer_notification_id_seq', 1, false);
+SELECT pg_catalog.setval('customer_notification_id_seq', 1, true);
 
 
 --
@@ -7993,6 +8025,7 @@ SELECT pg_catalog.setval('customer_notification_id_seq', 1, false);
 --
 
 COPY customer_productalert (id, email, key, status, date_created, date_confirmed, date_cancelled, date_closed, product_id, user_id) FROM stdin;
+1			Closed	2016-08-11 12:31:40.788875-04	\N	\N	2016-08-11 12:39:37.140629-04	3	1
 \.
 
 
@@ -8000,7 +8033,7 @@ COPY customer_productalert (id, email, key, status, date_created, date_confirmed
 -- Name: customer_productalert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('customer_productalert_id_seq', 1, false);
+SELECT pg_catalog.setval('customer_productalert_id_seq', 1, true);
 
 
 --
@@ -8198,6 +8231,8 @@ SELECT pg_catalog.setval('django_content_type_id_seq', 142, true);
 --
 
 COPY django_flatpage (id, url, title, content, enable_comments, template_name, registration_required) FROM stdin;
+1	about/	About	<p>Some about text</p>	f		f
+2	dashboard/pages/about/	About	<p>About</p>	f		f
 \.
 
 
@@ -8205,7 +8240,7 @@ COPY django_flatpage (id, url, title, content, enable_comments, template_name, r
 -- Name: django_flatpage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_flatpage_id_seq', 1, false);
+SELECT pg_catalog.setval('django_flatpage_id_seq', 2, true);
 
 
 --
@@ -8213,6 +8248,8 @@ SELECT pg_catalog.setval('django_flatpage_id_seq', 1, false);
 --
 
 COPY django_flatpage_sites (id, flatpage_id, site_id) FROM stdin;
+1	1	1
+2	2	1
 \.
 
 
@@ -8220,7 +8257,7 @@ COPY django_flatpage_sites (id, flatpage_id, site_id) FROM stdin;
 -- Name: django_flatpage_sites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_flatpage_sites_id_seq', 1, false);
+SELECT pg_catalog.setval('django_flatpage_sites_id_seq', 2, true);
 
 
 --
@@ -8327,6 +8364,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 97	easy_thumbnails	0002_thumbnaildimensions	2016-08-11 00:01:28.484323-04
 98	shipping	0004_auto_20160810_2245	2016-08-11 00:01:45.239802-04
 99	shipping	0005_auto_20160810_2248	2016-08-11 00:01:45.622115-04
+100	shipping	0003_auto_20160811_1321	2016-08-11 13:24:02.769544-04
 \.
 
 
@@ -8334,7 +8372,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 99, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 100, true);
 
 
 --
@@ -8541,7 +8579,7 @@ SELECT pg_catalog.setval('offer_condition_id_seq', 2, true);
 
 COPY offer_conditionaloffer (id, name, slug, description, offer_type, status, priority, start_datetime, end_datetime, max_global_applications, max_user_applications, max_basket_applications, max_discount, total_discount, num_applications, num_orders, redirect_url, date_created, benefit_id, condition_id) FROM stdin;
 2	Offer for coupon 'Test Coupon'	offer-for-coupon-test-coupon		Voucher	Open	0	\N	\N	\N	\N	\N	\N	0.00	0	0		2016-08-10 15:07:15.221899-04	2	2
-1	sample offer	sample-offer	<p>sample offer</p>	Site	Open	0	2016-08-10 00:00:00-04	2016-10-07 05:00:30-04	20	20	1	10.00	1.60	2	2		2016-08-10 00:05:40.138423-04	1	1
+1	sample offer	sample-offer	<p>sample offer</p>	Site	Open	0	2016-08-10 00:00:00-04	2016-10-07 05:00:30-04	20	20	1	10.00	4.00	7	7		2016-08-10 00:05:40.138423-04	1	1
 \.
 
 
@@ -8684,6 +8722,12 @@ COPY order_line (id, partner_name, partner_sku, partner_line_reference, partner_
 3	Our Vendor	10211			Cool Sweatshirt	10012	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	3	1	3	1
 4	Our Great Partner	1042			Our Partner's Line		1	10.00	9.00	10.00	10.00	\N	\N	\N	\N		\N	2	1	3	1
 5	Our Vendor	10211			Cool Sweatshirt	10012	7	138.60	138.60	140.00	140.00	20.00	20.00	20.00	20.00	Pending	\N	4	1	3	1
+6	Our Vendor	10211			Cool Sweatshirt	10012	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	5	1	3	1
+9	Our Vendor	10211			Cool Sweatshirt	10012	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	7	1	3	1
+10	Our Vendor	10211			Cool Sweatshirt	10012	4	79.20	79.20	80.00	80.00	20.00	20.00	20.00	20.00	Pending	\N	8	1	3	1
+7	Our Vendor	103013			Cool T-Shirt	0101020	2	39.60	39.60	40.00	40.00	20.00	20.00	20.00	20.00	Pending	\N	6	1	\N	\N
+8	Our Vendor	103013			Cool T-Shirt	0101020	2	39.60	39.60	40.00	40.00	20.00	20.00	20.00	20.00	Pending	\N	7	1	\N	\N
+11	Our Vendor	19191			Cool T-Shirt	01231	2	39.60	39.60	40.00	40.00	20.00	20.00	20.00	20.00	Pending	\N	9	1	6	3
 \.
 
 
@@ -8691,7 +8735,7 @@ COPY order_line (id, partner_name, partner_sku, partner_line_reference, partner_
 -- Name: order_line_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_line_id_seq', 5, true);
+SELECT pg_catalog.setval('order_line_id_seq', 11, true);
 
 
 --
@@ -8718,6 +8762,12 @@ COPY order_lineprice (id, quantity, price_incl_tax, price_excl_tax, shipping_inc
 2	3	20.00	20.00	0.00	0.00	2	2
 3	1	19.80	19.80	0.00	0.00	3	3
 4	7	19.80	19.80	0.00	0.00	5	4
+5	1	19.80	19.80	0.00	0.00	6	5
+6	2	19.80	19.80	0.00	0.00	7	6
+7	2	19.80	19.80	0.00	0.00	8	7
+8	1	19.80	19.80	0.00	0.00	9	7
+9	4	19.80	19.80	0.00	0.00	10	8
+10	2	19.80	19.80	0.00	0.00	11	9
 \.
 
 
@@ -8725,7 +8775,7 @@ COPY order_lineprice (id, quantity, price_incl_tax, price_excl_tax, shipping_inc
 -- Name: order_lineprice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_lineprice_id_seq', 4, true);
+SELECT pg_catalog.setval('order_lineprice_id_seq', 10, true);
 
 
 --
@@ -8736,7 +8786,12 @@ COPY order_order (id, number, currency, total_incl_tax, total_excl_tax, shipping
 1	100005	USD	60.00	60.00	0.00	0.00	Free shipping	free-shipping	Pending	r@ggg.com	2016-08-09 23:11:21.920599-04	5	\N	1	1	\N
 2	100001	USD	60.00	60.00	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-09 23:47:04.361926-04	1	\N	2	1	1
 3	100007	USD	19.80	19.80	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-10 00:06:42.578886-04	7	\N	3	1	1
-4	100008	USD	138.60	138.60	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 00:24:02.515532-04	8	\N	4	1	1
+5	100012	USD	19.80	19.80	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 11:02:47.219572-04	12	\N	5	1	1
+4	100008	USD	138.60	138.60	0.00	0.00	Free shipping	free-shipping	Cancelled		2016-08-11 00:24:02.515532-04	8	\N	4	1	1
+6	100013	USD	39.60	39.60	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 12:00:49.6883-04	13	\N	6	1	1
+7	100014	USD	59.40	59.40	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 12:21:32.492535-04	14	\N	7	1	1
+8	100015	USD	79.20	79.20	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 12:29:31.303551-04	15	\N	8	1	1
+9	100016	USD	39.60	39.60	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 13:37:06.446241-04	16	\N	9	1	1
 \.
 
 
@@ -8744,7 +8799,7 @@ COPY order_order (id, number, currency, total_incl_tax, total_excl_tax, shipping
 -- Name: order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_order_id_seq', 4, true);
+SELECT pg_catalog.setval('order_order_id_seq', 9, true);
 
 
 --
@@ -8754,6 +8809,11 @@ SELECT pg_catalog.setval('order_order_id_seq', 4, true);
 COPY order_orderdiscount (id, category, offer_id, offer_name, voucher_id, voucher_code, frequency, amount, message, order_id) FROM stdin;
 1	Basket	1	sample offer	\N		1	0.20		3
 2	Basket	1	sample offer	\N		1	1.40		4
+3	Basket	1	sample offer	\N		1	0.20		5
+4	Basket	1	sample offer	\N		1	0.40		6
+5	Basket	1	sample offer	\N		1	0.60		7
+6	Basket	1	sample offer	\N		1	0.80		8
+7	Basket	1	sample offer	\N		1	0.40		9
 \.
 
 
@@ -8761,7 +8821,7 @@ COPY order_orderdiscount (id, category, offer_id, offer_name, voucher_id, vouche
 -- Name: order_orderdiscount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_orderdiscount_id_seq', 2, true);
+SELECT pg_catalog.setval('order_orderdiscount_id_seq', 7, true);
 
 
 --
@@ -8769,6 +8829,7 @@ SELECT pg_catalog.setval('order_orderdiscount_id_seq', 2, true);
 --
 
 COPY order_ordernote (id, note_type, message, date_created, date_updated, order_id, user_id) FROM stdin;
+1	System	Order status changed from 'Pending' to 'Cancelled'	2016-08-11 11:08:15.693621-04	2016-08-11 11:08:15.693722-04	4	1
 \.
 
 
@@ -8776,7 +8837,7 @@ COPY order_ordernote (id, note_type, message, date_created, date_updated, order_
 -- Name: order_ordernote_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_ordernote_id_seq', 1, false);
+SELECT pg_catalog.setval('order_ordernote_id_seq', 1, true);
 
 
 --
@@ -8835,6 +8896,11 @@ COPY order_shippingaddress (id, title, first_name, last_name, line1, line2, line
 2	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 3	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 4	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+5	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+6	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+7	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+8	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+9	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 \.
 
 
@@ -8842,7 +8908,7 @@ COPY order_shippingaddress (id, title, first_name, last_name, line1, line2, line
 -- Name: order_shippingaddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_shippingaddress_id_seq', 4, true);
+SELECT pg_catalog.setval('order_shippingaddress_id_seq', 9, true);
 
 
 --
@@ -9078,7 +9144,7 @@ SELECT pg_catalog.setval('partner_partneraddress_id_seq', 1, false);
 --
 
 COPY partner_stockalert (id, threshold, status, date_created, date_closed, stockrecord_id) FROM stdin;
-1	10	Open	2016-08-11 00:24:02.607544-04	\N	1
+1	10	Closed	2016-08-11 00:24:02.607544-04	2016-08-11 12:39:37.099393-04	1
 \.
 
 
@@ -9086,7 +9152,7 @@ COPY partner_stockalert (id, threshold, status, date_created, date_closed, stock
 -- Name: partner_stockalert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('partner_stockalert_id_seq', 1, true);
+SELECT pg_catalog.setval('partner_stockalert_id_seq', 2, true);
 
 
 --
@@ -9094,7 +9160,8 @@ SELECT pg_catalog.setval('partner_stockalert_id_seq', 1, true);
 --
 
 COPY partner_stockrecord (id, partner_sku, price_currency, price_excl_tax, price_retail, cost_price, num_in_stock, num_allocated, low_stock_threshold, date_created, date_updated, partner_id, product_id) FROM stdin;
-1	10211	USD	20.00	20.00	20.00	20	14	10	2016-08-09 11:51:50.864439-04	2016-08-11 00:24:02.582179-04	1	3
+1	10211	USD	20.00	20.00	20.00	30	20	10	2016-08-09 11:51:50.864439-04	2016-08-11 12:39:37.08487-04	1	3
+3	19191	USD	20.00	20.00	20.00	20	2	5	2016-08-11 13:33:57.921625-04	2016-08-11 13:37:06.518238-04	1	6
 \.
 
 
@@ -9102,7 +9169,7 @@ COPY partner_stockrecord (id, partner_sku, price_currency, price_excl_tax, price
 -- Name: partner_stockrecord_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('partner_stockrecord_id_seq', 1, true);
+SELECT pg_catalog.setval('partner_stockrecord_id_seq', 3, true);
 
 
 --
@@ -9508,6 +9575,7 @@ SELECT pg_catalog.setval('promotions_pagepromotion_id_seq', 1, false);
 --
 
 COPY promotions_rawhtml (id, name, display_type, body, date_created) FROM stdin;
+1	Side Section		<strong>SECTION</strong>	2016-08-11 12:14:46.168344-04
 \.
 
 
@@ -9515,7 +9583,7 @@ COPY promotions_rawhtml (id, name, display_type, body, date_created) FROM stdin;
 -- Name: promotions_rawhtml_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('promotions_rawhtml_id_seq', 1, false);
+SELECT pg_catalog.setval('promotions_rawhtml_id_seq', 1, true);
 
 
 --
@@ -9644,8 +9712,6 @@ SELECT pg_catalog.setval('shipping_orderanditemcharges_id_seq', 1, false);
 --
 
 COPY shipping_shippingcompany (id, code, name, description, default_weight, api_user, api_key, api_type, origin, is_active, status, payment_type) FROM stdin;
-1	usps	USPS	USPS	0.000				Saint-Petersburg	f		postpaid
-2	ups	UPS	UPS	0.000				Brooklyn	f		postpaid
 \.
 
 
@@ -9669,12 +9735,6 @@ SELECT pg_catalog.setval('shipping_shippingcompany_containers_id_seq', 1, false)
 --
 
 COPY shipping_shippingcompany_countries (id, shippingcompany_id, country_id) FROM stdin;
-1	2	DE
-2	2	US
-3	2	UM
-4	2	NZ
-5	2	AU
-6	2	GB
 \.
 
 
@@ -9682,14 +9742,14 @@ COPY shipping_shippingcompany_countries (id, shippingcompany_id, country_id) FRO
 -- Name: shipping_shippingcompany_countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('shipping_shippingcompany_countries_id_seq', 6, true);
+SELECT pg_catalog.setval('shipping_shippingcompany_countries_id_seq', 1, false);
 
 
 --
 -- Name: shipping_shippingcompany_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('shipping_shippingcompany_id_seq', 2, true);
+SELECT pg_catalog.setval('shipping_shippingcompany_id_seq', 1, false);
 
 
 --
@@ -9915,6 +9975,20 @@ oscar-sandbox||image||1cdc4eaf027e714ab4cfbee6e363e897	{"storage": "django.core.
 oscar-sandbox||image||faff7c3da69a5c7d1a5a67a6e41286a2	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/23/de/23de17c6de8ca502ffbc9640349436ca.jpg", "size": [47, 70]}
 oscar-sandbox||thumbnails||1cdc4eaf027e714ab4cfbee6e363e897	["faff7c3da69a5c7d1a5a67a6e41286a2"]
 oscar-sandbox||image||dca1bb3f8ddb51795121199ed188da9f	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/95/9e/959e4acae16fbad16549f1e955842f94.jpg", "size": [103, 155]}
+oscar-sandbox||image||85efc4f4b6a4e83ff0a528eccc4b1953	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/a9/0b/a90bb61822887800d872b7d14129a880.jpg", "size": [67, 100]}
+oscar-sandbox||image||b6d5b9c0bd11e795f6bfc23a46102a55	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/bb/91/bb91344cf8ac1fcce5718b82a9b28fb3.jpg", "size": [266, 400]}
+oscar-sandbox||image||23eeb84912defa185fd0d6d3861e1d23	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/92/97/92976db023e7e899fd9b11f123189e61.jpg", "size": [133, 200]}
+oscar-sandbox||image||333d9bc5d06398a67bb04eb910e0936c	{"storage": "django.core.files.storage.FileSystemStorage", "name": "image_not_found.jpg", "size": [400, 300]}
+oscar-sandbox||image||703902d69ceadbcc077fe481ec2060f4	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/17/d5/17d59725435216b0e455fcb9659a84f3.jpg", "size": [100, 75]}
+oscar-sandbox||thumbnails||333d9bc5d06398a67bb04eb910e0936c	["703902d69ceadbcc077fe481ec2060f4"]
+oscar-sandbox||image||82d86649c337485d7ce16762750e524c	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/ee/d6/eed6bcfd8732ca981f2d25a20233226c.jpg", "size": [207, 155]}
+oscar-sandbox||image||8c49628853bc32a76a137c9ee14e9593	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/59/d3/59d3d8c74e03cbba3aed4051c18d6a8c.jpg", "size": [400, 300]}
+oscar-sandbox||image||9abdd56e9fe48c5e148077069347df5a	{"storage": "django.core.files.storage.FileSystemStorage", "name": "images/products/2016/08/tease.jpg_canvas_430_430_5a44c8s.png", "size": [430, 430]}
+oscar-sandbox||image||67eeee206b8379666e2422f577a2ed7e	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/c5/32/c532623062b017450ff14833ed18578a.jpg", "size": [200, 200]}
+oscar-sandbox||thumbnails||9abdd56e9fe48c5e148077069347df5a	["67eeee206b8379666e2422f577a2ed7e"]
+oscar-sandbox||image||8aebac185d01076476e2e306f94dc4f3	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/f2/2c/f22c28c37ae334e4a2d941e85f7c6eb6.jpg", "size": [70, 70]}
+oscar-sandbox||image||af0280be6d6f2e3eeef8a3d68a269f22	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/ee/e6/eee634a36331170125fa07df263f3e35.jpg", "size": [155, 155]}
+oscar-sandbox||image||424ccb47aa354f1b7af56910452b3cd2	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/09/5b/095b2a10c588743788b5d2cb60c4e8ce.jpg", "size": [100, 100]}
 \.
 
 
