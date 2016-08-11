@@ -21,11 +21,14 @@ from oscar_accounts.dashboard.app import application as accounts_app
 from oscarapi.app import application as oscar_api
 from oscarapicheckout.app import application as oscar_api_checkout
 from oscar.app import application
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin/', admin.site.urls),
     url(r'^grappelli/', include('grappelli.urls')), # grappelli URLS
-    url(r'^i18n/', include('django.conf.urls.i18n')),
  #   url(r'^giftcard-balance/', AccountBalanceView.as_view(),
   #      name="account-balance"),
     # urls.py
@@ -38,4 +41,4 @@ urlpatterns = [
     url(r'^occheckout_api/', include(oscar_api_checkout.urls)), # Must be before oscar_api.urls
     url(r'^api/', include(oscar_api.urls)),
     url(r'', include(application.urls)),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
