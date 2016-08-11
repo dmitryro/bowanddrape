@@ -1718,6 +1718,265 @@ ALTER SEQUENCE django_site_id_seq OWNED BY django_site.id;
 
 
 --
+-- Name: easy_thumbnails_source; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE easy_thumbnails_source (
+    id integer NOT NULL,
+    storage_hash character varying(40) NOT NULL,
+    name character varying(255) NOT NULL,
+    modified timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE easy_thumbnails_source OWNER TO root;
+
+--
+-- Name: easy_thumbnails_source_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE easy_thumbnails_source_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE easy_thumbnails_source_id_seq OWNER TO root;
+
+--
+-- Name: easy_thumbnails_source_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE easy_thumbnails_source_id_seq OWNED BY easy_thumbnails_source.id;
+
+
+--
+-- Name: easy_thumbnails_thumbnail; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE easy_thumbnails_thumbnail (
+    id integer NOT NULL,
+    storage_hash character varying(40) NOT NULL,
+    name character varying(255) NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    source_id integer NOT NULL
+);
+
+
+ALTER TABLE easy_thumbnails_thumbnail OWNER TO root;
+
+--
+-- Name: easy_thumbnails_thumbnail_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE easy_thumbnails_thumbnail_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE easy_thumbnails_thumbnail_id_seq OWNER TO root;
+
+--
+-- Name: easy_thumbnails_thumbnail_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE easy_thumbnails_thumbnail_id_seq OWNED BY easy_thumbnails_thumbnail.id;
+
+
+--
+-- Name: easy_thumbnails_thumbnaildimensions; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE easy_thumbnails_thumbnaildimensions (
+    id integer NOT NULL,
+    thumbnail_id integer NOT NULL,
+    width integer,
+    height integer,
+    CONSTRAINT easy_thumbnails_thumbnaildimensions_height_check CHECK ((height >= 0)),
+    CONSTRAINT easy_thumbnails_thumbnaildimensions_width_check CHECK ((width >= 0))
+);
+
+
+ALTER TABLE easy_thumbnails_thumbnaildimensions OWNER TO root;
+
+--
+-- Name: easy_thumbnails_thumbnaildimensions_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE easy_thumbnails_thumbnaildimensions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE easy_thumbnails_thumbnaildimensions_id_seq OWNER TO root;
+
+--
+-- Name: easy_thumbnails_thumbnaildimensions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE easy_thumbnails_thumbnaildimensions_id_seq OWNED BY easy_thumbnails_thumbnaildimensions.id;
+
+
+--
+-- Name: oauth2_provider_accesstoken; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE oauth2_provider_accesstoken (
+    id integer NOT NULL,
+    token character varying(255) NOT NULL,
+    expires timestamp with time zone NOT NULL,
+    scope text NOT NULL,
+    application_id integer NOT NULL,
+    user_id integer
+);
+
+
+ALTER TABLE oauth2_provider_accesstoken OWNER TO root;
+
+--
+-- Name: oauth2_provider_accesstoken_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE oauth2_provider_accesstoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE oauth2_provider_accesstoken_id_seq OWNER TO root;
+
+--
+-- Name: oauth2_provider_accesstoken_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE oauth2_provider_accesstoken_id_seq OWNED BY oauth2_provider_accesstoken.id;
+
+
+--
+-- Name: oauth2_provider_application; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE oauth2_provider_application (
+    id integer NOT NULL,
+    client_id character varying(100) NOT NULL,
+    redirect_uris text NOT NULL,
+    client_type character varying(32) NOT NULL,
+    authorization_grant_type character varying(32) NOT NULL,
+    client_secret character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    skip_authorization boolean NOT NULL
+);
+
+
+ALTER TABLE oauth2_provider_application OWNER TO root;
+
+--
+-- Name: oauth2_provider_application_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE oauth2_provider_application_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE oauth2_provider_application_id_seq OWNER TO root;
+
+--
+-- Name: oauth2_provider_application_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE oauth2_provider_application_id_seq OWNED BY oauth2_provider_application.id;
+
+
+--
+-- Name: oauth2_provider_grant; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE oauth2_provider_grant (
+    id integer NOT NULL,
+    code character varying(255) NOT NULL,
+    expires timestamp with time zone NOT NULL,
+    redirect_uri character varying(255) NOT NULL,
+    scope text NOT NULL,
+    application_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE oauth2_provider_grant OWNER TO root;
+
+--
+-- Name: oauth2_provider_grant_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE oauth2_provider_grant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE oauth2_provider_grant_id_seq OWNER TO root;
+
+--
+-- Name: oauth2_provider_grant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE oauth2_provider_grant_id_seq OWNED BY oauth2_provider_grant.id;
+
+
+--
+-- Name: oauth2_provider_refreshtoken; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE oauth2_provider_refreshtoken (
+    id integer NOT NULL,
+    token character varying(255) NOT NULL,
+    access_token_id integer NOT NULL,
+    application_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE oauth2_provider_refreshtoken OWNER TO root;
+
+--
+-- Name: oauth2_provider_refreshtoken_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE oauth2_provider_refreshtoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE oauth2_provider_refreshtoken_id_seq OWNER TO root;
+
+--
+-- Name: oauth2_provider_refreshtoken_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE oauth2_provider_refreshtoken_id_seq OWNED BY oauth2_provider_refreshtoken.id;
+
+
+--
 -- Name: offer_benefit; Type: TABLE; Schema: public; Owner: root
 --
 
@@ -2903,6 +3162,75 @@ ALTER SEQUENCE oscar_accounts_transfer_id_seq OWNED BY oscar_accounts_transfer.i
 
 
 --
+-- Name: oscar_wagtail_productlistitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE oscar_wagtail_productlistitem (
+    id integer NOT NULL,
+    sort_order integer,
+    parent_id integer NOT NULL,
+    product_id integer NOT NULL
+);
+
+
+ALTER TABLE oscar_wagtail_productlistitem OWNER TO root;
+
+--
+-- Name: oscar_wagtail_productlistitem_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE oscar_wagtail_productlistitem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE oscar_wagtail_productlistitem_id_seq OWNER TO root;
+
+--
+-- Name: oscar_wagtail_productlistitem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE oscar_wagtail_productlistitem_id_seq OWNED BY oscar_wagtail_productlistitem.id;
+
+
+--
+-- Name: oscar_wagtail_productlistsnippet; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE oscar_wagtail_productlistsnippet (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    code character varying(100) NOT NULL
+);
+
+
+ALTER TABLE oscar_wagtail_productlistsnippet OWNER TO root;
+
+--
+-- Name: oscar_wagtail_productlistsnippet_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE oscar_wagtail_productlistsnippet_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE oscar_wagtail_productlistsnippet_id_seq OWNER TO root;
+
+--
+-- Name: oscar_wagtail_productlistsnippet_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE oscar_wagtail_productlistsnippet_id_seq OWNED BY oscar_wagtail_productlistsnippet.id;
+
+
+--
 -- Name: oscarapi_apikey; Type: TABLE; Schema: public; Owner: root
 --
 
@@ -3279,6 +3607,99 @@ ALTER TABLE payment_transaction_id_seq OWNER TO root;
 --
 
 ALTER SEQUENCE payment_transaction_id_seq OWNED BY payment_transaction.id;
+
+
+--
+-- Name: paypal_expresstransaction; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE paypal_expresstransaction (
+    id integer NOT NULL,
+    raw_request text NOT NULL,
+    raw_response text NOT NULL,
+    response_time double precision NOT NULL,
+    date_created timestamp with time zone NOT NULL,
+    method character varying(32) NOT NULL,
+    version character varying(8) NOT NULL,
+    amount numeric(12,2),
+    currency character varying(8),
+    ack character varying(32) NOT NULL,
+    correlation_id character varying(32),
+    token character varying(32),
+    error_code character varying(32),
+    error_message character varying(256)
+);
+
+
+ALTER TABLE paypal_expresstransaction OWNER TO root;
+
+--
+-- Name: paypal_expresstransaction_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE paypal_expresstransaction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE paypal_expresstransaction_id_seq OWNER TO root;
+
+--
+-- Name: paypal_expresstransaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE paypal_expresstransaction_id_seq OWNED BY paypal_expresstransaction.id;
+
+
+--
+-- Name: paypal_payflowtransaction; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE paypal_payflowtransaction (
+    id integer NOT NULL,
+    raw_request text NOT NULL,
+    raw_response text NOT NULL,
+    response_time double precision NOT NULL,
+    date_created timestamp with time zone NOT NULL,
+    comment1 character varying(128) NOT NULL,
+    trxtype character varying(12) NOT NULL,
+    tender character varying(12),
+    amount numeric(12,2),
+    pnref character varying(32),
+    ppref character varying(32),
+    result character varying(32),
+    respmsg character varying(512) NOT NULL,
+    authcode character varying(32),
+    cvv2match character varying(12),
+    avsaddr character varying(1),
+    avszip character varying(1)
+);
+
+
+ALTER TABLE paypal_payflowtransaction OWNER TO root;
+
+--
+-- Name: paypal_payflowtransaction_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE paypal_payflowtransaction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE paypal_payflowtransaction_id_seq OWNER TO root;
+
+--
+-- Name: paypal_payflowtransaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE paypal_payflowtransaction_id_seq OWNED BY paypal_payflowtransaction.id;
 
 
 --
@@ -4245,6 +4666,40 @@ ALTER SEQUENCE promotions_tabbedblock_id_seq OWNED BY promotions_tabbedblock.id;
 
 
 --
+-- Name: registration_api_registrationprofile; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE registration_api_registrationprofile (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    activation_key character varying(40) NOT NULL
+);
+
+
+ALTER TABLE registration_api_registrationprofile OWNER TO root;
+
+--
+-- Name: registration_api_registrationprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE registration_api_registrationprofile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE registration_api_registrationprofile_id_seq OWNER TO root;
+
+--
+-- Name: registration_api_registrationprofile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE registration_api_registrationprofile_id_seq OWNED BY registration_api_registrationprofile.id;
+
+
+--
 -- Name: registration_registrationprofile; Type: TABLE; Schema: public; Owner: root
 --
 
@@ -4428,6 +4883,156 @@ ALTER TABLE shipping_orderanditemcharges_id_seq OWNER TO root;
 --
 
 ALTER SEQUENCE shipping_orderanditemcharges_id_seq OWNED BY shipping_orderanditemcharges.id;
+
+
+--
+-- Name: shipping_shippingcompany; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE shipping_shippingcompany (
+    id integer NOT NULL,
+    code character varying(128) NOT NULL,
+    name character varying(128) NOT NULL,
+    description text NOT NULL,
+    default_weight numeric(12,3) NOT NULL,
+    api_user character varying(64) NOT NULL,
+    api_key character varying(255) NOT NULL,
+    api_type character varying(10) NOT NULL,
+    origin character varying(255) NOT NULL,
+    is_active boolean NOT NULL,
+    status character varying(10) NOT NULL,
+    payment_type character varying(10) NOT NULL
+);
+
+
+ALTER TABLE shipping_shippingcompany OWNER TO root;
+
+--
+-- Name: shipping_shippingcompany_containers; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE shipping_shippingcompany_containers (
+    id integer NOT NULL,
+    shippingcompany_id integer NOT NULL,
+    shippingcontainer_id integer NOT NULL
+);
+
+
+ALTER TABLE shipping_shippingcompany_containers OWNER TO root;
+
+--
+-- Name: shipping_shippingcompany_containers_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE shipping_shippingcompany_containers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE shipping_shippingcompany_containers_id_seq OWNER TO root;
+
+--
+-- Name: shipping_shippingcompany_containers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE shipping_shippingcompany_containers_id_seq OWNED BY shipping_shippingcompany_containers.id;
+
+
+--
+-- Name: shipping_shippingcompany_countries; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE shipping_shippingcompany_countries (
+    id integer NOT NULL,
+    shippingcompany_id integer NOT NULL,
+    country_id character varying(2) NOT NULL
+);
+
+
+ALTER TABLE shipping_shippingcompany_countries OWNER TO root;
+
+--
+-- Name: shipping_shippingcompany_countries_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE shipping_shippingcompany_countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE shipping_shippingcompany_countries_id_seq OWNER TO root;
+
+--
+-- Name: shipping_shippingcompany_countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE shipping_shippingcompany_countries_id_seq OWNED BY shipping_shippingcompany_countries.id;
+
+
+--
+-- Name: shipping_shippingcompany_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE shipping_shippingcompany_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE shipping_shippingcompany_id_seq OWNER TO root;
+
+--
+-- Name: shipping_shippingcompany_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE shipping_shippingcompany_id_seq OWNED BY shipping_shippingcompany.id;
+
+
+--
+-- Name: shipping_shippingcontainer; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE shipping_shippingcontainer (
+    id integer NOT NULL,
+    name character varying(128) NOT NULL,
+    description text NOT NULL,
+    image character varying(255) NOT NULL,
+    height numeric(12,3) NOT NULL,
+    width numeric(12,3) NOT NULL,
+    lenght numeric(12,3) NOT NULL,
+    max_load numeric(12,3) NOT NULL
+);
+
+
+ALTER TABLE shipping_shippingcontainer OWNER TO root;
+
+--
+-- Name: shipping_shippingcontainer_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE shipping_shippingcontainer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE shipping_shippingcontainer_id_seq OWNER TO root;
+
+--
+-- Name: shipping_shippingcontainer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE shipping_shippingcontainer_id_seq OWNED BY shipping_shippingcontainer.id;
 
 
 --
@@ -5408,6 +6013,55 @@ ALTER TABLE ONLY django_site ALTER COLUMN id SET DEFAULT nextval('django_site_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: root
 --
 
+ALTER TABLE ONLY easy_thumbnails_source ALTER COLUMN id SET DEFAULT nextval('easy_thumbnails_source_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail ALTER COLUMN id SET DEFAULT nextval('easy_thumbnails_thumbnail_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions ALTER COLUMN id SET DEFAULT nextval('easy_thumbnails_thumbnaildimensions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_accesstoken ALTER COLUMN id SET DEFAULT nextval('oauth2_provider_accesstoken_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_application ALTER COLUMN id SET DEFAULT nextval('oauth2_provider_application_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_grant ALTER COLUMN id SET DEFAULT nextval('oauth2_provider_grant_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_refreshtoken ALTER COLUMN id SET DEFAULT nextval('oauth2_provider_refreshtoken_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
 ALTER TABLE ONLY offer_benefit ALTER COLUMN id SET DEFAULT nextval('offer_benefit_id_seq'::regclass);
 
 
@@ -5618,6 +6272,20 @@ ALTER TABLE ONLY oscar_accounts_transfer ALTER COLUMN id SET DEFAULT nextval('os
 -- Name: id; Type: DEFAULT; Schema: public; Owner: root
 --
 
+ALTER TABLE ONLY oscar_wagtail_productlistitem ALTER COLUMN id SET DEFAULT nextval('oscar_wagtail_productlistitem_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oscar_wagtail_productlistsnippet ALTER COLUMN id SET DEFAULT nextval('oscar_wagtail_productlistsnippet_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
 ALTER TABLE ONLY oscarapi_apikey ALTER COLUMN id SET DEFAULT nextval('oscarapi_apikey_id_seq'::regclass);
 
 
@@ -5682,6 +6350,20 @@ ALTER TABLE ONLY payment_sourcetype ALTER COLUMN id SET DEFAULT nextval('payment
 --
 
 ALTER TABLE ONLY payment_transaction ALTER COLUMN id SET DEFAULT nextval('payment_transaction_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY paypal_expresstransaction ALTER COLUMN id SET DEFAULT nextval('paypal_expresstransaction_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY paypal_payflowtransaction ALTER COLUMN id SET DEFAULT nextval('paypal_payflowtransaction_id_seq'::regclass);
 
 
 --
@@ -5849,6 +6531,13 @@ ALTER TABLE ONLY promotions_tabbedblock ALTER COLUMN id SET DEFAULT nextval('pro
 -- Name: id; Type: DEFAULT; Schema: public; Owner: root
 --
 
+ALTER TABLE ONLY registration_api_registrationprofile ALTER COLUMN id SET DEFAULT nextval('registration_api_registrationprofile_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
 ALTER TABLE ONLY registration_registrationprofile ALTER COLUMN id SET DEFAULT nextval('registration_registrationprofile_id_seq'::regclass);
 
 
@@ -5878,6 +6567,34 @@ ALTER TABLE ONLY shipping_orderanditemcharges ALTER COLUMN id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY shipping_orderanditemcharges_countries ALTER COLUMN id SET DEFAULT nextval('shipping_orderanditemcharges_countries_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany ALTER COLUMN id SET DEFAULT nextval('shipping_shippingcompany_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_containers ALTER COLUMN id SET DEFAULT nextval('shipping_shippingcompany_containers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_countries ALTER COLUMN id SET DEFAULT nextval('shipping_shippingcompany_countries_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcontainer ALTER COLUMN id SET DEFAULT nextval('shipping_shippingcontainer_id_seq'::regclass);
 
 
 --
@@ -6298,6 +7015,7 @@ ZW	ZWE	716	Zimbabwe	Republic of Zimbabwe	0	t
 --
 
 COPY address_useraddress (id, title, first_name, last_name, line1, line2, line3, line4, state, postcode, search_text, phone_number, notes, is_default_for_shipping, is_default_for_billing, num_orders, hash, date_created, country_id, user_id) FROM stdin;
+1	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		f	f	3	-628364552	2016-08-09 23:47:04.34496-04	US	1
 \.
 
 
@@ -6305,7 +7023,7 @@ COPY address_useraddress (id, title, first_name, last_name, line1, line2, line3,
 -- Name: address_useraddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('address_useraddress_id_seq', 1, false);
+SELECT pg_catalog.setval('address_useraddress_id_seq', 1, true);
 
 
 --
@@ -6343,7 +7061,7 @@ SELECT pg_catalog.setval('admin_tools_menu_bookmark_id_seq', 1, false);
 --
 
 COPY analytics_productrecord (id, num_views, num_basket_additions, num_purchases, score, product_id) FROM stdin;
-1	2	6	0	0	3
+1	8	22	14	0	3
 \.
 
 
@@ -6361,6 +7079,12 @@ SELECT pg_catalog.setval('analytics_productrecord_id_seq', 1, true);
 COPY analytics_userproductview (id, date_created, product_id, user_id) FROM stdin;
 1	2016-08-09 11:52:00.781479-04	3	1
 2	2016-08-09 11:52:39.305746-04	3	1
+3	2016-08-09 21:04:23.18837-04	3	1
+4	2016-08-11 00:07:20.699801-04	3	1
+5	2016-08-11 00:23:18.629472-04	3	1
+6	2016-08-11 00:24:24.497723-04	3	1
+7	2016-08-11 08:22:01.293205-04	3	1
+8	2016-08-11 08:27:52.368572-04	3	1
 \.
 
 
@@ -6368,7 +7092,7 @@ COPY analytics_userproductview (id, date_created, product_id, user_id) FROM stdi
 -- Name: analytics_userproductview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_userproductview_id_seq', 2, true);
+SELECT pg_catalog.setval('analytics_userproductview_id_seq', 8, true);
 
 
 --
@@ -6376,7 +7100,7 @@ SELECT pg_catalog.setval('analytics_userproductview_id_seq', 2, true);
 --
 
 COPY analytics_userrecord (id, num_product_views, num_basket_additions, num_orders, num_order_lines, num_order_items, total_spent, date_last_order, user_id) FROM stdin;
-1	2	2	0	0	0	0.00	\N	1
+1	8	7	3	3	11	218.40	2016-08-11 00:24:02.515532-04	1
 \.
 
 
@@ -6392,6 +7116,15 @@ SELECT pg_catalog.setval('analytics_userrecord_id_seq', 1, true);
 --
 
 COPY analytics_usersearch (id, query, date_created, user_id) FROM stdin;
+1	shirt	2016-08-09 21:20:47.805306-04	1
+2	sweat	2016-08-09 21:20:55.204778-04	1
+3	Sweathirts	2016-08-09 21:21:15.635069-04	1
+4	Sweathirts	2016-08-09 21:21:23.439627-04	1
+5		2016-08-09 21:21:27.953026-04	1
+6		2016-08-09 21:21:29.586444-04	1
+7	shirt	2016-08-09 21:48:35.807072-04	1
+8	sweat	2016-08-09 21:48:49.960685-04	1
+9	shirt	2016-08-10 09:56:25.445403-04	1
 \.
 
 
@@ -6399,7 +7132,7 @@ COPY analytics_usersearch (id, query, date_created, user_id) FROM stdin;
 -- Name: analytics_usersearch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_usersearch_id_seq', 1, false);
+SELECT pg_catalog.setval('analytics_usersearch_id_seq', 9, true);
 
 
 --
@@ -6831,6 +7564,39 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 392	Can add charge	131	add_charge
 393	Can change charge	131	change_charge
 394	Can delete charge	131	delete_charge
+395	Can add API-based Shipping Method	132	add_shippingcompany
+396	Can change API-based Shipping Method	132	change_shippingcompany
+397	Can delete API-based Shipping Method	132	delete_shippingcompany
+398	Can add Shipping Container	133	add_shippingcontainer
+399	Can change Shipping Container	133	change_shippingcontainer
+400	Can delete Shipping Container	133	delete_shippingcontainer
+401	Can add application	134	add_application
+402	Can change application	134	change_application
+403	Can delete application	134	delete_application
+404	Can add grant	135	add_grant
+405	Can change grant	135	change_grant
+406	Can delete grant	135	delete_grant
+407	Can add access token	136	add_accesstoken
+408	Can change access token	136	change_accesstoken
+409	Can delete access token	136	delete_accesstoken
+410	Can add refresh token	137	add_refreshtoken
+411	Can change refresh token	137	change_refreshtoken
+412	Can delete refresh token	137	delete_refreshtoken
+413	Can add product list snippet	138	add_productlistsnippet
+414	Can change product list snippet	138	change_productlistsnippet
+415	Can delete product list snippet	138	delete_productlistsnippet
+416	Can add product list item	139	add_productlistitem
+417	Can change product list item	139	change_productlistitem
+418	Can delete product list item	139	delete_productlistitem
+419	Can add source	140	add_source
+420	Can change source	140	change_source
+421	Can delete source	140	delete_source
+422	Can add thumbnail	141	add_thumbnail
+423	Can change thumbnail	141	change_thumbnail
+424	Can delete thumbnail	141	delete_thumbnail
+425	Can add thumbnail dimensions	142	add_thumbnaildimensions
+426	Can change thumbnail dimensions	142	change_thumbnaildimensions
+427	Can delete thumbnail dimensions	142	delete_thumbnaildimensions
 \.
 
 
@@ -6838,7 +7604,7 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 394, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 427, true);
 
 
 --
@@ -6846,7 +7612,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 394, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$24000$nwe5ecicQBxC$2Tfub7KRilH6QqPSf3RmytKVV30IVK1C0zyOwO7Ax/g=	2016-08-09 16:26:11.318827-04	t	root			dmitryro@gmail.com	t	t	2016-08-09 06:34:02.27454-04
+1	pbkdf2_sha256$24000$tiQs6H4WxB9h$jaBqWmeWuIAX6HfGb/30yoR6pCABEIuzGIva5bIwpWQ=	2016-08-11 08:55:16.753958-04	t	root	Bow &	Drape	dmitryro@gmail.com	t	t	2016-08-09 06:34:02-04
 \.
 
 
@@ -6869,7 +7635,7 @@ SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+SELECT pg_catalog.setval('auth_user_id_seq', 2, true);
 
 
 --
@@ -6900,10 +7666,17 @@ COPY authtoken_token (key, created, user_id) FROM stdin;
 --
 
 COPY basket_basket (id, status, date_created, date_merged, date_submitted, owner_id) FROM stdin;
-1	Open	2016-08-09 11:52:00.929702-04	\N	\N	1
 2	Merged	2016-08-09 13:56:04.707331-04	2016-08-09 14:21:38.761349-04	\N	\N
 3	Merged	2016-08-09 14:22:19.057875-04	2016-08-09 14:22:53.550873-04	\N	\N
 4	Merged	2016-08-09 16:19:02.425239-04	2016-08-09 16:26:26.410082-04	\N	\N
+5	Submitted	2016-08-09 23:07:57.876525-04	\N	2016-08-09 23:11:22.040188-04	\N
+6	Merged	2016-08-09 23:32:22.871351-04	2016-08-09 23:45:31.827386-04	\N	\N
+1	Submitted	2016-08-09 11:52:00.929702-04	\N	2016-08-09 23:47:04.525961-04	1
+7	Submitted	2016-08-09 23:47:13.16319-04	\N	2016-08-10 00:06:42.763721-04	1
+9	Merged	2016-08-10 11:02:54.095235-04	2016-08-10 12:14:34.647665-04	\N	\N
+11	Merged	2016-08-11 00:11:03.324412-04	2016-08-11 00:23:18.774507-04	\N	\N
+8	Submitted	2016-08-10 00:06:56.739938-04	\N	2016-08-11 00:24:02.740545-04	1
+12	Open	2016-08-11 00:24:24.600962-04	\N	\N	1
 \.
 
 
@@ -6911,7 +7684,7 @@ COPY basket_basket (id, status, date_created, date_merged, date_submitted, owner
 -- Name: basket_basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('basket_basket_id_seq', 4, true);
+SELECT pg_catalog.setval('basket_basket_id_seq', 12, true);
 
 
 --
@@ -6934,7 +7707,10 @@ SELECT pg_catalog.setval('basket_basket_vouchers_id_seq', 1, false);
 --
 
 COPY basket_line (id, line_reference, quantity, price_currency, price_excl_tax, price_incl_tax, date_created, basket_id, product_id, stockrecord_id) FROM stdin;
-1	3_1	2	USD	20.00	20.00	2016-08-09 13:56:04.789611-04	1	3	1
+4	3_1	3	USD	20.00	20.00	2016-08-09 23:07:57.938242-04	5	3	1
+1	3_1	3	USD	20.00	20.00	2016-08-09 13:56:04.789611-04	1	3	1
+6	3_1	1	USD	20.00	20.00	2016-08-10 00:06:03.981702-04	7	3	1
+7	3_1	7	USD	20.00	20.00	2016-08-10 09:56:18.23057-04	8	3	1
 \.
 
 
@@ -6942,7 +7718,7 @@ COPY basket_line (id, line_reference, quantity, price_currency, price_excl_tax, 
 -- Name: basket_line_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('basket_line_id_seq', 3, true);
+SELECT pg_catalog.setval('basket_line_id_seq', 9, true);
 
 
 --
@@ -6995,7 +7771,7 @@ SELECT pg_catalog.setval('catalogue_attributeoptiongroup_id_seq', 1, false);
 --
 
 COPY catalogue_category (id, path, depth, numchild, name, description, image, slug) FROM stdin;
-1	0001	1	0	Sweathirts Category	<p>Sweatshirts Category</p>	categories/image_shirt.jpg	sweathirts
+1	0001	1	0	sweatshirts	<p>Sweatshirts Category</p>	categories/image_shirt_2f0Olug.jpg	sweathirts
 \.
 
 
@@ -7026,7 +7802,7 @@ SELECT pg_catalog.setval('catalogue_option_id_seq', 1, false);
 --
 
 COPY catalogue_product (id, structure, upc, title, slug, description, rating, date_created, date_updated, is_discountable, parent_id, product_class_id) FROM stdin;
-3	standalone	10012	Cool Sweatshirt	cool-sweatshirt	<p>Cool Sweatshirt</p>	5	2016-08-09 11:51:50.661853-04	2016-08-09 11:52:39.13222-04	t	\N	1
+3	standalone	10012	Cool Sweatshirt	cool-sweatshirt	<p>Cool Sweatshirt</p>	5	2016-08-09 11:51:50.661853-04	2016-08-11 08:59:15.571789-04	t	\N	1
 \.
 
 
@@ -7057,6 +7833,7 @@ SELECT pg_catalog.setval('catalogue_product_product_options_id_seq', 1, false);
 --
 
 COPY catalogue_productattribute (id, name, code, type, required, option_group_id, product_class_id) FROM stdin;
+1	SKU	sku	text	f	\N	1
 \.
 
 
@@ -7064,7 +7841,7 @@ COPY catalogue_productattribute (id, name, code, type, required, option_group_id
 -- Name: catalogue_productattribute_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_productattribute_id_seq', 1, false);
+SELECT pg_catalog.setval('catalogue_productattribute_id_seq', 1, true);
 
 
 --
@@ -7105,6 +7882,7 @@ SELECT pg_catalog.setval('catalogue_productcategory_id_seq', 1, true);
 COPY catalogue_productclass (id, name, slug, requires_shipping, track_stock) FROM stdin;
 1	Sweathirts	sweathirts	t	t
 2	Bags	bags	t	t
+3	T-Shirts	t-shirts	t	t
 \.
 
 
@@ -7112,7 +7890,7 @@ COPY catalogue_productclass (id, name, slug, requires_shipping, track_stock) FRO
 -- Name: catalogue_productclass_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_productclass_id_seq', 2, true);
+SELECT pg_catalog.setval('catalogue_productclass_id_seq', 3, true);
 
 
 --
@@ -7135,7 +7913,7 @@ SELECT pg_catalog.setval('catalogue_productclass_options_id_seq', 1, false);
 --
 
 COPY catalogue_productimage (id, original, caption, display_order, date_created, product_id) FROM stdin;
-1	images/products/2016/08/image_shirt.jpg		0	2016-08-09 11:51:50.83175-04	3
+8	images/products/2016/08/image_shirt_ljNBxZC.jpg		0	2016-08-11 08:59:15.633776-04	3
 \.
 
 
@@ -7143,7 +7921,7 @@ COPY catalogue_productimage (id, original, caption, display_order, date_created,
 -- Name: catalogue_productimage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('catalogue_productimage_id_seq', 1, true);
+SELECT pg_catalog.setval('catalogue_productimage_id_seq', 8, true);
 
 
 --
@@ -7166,6 +7944,7 @@ SELECT pg_catalog.setval('catalogue_productrecommendation_id_seq', 1, false);
 --
 
 COPY customer_communicationeventtype (id, code, name, category, email_subject_template, email_body_template, email_body_html_template, sms_template, date_created, date_updated) FROM stdin;
+1	a101	Order Placed	Order related					2016-08-10 15:29:17.078311-04	2016-08-10 15:29:17.078415-04
 \.
 
 
@@ -7173,7 +7952,7 @@ COPY customer_communicationeventtype (id, code, name, category, email_subject_te
 -- Name: customer_communicationeventtype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('customer_communicationeventtype_id_seq', 1, false);
+SELECT pg_catalog.setval('customer_communicationeventtype_id_seq', 1, true);
 
 
 --
@@ -7181,6 +7960,9 @@ SELECT pg_catalog.setval('customer_communicationeventtype_id_seq', 1, false);
 --
 
 COPY customer_email (id, subject, body_text, body_html, date_sent, user_id) FROM stdin;
+1	Confirmation of order 100001	Hello,\n\nWe are pleased to confirm your order 100001 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 3 - price: $60.00\n\nCart total: $60.00\nShipping: $0.00\nOrder Total: $60.00\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100001 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 3 - price: $60.00</li>\n    \n</ul>\n<p>\nCart total: $60.00<br/>\nShipping: $0.00<br/>\nOrder Total: $60.00\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-09 23:47:04.595112-04	1
+2	Confirmation of order 100007	Hello,\n\nWe are pleased to confirm your order 100007 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n\nCart total: $19.80\nShipping: $0.00\nOrder Total: $19.80\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100007 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $19.80<br/>\nShipping: $0.00<br/>\nOrder Total: $19.80\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-10 00:06:42.832549-04	1
+5	Confirmation of order 100008	Hello,\n\nWe are pleased to confirm your order 100008 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 7 - price: $138.60\n\nCart total: $138.60\nShipping: $0.00\nOrder Total: $138.60\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100008 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 7 - price: $138.60</li>\n    \n</ul>\n<p>\nCart total: $138.60<br/>\nShipping: $0.00<br/>\nOrder Total: $138.60\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 00:24:02.79794-04	1
 \.
 
 
@@ -7188,7 +7970,7 @@ COPY customer_email (id, subject, body_text, body_html, date_sent, user_id) FROM
 -- Name: customer_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('customer_email_id_seq', 1, false);
+SELECT pg_catalog.setval('customer_email_id_seq', 5, true);
 
 
 --
@@ -7226,6 +8008,24 @@ SELECT pg_catalog.setval('customer_productalert_id_seq', 1, false);
 --
 
 COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2016-08-10 11:46:31.256333-04	1	root	2	Changed first_name, last_name and email.	4	1
+2	2016-08-10 11:46:53.944794-04	1	root	2	Changed email.	4	1
+3	2016-08-10 11:51:46.928073-04	1	USPS	1	Added.	132	1
+4	2016-08-10 11:53:17.513321-04	2	UPS	1	Added.	132	1
+5	2016-08-10 11:54:21.0411-04	3	T-Shirts	1	Added.	35	1
+6	2016-08-10 12:46:47.317644-04	1	root	2	Changed email.	4	1
+7	2016-08-10 12:47:06.845916-04	1	root	2	Changed password.	4	1
+8	2016-08-10 13:45:51.466525-04	2	Ec_vzQRtz_khgJqGqhX2yrB7bJYFO1	3		4	1
+9	2016-08-10 14:41:39.030285-04	1	root	2	Changed email.	4	1
+10	2016-08-10 15:27:10.218279-04	4	Product '<missing product>', quantity '1'	1	Added.	83	1
+11	2016-08-10 15:27:31.716894-04	4	Product 'Cool Sweatshirt', quantity '1'	2	Changed stockrecord and product.	83	1
+12	2016-08-10 15:27:51.847832-04	1	Place in Escrow	1	Added.	89	1
+13	2016-08-10 15:28:03.108253-04	2	Release from Escrow	1	Added.	89	1
+14	2016-08-10 15:29:17.081338-04	1	Order Placed	1	Added.	92	1
+15	2016-08-10 15:29:27.320643-04	1	'Order Placed' event for order #100001	1	Added.	80	1
+16	2016-08-10 15:30:04.664088-04	1	SKU	1	Added.	40	1
+17	2016-08-10 16:42:45.012216-04	1	Deferred income	1	Added.	114	1
+18	2016-08-10 16:51:42.100083-04	2	Deferred ncome	1	Added.	114	1
 \.
 
 
@@ -7233,7 +8033,7 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 1, false);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 18, true);
 
 
 --
@@ -7372,6 +8172,17 @@ COPY django_content_type (id, app_label, model) FROM stdin;
 129	pinax_stripe	invoice
 130	pinax_stripe	invoiceitem
 131	pinax_stripe	charge
+132	shipping	shippingcompany
+133	shipping	shippingcontainer
+134	oauth2_provider	application
+135	oauth2_provider	grant
+136	oauth2_provider	accesstoken
+137	oauth2_provider	refreshtoken
+138	oscar_wagtail	productlistsnippet
+139	oscar_wagtail	productlistitem
+140	easy_thumbnails	source
+141	easy_thumbnails	thumbnail
+142	easy_thumbnails	thumbnaildimensions
 \.
 
 
@@ -7379,7 +8190,7 @@ COPY django_content_type (id, app_label, model) FROM stdin;
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 131, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 142, true);
 
 
 --
@@ -7505,6 +8316,17 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 86	pinax_stripe	0001_initial	2016-08-09 13:22:23.891002-04
 87	pinax_stripe	0002_auto_20151205_1451	2016-08-09 13:22:23.986564-04
 88	pinax_stripe	0003_make_cvc_check_blankable	2016-08-09 13:22:24.323355-04
+89	shipping	0003_auto_20160809_2319	2016-08-09 23:19:39.074631-04
+90	shipping	0003_auto_20160809_2342	2016-08-09 23:44:14.840965-04
+91	oauth2_provider	0001_initial	2016-08-10 13:04:03.282142-04
+92	oauth2_provider	0002_08_updates	2016-08-10 13:04:04.457608-04
+93	oscar_wagtail	0001_initial	2016-08-10 15:04:35.891639-04
+94	catalogue	0009_auto_20160810_2245	2016-08-11 00:01:25.818806-04
+95	catalogue	0010_auto_20160810_2248	2016-08-11 00:01:26.619512-04
+96	easy_thumbnails	0001_initial	2016-08-11 00:01:28.304497-04
+97	easy_thumbnails	0002_thumbnaildimensions	2016-08-11 00:01:28.484323-04
+98	shipping	0004_auto_20160810_2245	2016-08-11 00:01:45.239802-04
+99	shipping	0005_auto_20160810_2248	2016-08-11 00:01:45.622115-04
 \.
 
 
@@ -7512,7 +8334,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 88, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 99, true);
 
 
 --
@@ -7551,7 +8373,10 @@ SELECT pg_catalog.setval('django_rq_jobs_job_id_seq', 1, false);
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
 o06myvy1lcmjwrcv5ku80t3ndwxf5r8r	NmE2MDQ2NzlkOTZmNmFkZjFiMjY0NGRiOWQ3YzYxYWRiZTljZGFkNTp7Il9hdXRoX3VzZXJfaGFzaCI6IjdlNTEyMTQ4YWVlMTlkMDkwYmZjNWJkYjQ2NmY1YzI3NzQ1OTJiMzciLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=	2016-08-16 07:08:11.712045-04
-mesvdqpucc2z8y72ojmfls60jrugcfm2	ZGQwMDY3YjM5NjY3ZGYyZDAwMDZkNjExNDU2YjkzMDJmZmEyZTA4Mjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6IjdlNTEyMTQ4YWVlMTlkMDkwYmZjNWJkYjQ2NmY1YzI3NzQ1OTJiMzciLCJfYXV0aF91c2VyX2lkIjoiMSIsImNoZWNrb3V0X2RhdGEiOnsiYmlsbGluZyI6e30sImd1ZXN0Ijp7ImVtYWlsIjoiZG1pdHJvQGdtYWlsLmNvbSJ9LCJzaGlwcGluZyI6e319fQ==	2016-08-16 16:26:11.33331-04
+xu3427zr30xyvbse5ret9srgzgmed319	MmU0NTdjMjkxN2U1NGE3NmNmNzgzMDkyOTQxYTM1MWJlYmZlZTU3NDp7Il9hdXRoX3VzZXJfaGFzaCI6IjhhYWE2YTRiZWRhODE3ZjZlMmQ4MDZhODQ0ZGY2MDliZWUzMDkyYjgiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJvc2Nhci5hcHBzLmN1c3RvbWVyLmF1dGhfYmFja2VuZHMuRW1haWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEifQ==	2016-08-17 14:42:13.470976-04
+16i3d901r7m3ybvdqon4cx5kjbq5n6un	MzM3YTAwMWIzZDUyMzQyN2NhNDQyN2ZjOGRhMmMwYzgwMjk1YmU1NTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwib2ZmZXJfd2l6YXJkIjp7fSwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfbGFuZ3VhZ2UiOiJhZiIsImNoZWNrb3V0X29yZGVyX2lkIjozLCJfYXV0aF91c2VyX2hhc2giOiI3ZTUxMjE0OGFlZTE5ZDA5MGJmYzViZGI0NjZmNWMyNzc0NTkyYjM3IiwiY2hlY2tvdXRfZGF0YSI6eyJndWVzdCI6eyJlbWFpbCI6IndAZy5jb20ifSwic2hpcHBpbmciOnsidXNlcl9hZGRyZXNzX2lkIjoxLCJtZXRob2RfY29kZSI6ImZyZWUtc2hpcHBpbmcifX19	2016-08-17 12:24:07.379541-04
+rx82tnbd3ywynl19y5wgh49ppdn300kp	YWM1ODVkMzY1NzExOGQ0YTQ5NGNjZWM1NTRiNWVmYzlmNjA3MjhjNzp7ImNoZWNrb3V0X29yZGVyX2lkIjo0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJvc2Nhci5hcHBzLmN1c3RvbWVyLmF1dGhfYmFja2VuZHMuRW1haWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiMjExMTlmYjI1NjY2NGM3NGI2Zjk1OGI3ZDFlZDU1ZjliYzU1MTUwMCIsIl9hdXRoX3VzZXJfaWQiOiIxIiwiY2hlY2tvdXRfZGF0YSI6e319	2016-08-25 00:24:02.817497-04
+t2f3kd970645bwk109aoue7n2hnsczsi	NGYyMGNjNWE1MmU1YzVhMDUyNDk0ZTA5ZjU2NGI5NDk5YjZhYzFmOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjIxMTE5ZmIyNTY2NjRjNzRiNmY5NThiN2QxZWQ1NWY5YmM1NTE1MDAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJvc2Nhci5hcHBzLmN1c3RvbWVyLmF1dGhfYmFja2VuZHMuRW1haWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEifQ==	2016-08-25 08:17:53.468976-04
 \.
 
 
@@ -7572,10 +8397,117 @@ SELECT pg_catalog.setval('django_site_id_seq', 1, true);
 
 
 --
+-- Data for Name: easy_thumbnails_source; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY easy_thumbnails_source (id, storage_hash, name, modified) FROM stdin;
+\.
+
+
+--
+-- Name: easy_thumbnails_source_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('easy_thumbnails_source_id_seq', 1, false);
+
+
+--
+-- Data for Name: easy_thumbnails_thumbnail; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY easy_thumbnails_thumbnail (id, storage_hash, name, modified, source_id) FROM stdin;
+\.
+
+
+--
+-- Name: easy_thumbnails_thumbnail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('easy_thumbnails_thumbnail_id_seq', 1, false);
+
+
+--
+-- Data for Name: easy_thumbnails_thumbnaildimensions; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY easy_thumbnails_thumbnaildimensions (id, thumbnail_id, width, height) FROM stdin;
+\.
+
+
+--
+-- Name: easy_thumbnails_thumbnaildimensions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('easy_thumbnails_thumbnaildimensions_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_provider_accesstoken; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY oauth2_provider_accesstoken (id, token, expires, scope, application_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_provider_accesstoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('oauth2_provider_accesstoken_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_provider_application; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY oauth2_provider_application (id, client_id, redirect_uris, client_type, authorization_grant_type, client_secret, name, user_id, skip_authorization) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_provider_application_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('oauth2_provider_application_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_provider_grant; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY oauth2_provider_grant (id, code, expires, redirect_uri, scope, application_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_provider_grant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('oauth2_provider_grant_id_seq', 1, false);
+
+
+--
+-- Data for Name: oauth2_provider_refreshtoken; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY oauth2_provider_refreshtoken (id, token, access_token_id, application_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: oauth2_provider_refreshtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('oauth2_provider_refreshtoken_id_seq', 1, false);
+
+
+--
 -- Data for Name: offer_benefit; Type: TABLE DATA; Schema: public; Owner: root
 --
 
 COPY offer_benefit (id, type, value, max_affected_items, proxy_class, range_id) FROM stdin;
+1	Percentage	1.00	10	\N	1
+2	Percentage	1.00	\N	\N	1
 \.
 
 
@@ -7583,7 +8515,7 @@ COPY offer_benefit (id, type, value, max_affected_items, proxy_class, range_id) 
 -- Name: offer_benefit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('offer_benefit_id_seq', 1, false);
+SELECT pg_catalog.setval('offer_benefit_id_seq', 2, true);
 
 
 --
@@ -7591,6 +8523,8 @@ SELECT pg_catalog.setval('offer_benefit_id_seq', 1, false);
 --
 
 COPY offer_condition (id, type, value, proxy_class, range_id) FROM stdin;
+1	Count	1.00	\N	1
+2	Count	1.00	\N	1
 \.
 
 
@@ -7598,7 +8532,7 @@ COPY offer_condition (id, type, value, proxy_class, range_id) FROM stdin;
 -- Name: offer_condition_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('offer_condition_id_seq', 1, false);
+SELECT pg_catalog.setval('offer_condition_id_seq', 2, true);
 
 
 --
@@ -7606,6 +8540,8 @@ SELECT pg_catalog.setval('offer_condition_id_seq', 1, false);
 --
 
 COPY offer_conditionaloffer (id, name, slug, description, offer_type, status, priority, start_datetime, end_datetime, max_global_applications, max_user_applications, max_basket_applications, max_discount, total_discount, num_applications, num_orders, redirect_url, date_created, benefit_id, condition_id) FROM stdin;
+2	Offer for coupon 'Test Coupon'	offer-for-coupon-test-coupon		Voucher	Open	0	\N	\N	\N	\N	\N	\N	0.00	0	0		2016-08-10 15:07:15.221899-04	2	2
+1	sample offer	sample-offer	<p>sample offer</p>	Site	Open	0	2016-08-10 00:00:00-04	2016-10-07 05:00:30-04	20	20	1	10.00	1.60	2	2		2016-08-10 00:05:40.138423-04	1	1
 \.
 
 
@@ -7613,7 +8549,7 @@ COPY offer_conditionaloffer (id, name, slug, description, offer_type, status, pr
 -- Name: offer_conditionaloffer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('offer_conditionaloffer_id_seq', 1, false);
+SELECT pg_catalog.setval('offer_conditionaloffer_id_seq', 2, true);
 
 
 --
@@ -7621,6 +8557,7 @@ SELECT pg_catalog.setval('offer_conditionaloffer_id_seq', 1, false);
 --
 
 COPY offer_range (id, name, slug, description, is_public, includes_all_products, proxy_class, date_created) FROM stdin;
+1	range	range	<p>some range</p>	t	t	\N	2016-08-10 00:03:04.422389-04
 \.
 
 
@@ -7658,7 +8595,7 @@ SELECT pg_catalog.setval('offer_range_excluded_products_id_seq', 1, false);
 -- Name: offer_range_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('offer_range_id_seq', 1, false);
+SELECT pg_catalog.setval('offer_range_id_seq', 1, true);
 
 
 --
@@ -7726,6 +8663,7 @@ SELECT pg_catalog.setval('order_billingaddress_id_seq', 1, false);
 --
 
 COPY order_communicationevent (id, date_created, event_type_id, order_id) FROM stdin;
+1	2016-08-10 15:29:27.317145-04	1	2
 \.
 
 
@@ -7733,7 +8671,7 @@ COPY order_communicationevent (id, date_created, event_type_id, order_id) FROM s
 -- Name: order_communicationevent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_communicationevent_id_seq', 1, false);
+SELECT pg_catalog.setval('order_communicationevent_id_seq', 1, true);
 
 
 --
@@ -7741,6 +8679,11 @@ SELECT pg_catalog.setval('order_communicationevent_id_seq', 1, false);
 --
 
 COPY order_line (id, partner_name, partner_sku, partner_line_reference, partner_line_notes, title, upc, quantity, line_price_incl_tax, line_price_excl_tax, line_price_before_discounts_incl_tax, line_price_before_discounts_excl_tax, unit_cost_price, unit_price_incl_tax, unit_price_excl_tax, unit_retail_price, status, est_dispatch_date, order_id, partner_id, product_id, stockrecord_id) FROM stdin;
+1	Our Vendor	10211			Cool Sweatshirt	10012	3	60.00	60.00	60.00	60.00	20.00	20.00	20.00	20.00	Pending	\N	1	1	3	1
+2	Our Vendor	10211			Cool Sweatshirt	10012	3	60.00	60.00	60.00	60.00	20.00	20.00	20.00	20.00	Pending	\N	2	1	3	1
+3	Our Vendor	10211			Cool Sweatshirt	10012	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	3	1	3	1
+4	Our Great Partner	1042			Our Partner's Line		1	10.00	9.00	10.00	10.00	\N	\N	\N	\N		\N	2	1	3	1
+5	Our Vendor	10211			Cool Sweatshirt	10012	7	138.60	138.60	140.00	140.00	20.00	20.00	20.00	20.00	Pending	\N	4	1	3	1
 \.
 
 
@@ -7748,7 +8691,7 @@ COPY order_line (id, partner_name, partner_sku, partner_line_reference, partner_
 -- Name: order_line_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_line_id_seq', 1, false);
+SELECT pg_catalog.setval('order_line_id_seq', 5, true);
 
 
 --
@@ -7771,6 +8714,10 @@ SELECT pg_catalog.setval('order_lineattribute_id_seq', 1, false);
 --
 
 COPY order_lineprice (id, quantity, price_incl_tax, price_excl_tax, shipping_incl_tax, shipping_excl_tax, line_id, order_id) FROM stdin;
+1	3	20.00	20.00	0.00	0.00	1	1
+2	3	20.00	20.00	0.00	0.00	2	2
+3	1	19.80	19.80	0.00	0.00	3	3
+4	7	19.80	19.80	0.00	0.00	5	4
 \.
 
 
@@ -7778,7 +8725,7 @@ COPY order_lineprice (id, quantity, price_incl_tax, price_excl_tax, shipping_inc
 -- Name: order_lineprice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_lineprice_id_seq', 1, false);
+SELECT pg_catalog.setval('order_lineprice_id_seq', 4, true);
 
 
 --
@@ -7786,6 +8733,10 @@ SELECT pg_catalog.setval('order_lineprice_id_seq', 1, false);
 --
 
 COPY order_order (id, number, currency, total_incl_tax, total_excl_tax, shipping_incl_tax, shipping_excl_tax, shipping_method, shipping_code, status, guest_email, date_placed, basket_id, billing_address_id, shipping_address_id, site_id, user_id) FROM stdin;
+1	100005	USD	60.00	60.00	0.00	0.00	Free shipping	free-shipping	Pending	r@ggg.com	2016-08-09 23:11:21.920599-04	5	\N	1	1	\N
+2	100001	USD	60.00	60.00	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-09 23:47:04.361926-04	1	\N	2	1	1
+3	100007	USD	19.80	19.80	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-10 00:06:42.578886-04	7	\N	3	1	1
+4	100008	USD	138.60	138.60	0.00	0.00	Free shipping	free-shipping	Pending		2016-08-11 00:24:02.515532-04	8	\N	4	1	1
 \.
 
 
@@ -7793,7 +8744,7 @@ COPY order_order (id, number, currency, total_incl_tax, total_excl_tax, shipping
 -- Name: order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_order_id_seq', 1, false);
+SELECT pg_catalog.setval('order_order_id_seq', 4, true);
 
 
 --
@@ -7801,6 +8752,8 @@ SELECT pg_catalog.setval('order_order_id_seq', 1, false);
 --
 
 COPY order_orderdiscount (id, category, offer_id, offer_name, voucher_id, voucher_code, frequency, amount, message, order_id) FROM stdin;
+1	Basket	1	sample offer	\N		1	0.20		3
+2	Basket	1	sample offer	\N		1	1.40		4
 \.
 
 
@@ -7808,7 +8761,7 @@ COPY order_orderdiscount (id, category, offer_id, offer_name, voucher_id, vouche
 -- Name: order_orderdiscount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_orderdiscount_id_seq', 1, false);
+SELECT pg_catalog.setval('order_orderdiscount_id_seq', 2, true);
 
 
 --
@@ -7861,6 +8814,8 @@ SELECT pg_catalog.setval('order_paymenteventquantity_id_seq', 1, false);
 --
 
 COPY order_paymenteventtype (id, name, code) FROM stdin;
+1	Place in Escrow	place-in-escrow
+2	Release from Escrow	release-from-escrow
 \.
 
 
@@ -7868,7 +8823,7 @@ COPY order_paymenteventtype (id, name, code) FROM stdin;
 -- Name: order_paymenteventtype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_paymenteventtype_id_seq', 1, false);
+SELECT pg_catalog.setval('order_paymenteventtype_id_seq', 2, true);
 
 
 --
@@ -7876,6 +8831,10 @@ SELECT pg_catalog.setval('order_paymenteventtype_id_seq', 1, false);
 --
 
 COPY order_shippingaddress (id, title, first_name, last_name, line1, line2, line3, line4, state, postcode, search_text, phone_number, notes, country_id) FROM stdin;
+1	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D		Brooklyn	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York 11235 United States of America	+17184046471	Leave it under the door	US
+2	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+3	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+4	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 \.
 
 
@@ -7883,7 +8842,7 @@ COPY order_shippingaddress (id, title, first_name, last_name, line1, line2, line
 -- Name: order_shippingaddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_shippingaddress_id_seq', 1, false);
+SELECT pg_catalog.setval('order_shippingaddress_id_seq', 4, true);
 
 
 --
@@ -7966,6 +8925,8 @@ SELECT pg_catalog.setval('oscar_accounts_account_secondary_users_id_seq', 1, fal
 --
 
 COPY oscar_accounts_accounttype (id, path, depth, numchild, code, name) FROM stdin;
+1	defaccount	1	0	def	Deferred income
+2	account	1	0	def2	Deferred ncome
 \.
 
 
@@ -7973,7 +8934,7 @@ COPY oscar_accounts_accounttype (id, path, depth, numchild, code, name) FROM std
 -- Name: oscar_accounts_accounttype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('oscar_accounts_accounttype_id_seq', 1, false);
+SELECT pg_catalog.setval('oscar_accounts_accounttype_id_seq', 2, true);
 
 
 --
@@ -8019,6 +8980,36 @@ COPY oscar_accounts_transfer (id, reference, amount, merchant_reference, descrip
 --
 
 SELECT pg_catalog.setval('oscar_accounts_transfer_id_seq', 1, false);
+
+
+--
+-- Data for Name: oscar_wagtail_productlistitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY oscar_wagtail_productlistitem (id, sort_order, parent_id, product_id) FROM stdin;
+\.
+
+
+--
+-- Name: oscar_wagtail_productlistitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('oscar_wagtail_productlistitem_id_seq', 1, false);
+
+
+--
+-- Data for Name: oscar_wagtail_productlistsnippet; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY oscar_wagtail_productlistsnippet (id, title, code) FROM stdin;
+\.
+
+
+--
+-- Name: oscar_wagtail_productlistsnippet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('oscar_wagtail_productlistsnippet_id_seq', 1, false);
 
 
 --
@@ -8087,6 +9078,7 @@ SELECT pg_catalog.setval('partner_partneraddress_id_seq', 1, false);
 --
 
 COPY partner_stockalert (id, threshold, status, date_created, date_closed, stockrecord_id) FROM stdin;
+1	10	Open	2016-08-11 00:24:02.607544-04	\N	1
 \.
 
 
@@ -8094,7 +9086,7 @@ COPY partner_stockalert (id, threshold, status, date_created, date_closed, stock
 -- Name: partner_stockalert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('partner_stockalert_id_seq', 1, false);
+SELECT pg_catalog.setval('partner_stockalert_id_seq', 1, true);
 
 
 --
@@ -8102,7 +9094,7 @@ SELECT pg_catalog.setval('partner_stockalert_id_seq', 1, false);
 --
 
 COPY partner_stockrecord (id, partner_sku, price_currency, price_excl_tax, price_retail, cost_price, num_in_stock, num_allocated, low_stock_threshold, date_created, date_updated, partner_id, product_id) FROM stdin;
-1	10211	USD	20.00	20.00	20.00	20	\N	10	2016-08-09 11:51:50.864439-04	2016-08-09 11:51:50.864485-04	1	3
+1	10211	USD	20.00	20.00	20.00	20	14	10	2016-08-09 11:51:50.864439-04	2016-08-11 00:24:02.582179-04	1	3
 \.
 
 
@@ -8171,6 +9163,36 @@ COPY payment_transaction (id, txn_type, amount, reference, status, date_created,
 --
 
 SELECT pg_catalog.setval('payment_transaction_id_seq', 1, false);
+
+
+--
+-- Data for Name: paypal_expresstransaction; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY paypal_expresstransaction (id, raw_request, raw_response, response_time, date_created, method, version, amount, currency, ack, correlation_id, token, error_code, error_message) FROM stdin;
+\.
+
+
+--
+-- Name: paypal_expresstransaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('paypal_expresstransaction_id_seq', 1, false);
+
+
+--
+-- Data for Name: paypal_payflowtransaction; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY paypal_payflowtransaction (id, raw_request, raw_response, response_time, date_created, comment1, trxtype, tender, amount, pnref, ppref, result, respmsg, authcode, cvv2match, avsaddr, avszip) FROM stdin;
+\.
+
+
+--
+-- Name: paypal_payflowtransaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('paypal_payflowtransaction_id_seq', 1, false);
 
 
 --
@@ -8527,6 +9549,21 @@ SELECT pg_catalog.setval('promotions_tabbedblock_id_seq', 1, false);
 
 
 --
+-- Data for Name: registration_api_registrationprofile; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY registration_api_registrationprofile (id, user_id, activation_key) FROM stdin;
+\.
+
+
+--
+-- Name: registration_api_registrationprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('registration_api_registrationprofile_id_seq', 1, false);
+
+
+--
 -- Data for Name: registration_registrationprofile; Type: TABLE DATA; Schema: public; Owner: root
 --
 
@@ -8600,6 +9637,74 @@ SELECT pg_catalog.setval('shipping_orderanditemcharges_countries_id_seq', 1, fal
 --
 
 SELECT pg_catalog.setval('shipping_orderanditemcharges_id_seq', 1, false);
+
+
+--
+-- Data for Name: shipping_shippingcompany; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY shipping_shippingcompany (id, code, name, description, default_weight, api_user, api_key, api_type, origin, is_active, status, payment_type) FROM stdin;
+1	usps	USPS	USPS	0.000				Saint-Petersburg	f		postpaid
+2	ups	UPS	UPS	0.000				Brooklyn	f		postpaid
+\.
+
+
+--
+-- Data for Name: shipping_shippingcompany_containers; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY shipping_shippingcompany_containers (id, shippingcompany_id, shippingcontainer_id) FROM stdin;
+\.
+
+
+--
+-- Name: shipping_shippingcompany_containers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('shipping_shippingcompany_containers_id_seq', 1, false);
+
+
+--
+-- Data for Name: shipping_shippingcompany_countries; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY shipping_shippingcompany_countries (id, shippingcompany_id, country_id) FROM stdin;
+1	2	DE
+2	2	US
+3	2	UM
+4	2	NZ
+5	2	AU
+6	2	GB
+\.
+
+
+--
+-- Name: shipping_shippingcompany_countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('shipping_shippingcompany_countries_id_seq', 6, true);
+
+
+--
+-- Name: shipping_shippingcompany_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('shipping_shippingcompany_id_seq', 2, true);
+
+
+--
+-- Data for Name: shipping_shippingcontainer; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY shipping_shippingcontainer (id, name, description, image, height, width, lenght, max_load) FROM stdin;
+\.
+
+
+--
+-- Name: shipping_shippingcontainer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('shipping_shippingcontainer_id_seq', 1, false);
 
 
 --
@@ -8802,13 +9907,14 @@ SELECT pg_catalog.setval('tastypie_apikey_id_seq', 1, false);
 --
 
 COPY thumbnail_kvstore (key, value) FROM stdin;
-sorl-thumbnail||image||e6f4223b5ee8df6d2ecbfd1762ef4453	{"storage": "django.core.files.storage.FileSystemStorage", "name": "images/products/2016/08/image_shirt.jpg", "size": [286, 430]}
-sorl-thumbnail||image||30c9fed2afe7eed602bbe93702cc6d36	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/f4/44/f4446a78a56c897db777a052c12402dd.jpg", "size": [47, 70]}
-sorl-thumbnail||thumbnails||e6f4223b5ee8df6d2ecbfd1762ef4453	["30c9fed2afe7eed602bbe93702cc6d36"]
 sorl-thumbnail||image||cb1b9948a41929a3197946f81cd733d5	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/a8/9f/a89fff85379697e380358539a48bcee6.jpg", "size": [133, 200]}
 sorl-thumbnail||image||9d6e376c880cdd7849ef666c85de7deb	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/d6/13/d6134b4a239e767fab1e62ea790f94de.jpg", "size": [266, 400]}
 sorl-thumbnail||image||ca97a43053bded6a4a7150681e8ca7e8	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/4c/10/4c107b329a0aa1e73bfff49f5767c621.jpg", "size": [103, 155]}
 sorl-thumbnail||image||be3de440e6975993c6d69686d044fccd	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/f6/06/f606a80d0cbc4f0c547ecefc3b4f267c.jpg", "size": [67, 100]}
+oscar-sandbox||image||1cdc4eaf027e714ab4cfbee6e363e897	{"storage": "django.core.files.storage.FileSystemStorage", "name": "images/products/2016/08/image_shirt_ljNBxZC.jpg", "size": [286, 430]}
+oscar-sandbox||image||faff7c3da69a5c7d1a5a67a6e41286a2	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/23/de/23de17c6de8ca502ffbc9640349436ca.jpg", "size": [47, 70]}
+oscar-sandbox||thumbnails||1cdc4eaf027e714ab4cfbee6e363e897	["faff7c3da69a5c7d1a5a67a6e41286a2"]
+oscar-sandbox||image||dca1bb3f8ddb51795121199ed188da9f	{"storage": "django.core.files.storage.FileSystemStorage", "name": "cache/95/9e/959e4acae16fbad16549f1e955842f94.jpg", "size": [103, 155]}
 \.
 
 
@@ -8817,6 +9923,7 @@ sorl-thumbnail||image||be3de440e6975993c6d69686d044fccd	{"storage": "django.core
 --
 
 COPY voucher_voucher (id, name, code, usage, start_datetime, end_datetime, num_basket_additions, num_orders, total_discount, date_created) FROM stdin;
+1	Test Coupon	101	Single use	2016-08-10 15:06:23-04	2016-09-01 15:06:23-04	0	0	0.00	2016-08-10
 \.
 
 
@@ -8824,7 +9931,7 @@ COPY voucher_voucher (id, name, code, usage, start_datetime, end_datetime, num_b
 -- Name: voucher_voucher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('voucher_voucher_id_seq', 1, false);
+SELECT pg_catalog.setval('voucher_voucher_id_seq', 1, true);
 
 
 --
@@ -8832,6 +9939,7 @@ SELECT pg_catalog.setval('voucher_voucher_id_seq', 1, false);
 --
 
 COPY voucher_voucher_offers (id, voucher_id, conditionaloffer_id) FROM stdin;
+1	1	2
 \.
 
 
@@ -8839,7 +9947,7 @@ COPY voucher_voucher_offers (id, voucher_id, conditionaloffer_id) FROM stdin;
 -- Name: voucher_voucher_offers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('voucher_voucher_offers_id_seq', 1, false);
+SELECT pg_catalog.setval('voucher_voucher_offers_id_seq', 1, true);
 
 
 --
@@ -9513,6 +10621,102 @@ ALTER TABLE ONLY django_site
 
 
 --
+-- Name: easy_thumbnails_source_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_source
+    ADD CONSTRAINT easy_thumbnails_source_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: easy_thumbnails_source_storage_hash_481ce32d_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_source
+    ADD CONSTRAINT easy_thumbnails_source_storage_hash_481ce32d_uniq UNIQUE (storage_hash, name);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail
+    ADD CONSTRAINT easy_thumbnails_thumbnail_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_storage_hash_fb375270_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail
+    ADD CONSTRAINT easy_thumbnails_thumbnail_storage_hash_fb375270_uniq UNIQUE (storage_hash, name, source_id);
+
+
+--
+-- Name: easy_thumbnails_thumbnaildimensions_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions
+    ADD CONSTRAINT easy_thumbnails_thumbnaildimensions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: easy_thumbnails_thumbnaildimensions_thumbnail_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions
+    ADD CONSTRAINT easy_thumbnails_thumbnaildimensions_thumbnail_id_key UNIQUE (thumbnail_id);
+
+
+--
+-- Name: oauth2_provider_accesstoken_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_accesstoken
+    ADD CONSTRAINT oauth2_provider_accesstoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth2_provider_application_client_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_application
+    ADD CONSTRAINT oauth2_provider_application_client_id_key UNIQUE (client_id);
+
+
+--
+-- Name: oauth2_provider_application_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_application
+    ADD CONSTRAINT oauth2_provider_application_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth2_provider_grant_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_grant
+    ADD CONSTRAINT oauth2_provider_grant_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oauth2_provider_refreshtoken_access_token_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_refreshtoken
+    ADD CONSTRAINT oauth2_provider_refreshtoken_access_token_id_key UNIQUE (access_token_id);
+
+
+--
+-- Name: oauth2_provider_refreshtoken_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_refreshtoken
+    ADD CONSTRAINT oauth2_provider_refreshtoken_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: offer_benefit_pkey; Type: CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -9953,6 +11157,30 @@ ALTER TABLE ONLY oscar_accounts_transfer
 
 
 --
+-- Name: oscar_wagtail_productlistitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oscar_wagtail_productlistitem
+    ADD CONSTRAINT oscar_wagtail_productlistitem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: oscar_wagtail_productlistsnippet_code_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oscar_wagtail_productlistsnippet
+    ADD CONSTRAINT oscar_wagtail_productlistsnippet_code_key UNIQUE (code);
+
+
+--
+-- Name: oscar_wagtail_productlistsnippet_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oscar_wagtail_productlistsnippet
+    ADD CONSTRAINT oscar_wagtail_productlistsnippet_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oscarapi_apikey_key_key; Type: CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -10070,6 +11298,30 @@ ALTER TABLE ONLY payment_sourcetype
 
 ALTER TABLE ONLY payment_transaction
     ADD CONSTRAINT payment_transaction_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: paypal_expresstransaction_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY paypal_expresstransaction
+    ADD CONSTRAINT paypal_expresstransaction_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: paypal_payflowtransaction_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY paypal_payflowtransaction
+    ADD CONSTRAINT paypal_payflowtransaction_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: paypal_payflowtransaction_ppref_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY paypal_payflowtransaction
+    ADD CONSTRAINT paypal_payflowtransaction_ppref_key UNIQUE (ppref);
 
 
 --
@@ -10361,6 +11613,22 @@ ALTER TABLE ONLY promotions_tabbedblock
 
 
 --
+-- Name: registration_api_registrationprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY registration_api_registrationprofile
+    ADD CONSTRAINT registration_api_registrationprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: registration_api_registrationprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY registration_api_registrationprofile
+    ADD CONSTRAINT registration_api_registrationprofile_user_id_key UNIQUE (user_id);
+
+
+--
 -- Name: registration_registrationprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -10446,6 +11714,78 @@ ALTER TABLE ONLY shipping_orderanditemcharges
 
 ALTER TABLE ONLY shipping_orderanditemcharges
     ADD CONSTRAINT shipping_orderanditemcharges_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shipping_shippingcompany_code_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany
+    ADD CONSTRAINT shipping_shippingcompany_code_key UNIQUE (code);
+
+
+--
+-- Name: shipping_shippingcompany_conta_shippingcompany_id_12a6eee1_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_containers
+    ADD CONSTRAINT shipping_shippingcompany_conta_shippingcompany_id_12a6eee1_uniq UNIQUE (shippingcompany_id, shippingcontainer_id);
+
+
+--
+-- Name: shipping_shippingcompany_containers_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_containers
+    ADD CONSTRAINT shipping_shippingcompany_containers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shipping_shippingcompany_count_shippingcompany_id_0b8d918b_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_countries
+    ADD CONSTRAINT shipping_shippingcompany_count_shippingcompany_id_0b8d918b_uniq UNIQUE (shippingcompany_id, country_id);
+
+
+--
+-- Name: shipping_shippingcompany_countries_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_countries
+    ADD CONSTRAINT shipping_shippingcompany_countries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shipping_shippingcompany_name_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany
+    ADD CONSTRAINT shipping_shippingcompany_name_key UNIQUE (name);
+
+
+--
+-- Name: shipping_shippingcompany_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany
+    ADD CONSTRAINT shipping_shippingcompany_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shipping_shippingcontainer_name_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcontainer
+    ADD CONSTRAINT shipping_shippingcontainer_name_key UNIQUE (name);
+
+
+--
+-- Name: shipping_shippingcontainer_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcontainer
+    ADD CONSTRAINT shipping_shippingcontainer_pkey PRIMARY KEY (id);
 
 
 --
@@ -11385,6 +12725,181 @@ CREATE INDEX django_site_domain_a2e37b91_like ON django_site USING btree (domain
 
 
 --
+-- Name: easy_thumbnails_source_b068931c; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_source_b068931c ON easy_thumbnails_source USING btree (name);
+
+
+--
+-- Name: easy_thumbnails_source_b454e115; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_source_b454e115 ON easy_thumbnails_source USING btree (storage_hash);
+
+
+--
+-- Name: easy_thumbnails_source_name_5fe0edc6_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_source_name_5fe0edc6_like ON easy_thumbnails_source USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: easy_thumbnails_source_storage_hash_946cbcc9_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_source_storage_hash_946cbcc9_like ON easy_thumbnails_source USING btree (storage_hash varchar_pattern_ops);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_0afd9202; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_0afd9202 ON easy_thumbnails_thumbnail USING btree (source_id);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_b068931c; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_b068931c ON easy_thumbnails_thumbnail USING btree (name);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_b454e115; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_b454e115 ON easy_thumbnails_thumbnail USING btree (storage_hash);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_name_b5882c31_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_name_b5882c31_like ON easy_thumbnails_thumbnail USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: easy_thumbnails_thumbnail_storage_hash_f1435f49_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX easy_thumbnails_thumbnail_storage_hash_f1435f49_like ON easy_thumbnails_thumbnail USING btree (storage_hash varchar_pattern_ops);
+
+
+--
+-- Name: oauth2_provider_accesstoken_6bc0a4eb; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_accesstoken_6bc0a4eb ON oauth2_provider_accesstoken USING btree (application_id);
+
+
+--
+-- Name: oauth2_provider_accesstoken_94a08da1; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_accesstoken_94a08da1 ON oauth2_provider_accesstoken USING btree (token);
+
+
+--
+-- Name: oauth2_provider_accesstoken_e8701ad4; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_accesstoken_e8701ad4 ON oauth2_provider_accesstoken USING btree (user_id);
+
+
+--
+-- Name: oauth2_provider_accesstoken_token_8af090f8_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_accesstoken_token_8af090f8_like ON oauth2_provider_accesstoken USING btree (token varchar_pattern_ops);
+
+
+--
+-- Name: oauth2_provider_application_9d667c2b; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_application_9d667c2b ON oauth2_provider_application USING btree (client_secret);
+
+
+--
+-- Name: oauth2_provider_application_client_id_03f0cc84_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_application_client_id_03f0cc84_like ON oauth2_provider_application USING btree (client_id varchar_pattern_ops);
+
+
+--
+-- Name: oauth2_provider_application_client_secret_53133678_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_application_client_secret_53133678_like ON oauth2_provider_application USING btree (client_secret varchar_pattern_ops);
+
+
+--
+-- Name: oauth2_provider_application_e8701ad4; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_application_e8701ad4 ON oauth2_provider_application USING btree (user_id);
+
+
+--
+-- Name: oauth2_provider_grant_6bc0a4eb; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_grant_6bc0a4eb ON oauth2_provider_grant USING btree (application_id);
+
+
+--
+-- Name: oauth2_provider_grant_c1336794; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_grant_c1336794 ON oauth2_provider_grant USING btree (code);
+
+
+--
+-- Name: oauth2_provider_grant_code_49ab4ddf_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_grant_code_49ab4ddf_like ON oauth2_provider_grant USING btree (code varchar_pattern_ops);
+
+
+--
+-- Name: oauth2_provider_grant_e8701ad4; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_grant_e8701ad4 ON oauth2_provider_grant USING btree (user_id);
+
+
+--
+-- Name: oauth2_provider_refreshtoken_6bc0a4eb; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_refreshtoken_6bc0a4eb ON oauth2_provider_refreshtoken USING btree (application_id);
+
+
+--
+-- Name: oauth2_provider_refreshtoken_94a08da1; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_refreshtoken_94a08da1 ON oauth2_provider_refreshtoken USING btree (token);
+
+
+--
+-- Name: oauth2_provider_refreshtoken_e8701ad4; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_refreshtoken_e8701ad4 ON oauth2_provider_refreshtoken USING btree (user_id);
+
+
+--
+-- Name: oauth2_provider_refreshtoken_token_d090daa4_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oauth2_provider_refreshtoken_token_d090daa4_like ON oauth2_provider_refreshtoken USING btree (token varchar_pattern_ops);
+
+
+--
 -- Name: offer_benefit_ee6537b7; Type: INDEX; Schema: public; Owner: root
 --
 
@@ -11924,6 +13439,27 @@ CREATE INDEX oscar_accounts_transfer_reference_753a9b76_like ON oscar_accounts_t
 
 
 --
+-- Name: oscar_wagtail_productlistitem_6be37982; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oscar_wagtail_productlistitem_6be37982 ON oscar_wagtail_productlistitem USING btree (parent_id);
+
+
+--
+-- Name: oscar_wagtail_productlistitem_9bea82de; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oscar_wagtail_productlistitem_9bea82de ON oscar_wagtail_productlistitem USING btree (product_id);
+
+
+--
+-- Name: oscar_wagtail_productlistsnippet_code_49979c62_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX oscar_wagtail_productlistsnippet_code_49979c62_like ON oscar_wagtail_productlistsnippet USING btree (code varchar_pattern_ops);
+
+
+--
 -- Name: oscarapi_apikey_key_0481646b_like; Type: INDEX; Schema: public; Owner: root
 --
 
@@ -12033,6 +13569,27 @@ CREATE INDEX payment_sourcetype_code_e479088c_like ON payment_sourcetype USING b
 --
 
 CREATE INDEX payment_transaction_0afd9202 ON payment_transaction USING btree (source_id);
+
+
+--
+-- Name: paypal_payflowtransaction_4e83d0f4; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX paypal_payflowtransaction_4e83d0f4 ON paypal_payflowtransaction USING btree (comment1);
+
+
+--
+-- Name: paypal_payflowtransaction_comment1_d4d0e6af_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX paypal_payflowtransaction_comment1_d4d0e6af_like ON paypal_payflowtransaction USING btree (comment1 varchar_pattern_ops);
+
+
+--
+-- Name: paypal_payflowtransaction_ppref_4e7ded68_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX paypal_payflowtransaction_ppref_4e7ded68_like ON paypal_payflowtransaction USING btree (ppref varchar_pattern_ops);
 
 
 --
@@ -12348,6 +13905,62 @@ CREATE INDEX shipping_orderanditemcharges_countries_country_id_30387f2e_like ON 
 --
 
 CREATE INDEX shipping_orderanditemcharges_name_c575f5bc_like ON shipping_orderanditemcharges USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: shipping_shippingcompany_code_d76747a0_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_code_d76747a0_like ON shipping_shippingcompany USING btree (code varchar_pattern_ops);
+
+
+--
+-- Name: shipping_shippingcompany_containers_0dd65876; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_containers_0dd65876 ON shipping_shippingcompany_containers USING btree (shippingcontainer_id);
+
+
+--
+-- Name: shipping_shippingcompany_containers_7a37b76e; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_containers_7a37b76e ON shipping_shippingcompany_containers USING btree (shippingcompany_id);
+
+
+--
+-- Name: shipping_shippingcompany_countries_7a37b76e; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_countries_7a37b76e ON shipping_shippingcompany_countries USING btree (shippingcompany_id);
+
+
+--
+-- Name: shipping_shippingcompany_countries_93bfec8a; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_countries_93bfec8a ON shipping_shippingcompany_countries USING btree (country_id);
+
+
+--
+-- Name: shipping_shippingcompany_countries_country_id_4c976fc4_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_countries_country_id_4c976fc4_like ON shipping_shippingcompany_countries USING btree (country_id varchar_pattern_ops);
+
+
+--
+-- Name: shipping_shippingcompany_name_719f9996_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcompany_name_719f9996_like ON shipping_shippingcompany USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: shipping_shippingcontainer_name_ab44cf49_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX shipping_shippingcontainer_name_ab44cf49_like ON shipping_shippingcontainer USING btree (name varchar_pattern_ops);
 
 
 --
@@ -12996,6 +14609,86 @@ ALTER TABLE ONLY django_redirect
 
 
 --
+-- Name: easy_thum_thumbnail_id_c3a0c549_fk_easy_thumbnails_thumbnail_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions
+    ADD CONSTRAINT easy_thum_thumbnail_id_c3a0c549_fk_easy_thumbnails_thumbnail_id FOREIGN KEY (thumbnail_id) REFERENCES easy_thumbnails_thumbnail(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: easy_thumbnails_source_id_5b57bc77_fk_easy_thumbnails_source_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY easy_thumbnails_thumbnail
+    ADD CONSTRAINT easy_thumbnails_source_id_5b57bc77_fk_easy_thumbnails_source_id FOREIGN KEY (source_id) REFERENCES easy_thumbnails_source(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oaut_access_token_id_775e84e8_fk_oauth2_provider_accesstoken_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_refreshtoken
+    ADD CONSTRAINT oaut_access_token_id_775e84e8_fk_oauth2_provider_accesstoken_id FOREIGN KEY (access_token_id) REFERENCES oauth2_provider_accesstoken(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth2_provider_accesstoken_user_id_6e4c9a65_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_accesstoken
+    ADD CONSTRAINT oauth2_provider_accesstoken_user_id_6e4c9a65_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth2_provider_application_user_id_79829054_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_application
+    ADD CONSTRAINT oauth2_provider_application_user_id_79829054_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth2_provider_grant_user_id_e8f62af8_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_grant
+    ADD CONSTRAINT oauth2_provider_grant_user_id_e8f62af8_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth2_provider_refreshtoken_user_id_da837fce_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_refreshtoken
+    ADD CONSTRAINT oauth2_provider_refreshtoken_user_id_da837fce_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth_application_id_2d1c311b_fk_oauth2_provider_application_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_refreshtoken
+    ADD CONSTRAINT oauth_application_id_2d1c311b_fk_oauth2_provider_application_id FOREIGN KEY (application_id) REFERENCES oauth2_provider_application(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth_application_id_81923564_fk_oauth2_provider_application_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_grant
+    ADD CONSTRAINT oauth_application_id_81923564_fk_oauth2_provider_application_id FOREIGN KEY (application_id) REFERENCES oauth2_provider_application(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oauth_application_id_b22886e1_fk_oauth2_provider_application_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oauth2_provider_accesstoken
+    ADD CONSTRAINT oauth_application_id_b22886e1_fk_oauth2_provider_application_id FOREIGN KEY (application_id) REFERENCES oauth2_provider_application(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: offer_benefit_range_id_ab19c5ab_fk_offer_range_id; Type: FK CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -13428,6 +15121,22 @@ ALTER TABLE ONLY oscar_accounts_transfer
 
 
 --
+-- Name: oscar_parent_id_ad3937b3_fk_oscar_wagtail_productlistsnippet_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oscar_wagtail_productlistitem
+    ADD CONSTRAINT oscar_parent_id_ad3937b3_fk_oscar_wagtail_productlistsnippet_id FOREIGN KEY (parent_id) REFERENCES oscar_wagtail_productlistsnippet(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: oscar_wagtail_produ_product_id_cd8f4610_fk_catalogue_product_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY oscar_wagtail_productlistitem
+    ADD CONSTRAINT oscar_wagtail_produ_product_id_cd8f4610_fk_catalogue_product_id FOREIGN KEY (product_id) REFERENCES catalogue_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: partner_pa_country_id_02c4f979_fk_address_country_iso_3166_1_a2; Type: FK CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -13716,6 +15425,14 @@ ALTER TABLE ONLY promotions_singleproduct
 
 
 --
+-- Name: registration_api_registrationp_user_id_4674d279_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY registration_api_registrationprofile
+    ADD CONSTRAINT registration_api_registrationp_user_id_4674d279_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: registration_registrationprofi_user_id_5fcbf725_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -13756,11 +15473,35 @@ ALTER TABLE ONLY reviews_vote
 
 
 --
+-- Name: ship_shippingcompany_id_2d6c4efb_fk_shipping_shippingcompany_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_containers
+    ADD CONSTRAINT ship_shippingcompany_id_2d6c4efb_fk_shipping_shippingcompany_id FOREIGN KEY (shippingcompany_id) REFERENCES shipping_shippingcompany(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: ship_shippingcompany_id_fa0a587e_fk_shipping_shippingcompany_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_countries
+    ADD CONSTRAINT ship_shippingcompany_id_fa0a587e_fk_shipping_shippingcompany_id FOREIGN KEY (shippingcompany_id) REFERENCES shipping_shippingcompany(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: shipping_o_country_id_30387f2e_fk_address_country_iso_3166_1_a2; Type: FK CONSTRAINT; Schema: public; Owner: root
 --
 
 ALTER TABLE ONLY shipping_orderanditemcharges_countries
     ADD CONSTRAINT shipping_o_country_id_30387f2e_fk_address_country_iso_3166_1_a2 FOREIGN KEY (country_id) REFERENCES address_country(iso_3166_1_a2) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shipping_s_country_id_4c976fc4_fk_address_country_iso_3166_1_a2; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_countries
+    ADD CONSTRAINT shipping_s_country_id_4c976fc4_fk_address_country_iso_3166_1_a2 FOREIGN KEY (country_id) REFERENCES address_country(iso_3166_1_a2) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -13785,6 +15526,14 @@ ALTER TABLE ONLY shipping_weightbased_countries
 
 ALTER TABLE ONLY shipping_weightband
     ADD CONSTRAINT shipping_weightba_method_id_b699a1ba_fk_shipping_weightbased_id FOREIGN KEY (method_id) REFERENCES shipping_weightbased(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shippingcontainer_id_50d9ae57_fk_shipping_shippingcontainer_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY shipping_shippingcompany_containers
+    ADD CONSTRAINT shippingcontainer_id_50d9ae57_fk_shipping_shippingcontainer_id FOREIGN KEY (shippingcontainer_id) REFERENCES shipping_shippingcontainer(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
