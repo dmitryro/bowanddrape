@@ -41,8 +41,8 @@ DEBUG = True
 APPEND_SLASH = True
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-BASE_URL = 'http://boanddrape.3dact.com'
-PROFILE_IMAGE_PATH='http://boanddrape.3dact.com/static/images/user_no_avatar.png'
+BASE_URL = 'http://boanddrape.commerce.3dact.com'
+PROFILE_IMAGE_PATH='http://boanddrape.commerce.3dact.com/static/images/user_no_avatar.png'
 
 ALLOWED_HOSTS = ['www.googleapis.com','https://www.googleapis.com']
 
