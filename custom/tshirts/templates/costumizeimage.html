@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block css%}
+
+<link rel="stylesheet" href="{% static "assets/css/fontstyles.css" %}">
+
+{%endblock%}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="image">
+        {% if not product.full_size %}
+            <img class="col-md-pull-1 col-md-4 col-md-push-1 col-xs-pull-2 col-xs-push-2 col-xs-8 img-responsive" src="/static/images/costum/uploadimage.jpg"></img>
+        {% else %}
+            <img class="col-md-pull-1 col-md-4 col-md-push-1 col-xs-pull-2 col-xs-push-2 col-xs-8 img-responsive" src="/costumize/get_design/{{prodid}}"></img>
+        {%endif%}
+        </div>
+        <form class="col-md-5 col-md-offset-1 col-xs-12 pull-left" enctype="multipart/form-data" value="propr" action="{% url 'costumize.views.costumize_image' %}" method="POST">{% csrf_token %}
+            <div class="row col-md-12 text-center" style="margin-top:10%">
+                <div class="col-md-12" style="margin:7%">
+                    <label>Enter Title:
+                    <br>
+                    {{form.title}}
+                    </label>
+                </div>
+                <div class="col-md-12" style="margin:5%">
+                    <label>Upload Photo:
+                    <br>
+                        {{form.fullsize}}
+                    </label>
+                </div>
+            </div>
+            {%if product.full_size %}
+            <input class="btn btn-success col-md-6 col-xs-6" type="submit" value="Submit"></input>
+            <a href="/products/{{prodid}}"><input class="btn btn-danger col-md-6 col-xs-6" value="Buy this product"></input></a>
+            {%else%}
+            <input class="btn btn-success col-md-6 col-xs-6" type="submit" value="Submit"></input>
+            {%endif%}
+        </form>
+    </div>
+</div>
+{%endblock%}

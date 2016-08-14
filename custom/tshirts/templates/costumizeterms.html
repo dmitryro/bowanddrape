@@ -1,0 +1,89 @@
+{%extends 'base.html'%}
+{%load staticfiles%}
+{%block main%}
+{%if language == "es" %}
+	{%if pk == "1" %}
+	<div class="words text-center">
+	<p >Utilizar nuestros servicios de diseno de camisetas puede ser muy divertido<br> 
+	Ahora tenemos la tehnologia para expresarnos de una manera individual, poniendo<br>
+	nuestros pensamientos o nuestros disenos en las camisetas<br></p>
+	<p>Pulsando el buton continuar:<br>
+	Estas declarando que eres el titular de la ideea o del diseno que vas a utilizar<br>
+	para crear la camiseta.<br>
+	Dejas a Dobuy.es que utiliza tu diseno para futuras ventas<br></p>
+	</div>
+	<form class="continue row" action="/costumize/2/" method=".">
+		{%csrf_token%}
+	    <div class="checkbox col-md-12 text-center">
+	        <label>
+				<input type="checkbox" required name="terms">Estoy de acuerdo y quiero continuar</input>
+			</label>
+	    </div>
+			<input type="submit" class="btn btn-success col-md-4 col-md-push-4 col-xs-4 col-xs-push-4 text-center" value="Continue"></input>
+	</form>
+	{% elif pk == "2" %}
+	<div class="container">
+		<div class="row col-md-11 col-md-offset-1">
+			<div class="col-md-5 col-xs-5 text-center">
+				<a href="/costumize/image/">
+					<img src="/static/images/costum/uploadimage.jpg" class="img-responsive col-md-12"></img>
+					<button class="col-md-12 btn btn-success">Upload-Image</button>
+				</a>
+			</div>
+			<div class="col-md-2 col-xs-2 text-center">
+				<h2 style="margin-top:180%;">OR</h2>
+			</div>
+			<div class="col-md-5 col-xs-5 text-center">
+				<a href="/costumize/text/">
+					<img src="/static/images/costum/entertext.jpg" class="img-responsive col-md-12"></img>
+					<button class="col-md-12 btn btn-success">Enter-Text</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<h2> Page not Found {{pk}}</h2>
+	{%endif%}
+{%else%}
+	{%if pk == "1" %}
+	<div class="words text-center">
+	<p >Using custom t-shirt design services can be a fun and creative experience.<br> Now, we have the technology and ability to express ourselves through true individual expression by placing our thoughts,<br> feelings and art on custom designed t-shirts.</p>
+	<p>On clicking the continue button:<br>
+	You declare that you are the author of the idea or picture you will use<br>
+	to create the t-shirt.<br>
+	You allow www.dobuy.es to use your design for future sales.<br></p>
+	</div>
+	<form class="continue row" action="/costumize/2/" method=".">
+		{%csrf_token%}
+	    <div class="checkbox col-md-12 text-center">
+	        <label>
+				<input type="checkbox" required name="terms">I agree and I want to continue</input>
+			</label>
+	    </div>
+			<input type="submit" class="btn btn-success col-md-4 col-md-push-4 col-xs-4 col-xs-push-4 text-center" value="Continue"></input>
+	</form>
+	{% elif pk == "2" %}
+	<div class="container">
+		<div class="row col-md-11 col-md-offset-1">
+			<div class="col-md-5 col-xs-5 text-center">
+				<a href="/costumize/image/">
+					<img src="/static/images/costum/uploadimage.jpg" class="img-responsive col-md-12"></img>
+					<button class="col-md-12 btn btn-success">Upload-Image</button>
+				</a>
+			</div>
+			<div class="col-md-2 col-xs-2 text-center">
+				<h2 style="margin-top:180%;">OR</h2>
+			</div>
+			<div class="col-md-5 col-xs-5 text-center">
+				<a href="/costumize/text/">
+					<img src="/static/images/costum/entertext.jpg" class="img-responsive col-md-12"></img>
+					<button class="col-md-12 btn btn-success">Enter-Text</button>
+				</a>
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<h2> Page not Found {{pk}}</h2>
+	{%endif%}
+{%endif%}
+{%endblock%}

@@ -5,6 +5,15 @@ from oscar.apps.checkout import views
 from oscar.apps.payment import forms, models
 
 from paypal.payflow import facade
+from oscar.apps.checkout.views import PaymentDetailsView as CorePaymentDetailsView  # noqa
+from oscar.apps.checkout.views import ThankYouView as CoreThankYouView  # noqa
+from django.contrib import messages
+
+
+# Make sure OSCAR_REQUIRED_ADDRESS_FIELDS is set correctly for VAT
+# assessment
+
+
 
 
 class PaymentDetailsView(views.PaymentDetailsView):
@@ -87,3 +96,18 @@ class PaymentDetailsView(views.PaymentDetailsView):
             amount_allocated=total.incl_tax, currency=total.currency)
         self.add_payment_source(source)
         self.add_payment_event('Authorised', total.incl_tax)
+
+
+
+
+class ThankYouView(CoreThankYouView):
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ThankYouView,
+                    self).get_context_data(**kwargs)
+
+        # Oscar's checkout templates look for this variable which specifies to
+        # break out the tax totals into a separate subtotal.
+        ctx['show_tax_separately'] = True
+
+        return ctx

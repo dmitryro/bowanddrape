@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block css%}
+<link rel="stylesheet" href="{% static "assets/css/fontstyles.css" %}">
+{%endblock%}
+{% block main %}
+<div class="row">
+{% if not destination %}
+    <img class="col-images col-md-4 image" id="image" src="/costumize/get_text/black/Enter-Text/dday/False"></img>
+{%endif%}
+<form class="col-md-7 col-md-offset-1 pull-right" enctype="multipart/form-data" value="propr" action="{% url 'costumize.views.costumize_text' %}" method="GET" id="form-tshirt">{% csrf_token %}
+		<h3> Chose Color </h3>
+		</br>
+		<div class="colors">
+            <ul id="field-color" class="color-filter" data-color="white">
+                <li>
+                    <a value="white" href="#white" style="background: #FFFFFF;"></a>
+                </li>
+                <li>
+                    <a value="black" href="#black" style="background: #452000;"></a>
+                </li>
+                <li>
+                    <a value="red" href="#red" style="background: #CB2402;"></a>
+                </li>
+                <li>
+                    <a value="green" href="#green" style="background: #005200;"></a>
+                </li>
+                <li>
+                    <a value="hotpink" href="#pink" style="background: #CC0066;"></a>
+                </li>
+            </ul>
+            </br>
+		</div>
+		</br>
+		<h3> Chose Size </h3>
+		</br>
+        <select id="font-style" class="form-control text-center">
+            <option value="dday" style="font-family:dday">EnterText</option>
+            <option value="yorkers" style="font-family:yorkers">EnterText</option>
+            <option value="always" style="font-family:always">EnterText</option>
+            <option value="canterbury" style="font-family:canterbury">EnterText</option>
+            <option value="silent" style="font-family:silent">EnterText</option>
+        </select>
+		</br>
+		<h3> Enter costum text </h3>
+		</br>
+		<div class="input-group">
+        <input class="form-control" id="context" type="text" name="context" maxlength="13" placeholder="Enter costum text">
+        <span class="input-group-btn">
+        <a id="submit_text" href="/costumize/text/"><button type="button" class="btn btn-danger input-md">Submit</button></a>
+        </span>
+    </div>
+</form>
+</div>
+<script>
+$("#font-style").click(function(){
+    var font = $("#font-style").val()
+
+    $('#field-color').data('color',$(this).attr("value"));
+    var color = $('#field-color').data('color')
+
+    var value = $("#context").val();
+    if (value.length<2) {
+        value = "EnterText"
+    }
+    context = "/costumize/get_text/"+color+"/" + value +"/"+font
+    document.getElementById("image").src = context + "/False"
+    document.getElementById("submit_text").href = context + "/True"
+    
+});
+$(".color-filter a").click(function(){
+    $('#field-color').data('color',$(this).attr("value"));
+    var font = $("#font-style").val()
+    
+    var color = $('#field-color').data('color')
+
+    var value = $("#context").val();
+    if (value.length<2) {
+        value = "EnterText"
+    }
+    context = "/costumize/get_text/"+color+"/" + value +"/"+font
+    document.getElementById("image").src = context + "/False"
+    document.getElementById("submit_text").href = context + "/True"
+    
+});
+$("#context").on('input',function(){
+    var font = $("#font-style").val()
+    
+    var color = $('#field-color').data('color')
+
+    var value = $("#context").val();
+    if (value.length<2) {
+        value = "EnterText"
+    }
+    context = "/costumize/get_text/"+color+"/" + value +"/"+font
+    document.getElementById("image").src = context + "/False"
+    document.getElementById("submit_text").href = context + "/True"
+})
+</script>
+{%endblock%}
