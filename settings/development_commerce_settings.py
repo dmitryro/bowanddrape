@@ -17,12 +17,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy
 
 from jinja2 import StrictUndefined
-from oscar import get_core_apps
 from oscar import OSCAR_MAIN_TEMPLATE_DIR, get_core_apps
 from oscar_accounts import TEMPLATE_DIR as ACCOUNTS_TEMPLATE_DIR
 from oscar.defaults import *
-from oscarbluelight.defaults import *  # NOQA # Needed so that Bluelight's views show up in the dashboard
-from oscarbluelight import BLUELIGHT_TEMPLATE_DIR
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 location = lambda x: os.path.join(
@@ -87,6 +84,7 @@ INSTALLED_APPS = [
     "pinax.stripe",
     'redis_cache',
     'redis_sessions',
+    'taxonomy',
     'oscarapi',
     'custom.oscar_extensions',
     'oscar_accounts',
@@ -95,8 +93,16 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'paypal',
     'widget_tweaks',
+    'custom.tshirts',
     'custom.users',
-]+get_core_apps(['custom.apps.shipping'])
+
+]+get_core_apps(['custom.apps.shipping',
+#                 'custom.apps.checkout',
+             #    'oscarbluelight.dashboard.offers',
+              #   'oscarbluelight.dashboard.vouchers',
+              #   'oscarbluelight.offer',
+              #   'oscarbluelight.voucher',
+                ])
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,9 +129,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['templates',
-                 OSCAR_MAIN_TEMPLATE_DIR,
-                 BLUELIGHT_TEMPLATE_DIR,
-                 ACCOUNTS_TEMPLATE_DIR],
+                 ACCOUNTS_TEMPLATE_DIR,
+                 OSCAR_MAIN_TEMPLATE_DIR,],
         'APP_DIRS': False,
         'OPTIONS': {
             'loaders': [
@@ -150,6 +155,7 @@ TEMPLATES = [
                 'oscar.apps.search.context_processors.search_form',
                 'oscar.apps.promotions.context_processors.promotions',
                 'oscar.apps.checkout.context_processors.checkout',
+                'oscar.apps.customer.notifications.context_processors.notifications',
                 'oscar.core.context_processors.metadata',
             ],
         },
@@ -384,19 +390,23 @@ OSCAR_DASHBOARD_NAVIGATION.append(
 )
 OSCAR_DASHBOARD_NAVIGATION.append(
     {
-        'label': 'Store',
-        'icon': 'icon-map-marker',
+        'label': 'Stripe',
+        'icon': 'icon-globe',
         'children': [
             {
                 'label': 'Accounts',
                 'url_name': 'accounts-list',
             },
             {
-                'label': 'Benefits',
-                'url_name': 'benefit-list',
+                'label': 'Charge',
+                'url_name': 'benefits-list',
             },
             {
-                'label': 'Transfers',
+                'label': 'Release from escrow',
+                'url_name': 'accounts-list',
+            },
+            {
+                'label': 'Refund',
                 'url_name': 'transfers-list',
             },
             {
@@ -502,12 +512,12 @@ OSCAR_DASHBOARD_NAVIGATION.append(
         'children': [
             {
                 'label': 'PayFlow transactions',
-                'url_name': 'transfers-list',                 
+                'url_name': 'paypal-payflow-list',                 
             #    'url_name': 'paypal-payflow-list',
             },
             {
                 'label': 'Express transactions',
-                'url_name': 'transfers-list',
+                'url_name': 'paypal-express-list',
              #   'url_name': 'paypal-express-list',
             },
         ]
@@ -525,10 +535,17 @@ PAYPAL_API_PASSWORD = 'QFZCWN5HZM8VBG7Q'
 PAYPAL_API_SIGNATURE = 'A-IzJhZZjhg29XQ2qnhapuwxIDzyAZQ92FRP5dqBzVesOkzbdUONzmOU'
 
 # Standard currency is GBP
-PAYPAL_CURRENCY = PAYPAL_PAYFLOW_CURRENCY = 'GBP'
+PAYPAL_CURRENCY = PAYPAL_PAYFLOW_CURRENCY = 'USD'
 PAYPAL_PAYFLOW_DASHBOARD_FORMS = True
+PAYPAL_PAYFLOW_VENDOR_ID = 'mypaypalaccount'
+PAYPAL_PAYFLOW_PASSWORD = 'asdfasdfasdf'
+
 
 ACCOUNTS_UNIT_NAME = 'Giftcard'
 ACCOUNTS_UNIT_NAME_PLURAL = 'Giftcards'
 ACCOUNTS_MIN_LOAD_VALUE = D('30.00')
 ACCOUNTS_MAX_ACCOUNT_VALUE = D('1000.00')
+OSCAR_DEFAULT_CURRENCY = 'USD'
+
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
+
