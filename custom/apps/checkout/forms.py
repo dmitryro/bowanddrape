@@ -1,7 +1,7 @@
 import re
 from calendar import monthrange
 from datetime import date
-
+from django.conf import settings
 from django import forms
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
@@ -280,3 +280,17 @@ class BillingAddressForm(PhoneNumberMixin, AbstractAddressForm):
             'line1', 'line2', 'line3', 'line4',
             'state', 'postcode', 'country',
         ]
+
+class PaymentMethodForm(forms.Form):
+    """
+    Extra form for the custom payment method.
+    """
+    payment_method = forms.ChoiceField(
+        label=_("Choose your payment method"),
+        choices=settings.WEBSHOP_PAYMENT_CHOICES,
+        widget=forms.RadioSelect()
+    )
+
+
+def get_payment_method_display(payment_method):
+    return dict(settings.WEBSHOP_PAYMENT_CHOICES).get(payment_method)

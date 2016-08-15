@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'taxonomy',
     'oscarapi',
     'custom.oscar_extensions',
+    'custom.django_ocar_stripe',
     'oscar_accounts',
     'oscar_shipping',
     'oscarapicheckout',
@@ -440,6 +441,13 @@ OSCAR_ORDER_STATUS_CASCADE = {
 
 OSCAR_ALLOW_ANON_CHECKOUT=True
 OSCAR_ALLOW_ANON_REVIEWS=True
+SHIPPING_EVENT_STATUS_MAPPING = {
+    # Translate shipping event type to OSCAR_ORDER_STATUS_PIPELINE/OSCAR_LINE_STATUS_PIPELINE
+    'shipping': 'shipping',
+    'delivered': 'delivered',
+}
+
+
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_ENGINE = 'redis_sessions.session'
@@ -548,6 +556,14 @@ ACCOUNTS_UNIT_NAME_PLURAL = 'Giftcards'
 ACCOUNTS_MIN_LOAD_VALUE = D('30.00')
 ACCOUNTS_MAX_ACCOUNT_VALUE = D('1000.00')
 OSCAR_DEFAULT_CURRENCY = 'USD'
+
+WEBSHOP_PAYMENT_CHOICES = (
+    ('IDEAL', 'iDEAL'),
+    ('VISA', 'Visa'),
+    ('MASTERCARD', 'MasterCard'),
+    ('AMEX', 'American Express'),
+    ('PAYPAL_EXPRESS_CHECKOUT', 'PayPal'),  # NOTE: has additional hack in checkout code for US.
+)
 
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 

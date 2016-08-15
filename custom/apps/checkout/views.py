@@ -9,11 +9,41 @@ from oscar.apps.checkout.views import PaymentDetailsView as CorePaymentDetailsVi
 from oscar.apps.checkout.views import ThankYouView as CoreThankYouView  # noqa
 from django.contrib import messages
 
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import FormView
+from oscar.apps.payment.exceptions import RedirectRequired
+from oscar.apps.checkout import views as oscar_views
+from oscar.apps.payment.models import SourceType, Source
 
+from forms import PaymentMethodForm
 # Make sure OSCAR_REQUIRED_ADDRESS_FIELDS is set correctly for VAT
 # assessment
 
 
+class PaymentMethodView(oscar_views.PaymentMethodView, FormView):
+    """
+    Updated payment methods view.
+    """
+    template_name = "checkout/payment_method.html"
+    step = 'payment-method'
+    form_class = PaymentMethodForm
+    success_url = reverse_lazy('checkout:payment-details')
+
+    def get_success_response(self):
+        # No errors in get(), apply our form logic.
+        # NOTE that the checks are not make in the post() call, but this is not a problem.
+        # We can just store the payment method, and let the next view validate the other states again.
+        return FormView.get(self, self.request, self.args, self.kwargs)
+
+    def get_initial(self):
+        return {
+            'payment_method': self.checkout_session.payment_method(),
+        }
+
+    def form_valid(self, form):
+        # Store payment method in the CheckoutSessionMixin.checkout_session (a CheckoutSessionData object)
+        self.checkout_session.pay_by(form.cleaned_data['payment_method'])
+        return super(PaymentMethodView, self).form_valid(form)
 
 
 class PaymentDetailsView(views.PaymentDetailsView):
