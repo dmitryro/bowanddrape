@@ -88,11 +88,14 @@
                         {% trans "Change" %}
                     </a>
                     <h3>{% trans "Payment" %}</h3>
-                    <p>{% trans "Payment details to go here-" %}</p>
-                    {% if shipping_method.title %}
-                             TITLE 
-                             <p>{{ payment_method.title }}</p>
-                    {% endif %}
+
+        <p>{% blocktrans with amount=order_total.incl_tax|currency %}<strong>{{ amount }}</strong> will be debited from your bankcard.{% endblocktrans %}</p>
+        <div class="alert-actions">
+            <a href="{% url 'checkout:payment-details' %}" class="btn">{% trans "Change payment details" %}</a>
+        </div>
+
+                    
+
                 </div>
             </div>
         {% endblock payment_method %}
