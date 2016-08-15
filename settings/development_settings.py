@@ -97,7 +97,8 @@ INSTALLED_APPS = [
     'custom.users',
 
 ]+get_core_apps(['custom.apps.shipping',
-#                 'custom.apps.checkout',
+                 'custom.apps.checkout',
+                 'custom.oscar_payments.payments',
              #    'oscarbluelight.dashboard.offers',
               #   'oscarbluelight.dashboard.vouchers',
               #   'oscarbluelight.offer',
@@ -117,6 +118,8 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'oscar.apps.basket.middleware.BasketMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
 ]
@@ -511,14 +514,13 @@ OSCAR_DASHBOARD_NAVIGATION.append(
         'icon': 'icon-globe',
         'children': [
             {
-                'label': 'PayFlow transactions',
-                'url_name': 'paypal-payflow-list',                 
-            #    'url_name': 'paypal-payflow-list',
-            },
-            {
                 'label': 'Express transactions',
                 'url_name': 'paypal-express-list',
              #   'url_name': 'paypal-express-list',
+            },
+            {
+                'label': 'PayFlow transactions',
+                'url_name': 'paypal-payflow-list',
             },
         ]
     })

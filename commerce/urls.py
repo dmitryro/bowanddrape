@@ -25,7 +25,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from oscar_accounts.views import AccountBalanceView
 from paypal.express.dashboard.app import application as paypal_application
-
+from paypal.payflow.dashboard.app import application as payflow
 
 urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
@@ -45,7 +45,7 @@ urlpatterns = [
     url(r'^dashboard/accounts/', include(accounts_app.urls)),
     url(r'^checkout/paypal/', include('paypal.express.urls')),
     url(r'^dashboard/paypal/express/', include(paypal_application.urls)),
-
+    url(r'^dashboard/paypal/payflow/', include(payflow.urls)),
     url(r'^ocapi/', include(oscar_api_checkout.urls)), # Must be before oscar_api.urls
     url(r'^ocapi/', include(oscar_api.urls)),
     url(r'', include(application.urls)),
