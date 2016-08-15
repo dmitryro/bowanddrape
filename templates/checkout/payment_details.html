@@ -2,6 +2,8 @@
 {% load i18n %}
 
 {% block payment_details %}
+{% ifequal payment_method 'PAYPAL_EXPRESS_CHECKOUT' %}
+
     <div class="well">
         <div class="sub-header">
             <h3>{% trans "PayPal Express" %}</h3>
@@ -9,10 +11,17 @@
         <p>{% trans "Click on the below icon to use Express Checkout but where the shipping address and method is already chosen on the merchant site." %}</p>
         <div style="overflow:auto"><a href="{% url 'paypal-direct-payment' %}" title="{% trans "Pay with PayPal" %}"><img src="https://www.paypal.com/en_US/i/logo/PayPal_mark_37x23.gif" align="left" style="margin-right:7px;"></a>&nbsp;</div>
     </div>
+{% endifequal %}
 
     <div class="well">
         <div class="sub-header">
-            <h3>{% trans "PayPal PayFlow Pro" %}</h3>
+            {% ifequal payment_method 'PAYPAL_EXPRESS_CHECKOUT' %}
+                <h3>{% trans "PayPal PayFlow Pro" %}</h3>
+            
+            {% endifequal %}
+            {% ifnotequal payment_method 'PAYPAL_EXPRESS_CHECKOUT' %}
+                <h3>{{ payment_method }}</h3>
+            {% endifnotequal %}
         </div>
         <form method="post" action="{% url 'checkout:preview' %}" class="form-stacked">
             {% csrf_token %}

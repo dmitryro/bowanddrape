@@ -29,6 +29,17 @@ class PaymentMethodView(oscar_views.PaymentMethodView, FormView):
     form_class = PaymentMethodForm
     success_url = reverse_lazy('checkout:payment-details')
 
+    def get_context_data(self, **kwargs):
+        """
+        Add data for Paypal Express flow.
+        """
+        # Override method so the bankcard and billing address forms can be
+        # added to the context.
+        ctx = super(PaymentMethodView, self).get_context_data(**kwargs)
+        ctx['payment_method'] = self.checkout_session.payment_method()
+        return ctx
+
+
     def get_success_response(self):
         # No errors in get(), apply our form logic.
         # NOTE that the checks are not make in the post() call, but this is not a problem.
@@ -64,6 +75,7 @@ class PaymentDetailsView(views.PaymentDetailsView):
             'bankcard_form', forms.BankcardForm())
         ctx['billing_address_form'] = kwargs.get(
             'billing_address_form', forms.BillingAddressForm())
+        ctx['payment_method'] = self.checkout_session.payment_method()     
         return ctx
 
     def post(self, request, *args, **kwargs):
@@ -76,13 +88,17 @@ class PaymentDetailsView(views.PaymentDetailsView):
 
         bankcard_form = forms.BankcardForm(request.POST)
         billing_address_form = forms.BillingAddressForm(request.POST)
+        payment_method = self.checkout_session.payment_method() 
+
         if not all([bankcard_form.is_valid(),
                     billing_address_form.is_valid()]):
             # Form validation failed, render page again with errors
             self.preview = False
             ctx = self.get_context_data(
                 bankcard_form=bankcard_form,
-                billing_address_form=billing_address_form)
+                billing_address_form=billing_address_form,
+                payment_method=payment_method)
+
             return self.render_to_response(ctx)
 
         # Render preview with bankcard and billing address details hidden

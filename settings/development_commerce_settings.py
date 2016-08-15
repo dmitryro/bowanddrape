@@ -558,7 +558,6 @@ ACCOUNTS_MAX_ACCOUNT_VALUE = D('1000.00')
 OSCAR_DEFAULT_CURRENCY = 'USD'
 
 WEBSHOP_PAYMENT_CHOICES = (
-    ('IDEAL', 'iDEAL'),
     ('VISA', 'Visa'),
     ('MASTERCARD', 'MasterCard'),
     ('AMEX', 'American Express'),
