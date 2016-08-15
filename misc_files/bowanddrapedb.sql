@@ -1448,6 +1448,157 @@ ALTER SEQUENCE conf_setting_id_seq OWNED BY conf_setting.id;
 
 
 --
+-- Name: contentitem_code_codeitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_code_codeitem (
+    contentitem_ptr_id integer NOT NULL,
+    language character varying(50) NOT NULL,
+    code text NOT NULL,
+    linenumbers boolean NOT NULL
+);
+
+
+ALTER TABLE contentitem_code_codeitem OWNER TO root;
+
+--
+-- Name: contentitem_gist_gistitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_gist_gistitem (
+    contentitem_ptr_id integer NOT NULL,
+    gist_id character varying(128) NOT NULL,
+    filename character varying(128) NOT NULL
+);
+
+
+ALTER TABLE contentitem_gist_gistitem OWNER TO root;
+
+--
+-- Name: contentitem_googledocsviewer_googledocsvieweritem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_googledocsviewer_googledocsvieweritem (
+    contentitem_ptr_id integer NOT NULL,
+    url character varying(200) NOT NULL,
+    width character varying(10) NOT NULL,
+    height character varying(10) NOT NULL
+);
+
+
+ALTER TABLE contentitem_googledocsviewer_googledocsvieweritem OWNER TO root;
+
+--
+-- Name: contentitem_iframe_iframeitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_iframe_iframeitem (
+    contentitem_ptr_id integer NOT NULL,
+    src character varying(200) NOT NULL,
+    width character varying(10) NOT NULL,
+    height character varying(10) NOT NULL
+);
+
+
+ALTER TABLE contentitem_iframe_iframeitem OWNER TO root;
+
+--
+-- Name: contentitem_markup_markupitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_markup_markupitem (
+    contentitem_ptr_id integer NOT NULL,
+    text text NOT NULL,
+    language character varying(30) NOT NULL
+);
+
+
+ALTER TABLE contentitem_markup_markupitem OWNER TO root;
+
+--
+-- Name: contentitem_oembeditem_oembeditem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_oembeditem_oembeditem (
+    contentitem_ptr_id integer NOT NULL,
+    embed_url character varying(200) NOT NULL,
+    embed_max_width integer,
+    embed_max_height integer,
+    type character varying(20),
+    url character varying(200),
+    title character varying(512),
+    description text,
+    author_name character varying(255),
+    author_url character varying(200),
+    provider_name character varying(255),
+    provider_url character varying(200),
+    thumbnail_url character varying(200),
+    thumbnail_height integer,
+    thumbnail_width integer,
+    height integer,
+    width integer,
+    html text,
+    CONSTRAINT contentitem_oembeditem_oembeditem_embed_max_height_check CHECK ((embed_max_height >= 0)),
+    CONSTRAINT contentitem_oembeditem_oembeditem_embed_max_width_check CHECK ((embed_max_width >= 0))
+);
+
+
+ALTER TABLE contentitem_oembeditem_oembeditem OWNER TO root;
+
+--
+-- Name: contentitem_picture_pictureitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_picture_pictureitem (
+    contentitem_ptr_id integer NOT NULL,
+    image character varying(100) NOT NULL,
+    caption text NOT NULL,
+    align character varying(10) NOT NULL,
+    url character varying(300) NOT NULL,
+    in_new_window boolean NOT NULL
+);
+
+
+ALTER TABLE contentitem_picture_pictureitem OWNER TO root;
+
+--
+-- Name: contentitem_rawhtml_rawhtmlitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_rawhtml_rawhtmlitem (
+    contentitem_ptr_id integer NOT NULL,
+    html text NOT NULL
+);
+
+
+ALTER TABLE contentitem_rawhtml_rawhtmlitem OWNER TO root;
+
+--
+-- Name: contentitem_sharedcontent_sharedcontentitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_sharedcontent_sharedcontentitem (
+    contentitem_ptr_id integer NOT NULL,
+    shared_content_id integer NOT NULL
+);
+
+
+ALTER TABLE contentitem_sharedcontent_sharedcontentitem OWNER TO root;
+
+--
+-- Name: contentitem_text_textitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE contentitem_text_textitem (
+    contentitem_ptr_id integer NOT NULL,
+    text text NOT NULL,
+    text_final text
+);
+
+
+ALTER TABLE contentitem_text_textitem OWNER TO root;
+
+--
 -- Name: core_sitepermission; Type: TABLE; Schema: public; Owner: root
 --
 
@@ -2163,6 +2314,93 @@ ALTER TABLE easy_thumbnails_thumbnaildimensions_id_seq OWNER TO root;
 
 ALTER SEQUENCE easy_thumbnails_thumbnaildimensions_id_seq OWNED BY easy_thumbnails_thumbnaildimensions.id;
 
+
+--
+-- Name: fluent_contents_contentitem; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE fluent_contents_contentitem (
+    id integer NOT NULL,
+    parent_id integer,
+    language_code character varying(15) NOT NULL,
+    sort_order integer NOT NULL,
+    parent_type_id integer NOT NULL,
+    placeholder_id integer,
+    polymorphic_ctype_id integer
+);
+
+
+ALTER TABLE fluent_contents_contentitem OWNER TO root;
+
+--
+-- Name: fluent_contents_contentitem_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE fluent_contents_contentitem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE fluent_contents_contentitem_id_seq OWNER TO root;
+
+--
+-- Name: fluent_contents_contentitem_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE fluent_contents_contentitem_id_seq OWNED BY fluent_contents_contentitem.id;
+
+
+--
+-- Name: fluent_contents_placeholder; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE fluent_contents_placeholder (
+    id integer NOT NULL,
+    slot character varying(50) NOT NULL,
+    role character varying(1) NOT NULL,
+    parent_id integer,
+    title character varying(255) NOT NULL,
+    parent_type_id integer
+);
+
+
+ALTER TABLE fluent_contents_placeholder OWNER TO root;
+
+--
+-- Name: fluent_contents_placeholder_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE fluent_contents_placeholder_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE fluent_contents_placeholder_id_seq OWNER TO root;
+
+--
+-- Name: fluent_contents_placeholder_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE fluent_contents_placeholder_id_seq OWNED BY fluent_contents_placeholder.id;
+
+
+--
+-- Name: fluent_coremodulpage; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE fluent_coremodulpage (
+    page_ptr_id integer NOT NULL,
+    template_name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE fluent_coremodulpage OWNER TO root;
 
 --
 -- Name: forms_field; Type: TABLE; Schema: public; Owner: root
@@ -5611,6 +5849,76 @@ ALTER SEQUENCE reviews_vote_id_seq OWNED BY reviews_vote.id;
 
 
 --
+-- Name: sharedcontent_sharedcontent; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE sharedcontent_sharedcontent (
+    id integer NOT NULL,
+    slug character varying(50) NOT NULL,
+    is_cross_site boolean NOT NULL,
+    parent_site_id integer NOT NULL
+);
+
+
+ALTER TABLE sharedcontent_sharedcontent OWNER TO root;
+
+--
+-- Name: sharedcontent_sharedcontent_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE sharedcontent_sharedcontent_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE sharedcontent_sharedcontent_id_seq OWNER TO root;
+
+--
+-- Name: sharedcontent_sharedcontent_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE sharedcontent_sharedcontent_id_seq OWNED BY sharedcontent_sharedcontent.id;
+
+
+--
+-- Name: sharedcontent_sharedcontent_translation; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE sharedcontent_sharedcontent_translation (
+    id integer NOT NULL,
+    language_code character varying(15) NOT NULL,
+    title character varying(200) NOT NULL,
+    master_id integer
+);
+
+
+ALTER TABLE sharedcontent_sharedcontent_translation OWNER TO root;
+
+--
+-- Name: sharedcontent_sharedcontent_translation_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE sharedcontent_sharedcontent_translation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE sharedcontent_sharedcontent_translation_id_seq OWNER TO root;
+
+--
+-- Name: sharedcontent_sharedcontent_translation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE sharedcontent_sharedcontent_translation_id_seq OWNED BY sharedcontent_sharedcontent_translation.id;
+
+
+--
 -- Name: shipping_orderanditemcharges; Type: TABLE; Schema: public; Owner: root
 --
 
@@ -6538,6 +6846,120 @@ ALTER SEQUENCE voucher_voucherapplication_id_seq OWNED BY voucher_voucherapplica
 
 
 --
+-- Name: widgy_node; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE widgy_node (
+    id integer NOT NULL,
+    path character varying(255) NOT NULL,
+    depth integer NOT NULL,
+    numchild integer NOT NULL,
+    content_id integer NOT NULL,
+    is_frozen boolean NOT NULL,
+    content_type_id integer NOT NULL,
+    CONSTRAINT widgy_node_content_id_check CHECK ((content_id >= 0)),
+    CONSTRAINT widgy_node_depth_check CHECK ((depth >= 0)),
+    CONSTRAINT widgy_node_numchild_check CHECK ((numchild >= 0))
+);
+
+
+ALTER TABLE widgy_node OWNER TO root;
+
+--
+-- Name: widgy_node_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE widgy_node_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE widgy_node_id_seq OWNER TO root;
+
+--
+-- Name: widgy_node_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE widgy_node_id_seq OWNED BY widgy_node.id;
+
+
+--
+-- Name: widgy_versioncommit; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE widgy_versioncommit (
+    id integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    message text,
+    publish_at timestamp with time zone NOT NULL,
+    author_id integer,
+    parent_id integer,
+    root_node_id integer NOT NULL,
+    tracker_id integer NOT NULL
+);
+
+
+ALTER TABLE widgy_versioncommit OWNER TO root;
+
+--
+-- Name: widgy_versioncommit_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE widgy_versioncommit_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE widgy_versioncommit_id_seq OWNER TO root;
+
+--
+-- Name: widgy_versioncommit_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE widgy_versioncommit_id_seq OWNED BY widgy_versioncommit.id;
+
+
+--
+-- Name: widgy_versiontracker; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE widgy_versiontracker (
+    id integer NOT NULL,
+    head_id integer,
+    working_copy_id integer NOT NULL
+);
+
+
+ALTER TABLE widgy_versiontracker OWNER TO root;
+
+--
+-- Name: widgy_versiontracker_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE widgy_versiontracker_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE widgy_versiontracker_id_seq OWNER TO root;
+
+--
+-- Name: widgy_versiontracker_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE widgy_versiontracker_id_seq OWNED BY widgy_versiontracker.id;
+
+
+--
 -- Name: wishlists_line; Type: TABLE; Schema: public; Owner: root
 --
 
@@ -7001,6 +7423,20 @@ ALTER TABLE ONLY easy_thumbnails_thumbnail ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions ALTER COLUMN id SET DEFAULT nextval('easy_thumbnails_thumbnaildimensions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_contentitem ALTER COLUMN id SET DEFAULT nextval('fluent_contents_contentitem_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_placeholder ALTER COLUMN id SET DEFAULT nextval('fluent_contents_placeholder_id_seq'::regclass);
 
 
 --
@@ -7602,6 +8038,20 @@ ALTER TABLE ONLY reviews_vote ALTER COLUMN id SET DEFAULT nextval('reviews_vote_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: root
 --
 
+ALTER TABLE ONLY sharedcontent_sharedcontent ALTER COLUMN id SET DEFAULT nextval('sharedcontent_sharedcontent_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent_translation ALTER COLUMN id SET DEFAULT nextval('sharedcontent_sharedcontent_translation_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
 ALTER TABLE ONLY shipping_orderanditemcharges ALTER COLUMN id SET DEFAULT nextval('shipping_orderanditemcharges_id_seq'::regclass);
 
 
@@ -7771,6 +8221,27 @@ ALTER TABLE ONLY voucher_voucher_offers ALTER COLUMN id SET DEFAULT nextval('vou
 --
 
 ALTER TABLE ONLY voucher_voucherapplication ALTER COLUMN id SET DEFAULT nextval('voucher_voucherapplication_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_node ALTER COLUMN id SET DEFAULT nextval('widgy_node_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versioncommit ALTER COLUMN id SET DEFAULT nextval('widgy_versioncommit_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versiontracker ALTER COLUMN id SET DEFAULT nextval('widgy_versiontracker_id_seq'::regclass);
 
 
 --
@@ -8079,7 +8550,7 @@ ZW	ZWE	716	Zimbabwe	Republic of Zimbabwe	0	t
 --
 
 COPY address_useraddress (id, title, first_name, last_name, line1, line2, line3, line4, state, postcode, search_text, phone_number, notes, is_default_for_shipping, is_default_for_billing, num_orders, hash, date_created, country_id, user_id) FROM stdin;
-1	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		f	f	16	-628364552	2016-08-09 23:47:04.34496-04	US	1
+1	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D		Brooklyn	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York 11235 United States of America	+17184046471		f	f	17	1297435131	2016-08-09 23:47:04.34496-04	US	1
 \.
 
 
@@ -8125,8 +8596,8 @@ SELECT pg_catalog.setval('admin_tools_menu_bookmark_id_seq', 1, false);
 --
 
 COPY analytics_productrecord (id, num_views, num_basket_additions, num_purchases, score, product_id) FROM stdin;
-1	22	41	32	0	3
-3	9	11	8	0	6
+1	24	52	34	0	3
+3	13	19	9	0	6
 \.
 
 
@@ -8172,6 +8643,11 @@ COPY analytics_userproductview (id, date_created, product_id, user_id) FROM stdi
 38	2016-08-12 10:36:26.802263-04	6	1
 39	2016-08-12 11:19:51.59343-04	6	1
 40	2016-08-12 11:19:58.997378-04	6	1
+41	2016-08-14 17:21:45.953203-04	6	1
+42	2016-08-14 17:22:19.476217-04	6	1
+43	2016-08-14 17:22:23.292737-04	6	1
+44	2016-08-14 22:28:54.011331-04	3	1
+45	2016-08-14 22:58:45.072343-04	6	1
 \.
 
 
@@ -8179,7 +8655,7 @@ COPY analytics_userproductview (id, date_created, product_id, user_id) FROM stdi
 -- Name: analytics_userproductview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_userproductview_id_seq', 40, true);
+SELECT pg_catalog.setval('analytics_userproductview_id_seq', 45, true);
 
 
 --
@@ -8187,7 +8663,7 @@ SELECT pg_catalog.setval('analytics_userproductview_id_seq', 40, true);
 --
 
 COPY analytics_userrecord (id, num_product_views, num_basket_additions, num_orders, num_order_lines, num_order_items, total_spent, date_last_order, user_id) FROM stdin;
-1	40	44	16	21	41	892.40	2016-08-12 10:41:03.218107-04	1
+1	45	61	17	23	44	961.80	2016-08-12 17:00:37.562504-04	1
 \.
 
 
@@ -8215,6 +8691,11 @@ COPY analytics_usersearch (id, query, date_created, user_id) FROM stdin;
 10	shirt	2016-08-11 12:28:45.843523-04	1
 11	shirt	2016-08-11 14:59:59.161865-04	1
 12	shirt	2016-08-12 07:22:35.986961-04	1
+13		2016-08-13 21:07:41.979169-04	1
+14	shirt	2016-08-13 21:07:54.593193-04	1
+15	shirt	2016-08-13 21:07:58.917402-04	1
+16	test	2016-08-14 18:55:52.140364-04	1
+17	shirt	2016-08-14 18:55:56.776758-04	1
 \.
 
 
@@ -8222,7 +8703,7 @@ COPY analytics_usersearch (id, query, date_created, user_id) FROM stdin;
 -- Name: analytics_usersearch_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('analytics_usersearch_id_seq', 12, true);
+SELECT pg_catalog.setval('analytics_usersearch_id_seq', 17, true);
 
 
 --
@@ -8751,6 +9232,69 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 498	Can add Shipping Container	166	add_shippingcontainer
 499	Can change Shipping Container	166	change_shippingcontainer
 500	Can delete Shipping Container	166	delete_shippingcontainer
+504	Can add node	168	add_node
+505	Can change node	168	change_node
+506	Can delete node	168	delete_node
+507	Can add unknown widget	169	add_unknownwidget
+508	Can change unknown widget	169	change_unknownwidget
+509	Can delete unknown widget	169	delete_unknownwidget
+510	Can add version commit	170	add_versioncommit
+511	Can change version commit	170	change_versioncommit
+512	Can delete version commit	170	delete_versioncommit
+513	Can add version tracker	171	add_versiontracker
+514	Can change version tracker	171	change_versiontracker
+515	Can delete version tracker	171	delete_versiontracker
+516	Can add Placeholder	172	add_placeholder
+517	Can change Placeholder	172	change_placeholder
+518	Can delete Placeholder	172	delete_placeholder
+519	Can add Contentitem link	173	add_contentitem
+520	Can change Contentitem link	173	change_contentitem
+521	Can delete Contentitem link	173	delete_contentitem
+522	Can add Text	174	add_textitem
+523	Can change Text	174	change_textitem
+524	Can delete Text	174	delete_textitem
+525	Can add Code snippet	175	add_codeitem
+526	Can change Code snippet	175	change_codeitem
+527	Can delete Code snippet	175	delete_codeitem
+528	Can add GitHub Gist snippet	176	add_gistitem
+529	Can change GitHub Gist snippet	176	change_gistitem
+530	Can delete GitHub Gist snippet	176	delete_gistitem
+531	Can add Iframe	177	add_iframeitem
+532	Can change Iframe	177	change_iframeitem
+533	Can delete Iframe	177	delete_iframeitem
+534	Can add Markup code	178	add_markupitem
+535	Can change Markup code	178	change_markupitem
+536	Can delete Markup code	178	delete_markupitem
+537	Can add Markdown	178	add_markdownmarkupitem
+538	Can change Markdown	178	change_markdownmarkupitem
+539	Can delete Markdown	178	delete_markdownmarkupitem
+540	Can add Textile	178	add_textilemarkupitem
+541	Can change Textile	178	change_textilemarkupitem
+542	Can delete Textile	178	delete_textilemarkupitem
+543	Can add reStructuredText	178	add_restructuredtextmarkupitem
+544	Can change reStructuredText	178	change_restructuredtextmarkupitem
+545	Can delete reStructuredText	178	delete_restructuredtextmarkupitem
+546	Can add HTML code	182	add_rawhtmlitem
+547	Can change HTML code	182	change_rawhtmlitem
+548	Can delete HTML code	182	delete_rawhtmlitem
+549	Can add Picture	183	add_pictureitem
+550	Can change Picture	183	change_pictureitem
+551	Can delete Picture	183	delete_pictureitem
+552	Can add Online media	184	add_oembeditem
+553	Can change Online media	184	change_oembeditem
+554	Can delete Online media	184	delete_oembeditem
+555	Can add Shared content	186	add_sharedcontent
+556	Can change Shared content	186	change_sharedcontent
+557	Can delete Shared content	186	delete_sharedcontent
+558	Can add Shared content	187	add_sharedcontentitem
+559	Can change Shared content	187	change_sharedcontentitem
+560	Can delete Shared content	187	delete_sharedcontentitem
+561	Can add Embedded document	188	add_googledocsvieweritem
+562	Can change Embedded document	188	change_googledocsvieweritem
+563	Can delete Embedded document	188	delete_googledocsvieweritem
+564	Can add Core page	189	add_coremodulpage
+565	Can change Core page	189	change_coremodulpage
+566	Can delete Core page	189	delete_coremodulpage
 \.
 
 
@@ -8758,7 +9302,7 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 500, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 566, true);
 
 
 --
@@ -8766,7 +9310,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 500, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$24000$tiQs6H4WxB9h$jaBqWmeWuIAX6HfGb/30yoR6pCABEIuzGIva5bIwpWQ=	2016-08-12 12:14:51.052447-04	t	root	Bow &	Drape	dmitryro@gmail.com	t	t	2016-08-09 06:34:02-04
+1	pbkdf2_sha256$24000$tiQs6H4WxB9h$jaBqWmeWuIAX6HfGb/30yoR6pCABEIuzGIva5bIwpWQ=	2016-08-14 21:08:18.390974-04	t	root	Bow &	Drape	dmitryro@gmail.com	t	t	2016-08-09 06:34:02-04
 \.
 
 
@@ -8843,7 +9387,11 @@ COPY basket_basket (id, status, date_created, date_merged, date_submitted, owner
 22	Submitted	2016-08-11 17:51:44.190801-04	\N	2016-08-11 23:33:24.42728-04	1
 23	Submitted	2016-08-11 23:33:35.947646-04	\N	2016-08-12 10:37:23.829149-04	1
 24	Submitted	2016-08-12 10:37:33.202045-04	\N	2016-08-12 10:41:03.388812-04	1
-25	Open	2016-08-12 10:41:58.896894-04	\N	\N	1
+25	Submitted	2016-08-12 10:41:58.896894-04	\N	2016-08-12 17:00:37.823849-04	1
+26	Frozen	2016-08-12 17:00:45.67842-04	\N	\N	1
+27	Open	2016-08-14 19:44:49.783129-04	\N	\N	1
+28	Frozen	2016-08-14 19:58:00.181688-04	\N	\N	\N
+29	Merged	2016-08-14 20:38:05.076472-04	2016-08-14 20:44:59.233221-04	\N	\N
 \.
 
 
@@ -8851,7 +9399,7 @@ COPY basket_basket (id, status, date_created, date_merged, date_submitted, owner
 -- Name: basket_basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('basket_basket_id_seq', 25, true);
+SELECT pg_catalog.setval('basket_basket_id_seq', 29, true);
 
 
 --
@@ -8895,7 +9443,12 @@ COPY basket_line (id, line_reference, quantity, price_currency, price_excl_tax, 
 28	3_1	1	USD	20.00	20.00	2016-08-12 10:36:43.196082-04	23	3	1
 29	3_1	1	USD	20.00	20.00	2016-08-12 10:39:18.280419-04	24	3	1
 30	6_3	1	USD	20.00	20.00	2016-08-12 11:10:21.849134-04	25	6	3
-31	3_1	1	USD	20.00	20.00	2016-08-12 11:10:26.952596-04	25	3	1
+31	3_1	2	USD	20.00	20.00	2016-08-12 11:10:26.952596-04	25	3	1
+32	6_3	5	USD	20.00	20.00	2016-08-13 21:07:14.191829-04	26	6	3
+33	3_1	3	USD	20.00	20.00	2016-08-13 21:07:58.400775-04	26	3	1
+35	6_3	1	USD	20.00	20.00	2016-08-14 19:58:00.258899-04	28	6	3
+34	6_3	1	USD	20.00	20.00	2016-08-14 19:55:11.829097-04	27	6	3
+37	3_1	1	USD	20.00	20.00	2016-08-14 22:58:38.362463-04	27	3	1
 \.
 
 
@@ -8903,7 +9456,7 @@ COPY basket_line (id, line_reference, quantity, price_currency, price_excl_tax, 
 -- Name: basket_line_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('basket_line_id_seq', 31, true);
+SELECT pg_catalog.setval('basket_line_id_seq', 37, true);
 
 
 --
@@ -9230,6 +9783,86 @@ SELECT pg_catalog.setval('conf_setting_id_seq', 1, false);
 
 
 --
+-- Data for Name: contentitem_code_codeitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_code_codeitem (contentitem_ptr_id, language, code, linenumbers) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_gist_gistitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_gist_gistitem (contentitem_ptr_id, gist_id, filename) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_googledocsviewer_googledocsvieweritem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_googledocsviewer_googledocsvieweritem (contentitem_ptr_id, url, width, height) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_iframe_iframeitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_iframe_iframeitem (contentitem_ptr_id, src, width, height) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_markup_markupitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_markup_markupitem (contentitem_ptr_id, text, language) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_oembeditem_oembeditem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_oembeditem_oembeditem (contentitem_ptr_id, embed_url, embed_max_width, embed_max_height, type, url, title, description, author_name, author_url, provider_name, provider_url, thumbnail_url, thumbnail_height, thumbnail_width, height, width, html) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_picture_pictureitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_picture_pictureitem (contentitem_ptr_id, image, caption, align, url, in_new_window) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_rawhtml_rawhtmlitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_rawhtml_rawhtmlitem (contentitem_ptr_id, html) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_sharedcontent_sharedcontentitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_sharedcontent_sharedcontentitem (contentitem_ptr_id, shared_content_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contentitem_text_textitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY contentitem_text_textitem (contentitem_ptr_id, text, text_final) FROM stdin;
+\.
+
+
+--
 -- Data for Name: core_sitepermission; Type: TABLE DATA; Schema: public; Owner: root
 --
 
@@ -9296,6 +9929,7 @@ COPY customer_email (id, subject, body_text, body_html, date_sent, user_id) FROM
 16	Confirmation of order 100022	Hello,\n\nWe are pleased to confirm your order 100022 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n * Cool T-Shirt - quantity: 1 - price: $19.80\n\nCart total: $39.60\nShipping: $10.00\nOrder Total: $49.60\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100022 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n    <li>Cool T-Shirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $39.60<br/>\nShipping: $10.00<br/>\nOrder Total: $49.60\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-11 23:33:24.487509-04	1
 17	Confirmation of order 100023	Hello,\n\nWe are pleased to confirm your order 100023 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n\nCart total: $19.80\nShipping: $10.00\nOrder Total: $29.80\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100023 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $19.80<br/>\nShipping: $10.00<br/>\nOrder Total: $29.80\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-12 10:37:23.886878-04	1
 18	Confirmation of order 100024	Hello,\n\nWe are pleased to confirm your order 100024 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool Sweatshirt - quantity: 1 - price: $19.80\n\nCart total: $19.80\nShipping: $10.00\nOrder Total: $29.80\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100024 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool Sweatshirt - quantity: 1 - price: $19.80</li>\n    \n</ul>\n<p>\nCart total: $19.80<br/>\nShipping: $10.00<br/>\nOrder Total: $29.80\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The example.com team</p>\n	2016-08-12 10:41:03.474096-04	1
+19	Confirmation of order 100025	Hello,\n\nWe are pleased to confirm your order 100025 has been received and\nwill be processed shortly.\n\nYour order contains:\n\n * Cool T-Shirt - quantity: 1 - price: $19.80\n * Cool Sweatshirt - quantity: 2 - price: $39.60\n\nCart total: $59.40\nShipping: $10.00\nOrder Total: $69.40\n\nShipping address:\n\n  Mr Dmitry Roitman\n  150 West End Avenue\n  Apt. 6D\n  Brooklyn\n  New York\n  New York\n  11235\n  United States\n\n\n\n\nThe team\n	\n<p xmlns="http://www.w3.org/1999/html">Hello,</p>\n\n<p>We are pleased to confirm your order 100025 has been received and\nwill be processed shortly.</p>\n\n<p>Your order contains:</p>\n\n<ul>\n    \n    <li>Cool T-Shirt - quantity: 1 - price: $19.80</li>\n    \n    <li>Cool Sweatshirt - quantity: 2 - price: $39.60</li>\n    \n</ul>\n<p>\nCart total: $59.40<br/>\nShipping: $10.00<br/>\nOrder Total: $69.40\n</p>\n\n<p>Shipping address:</p>\n<p>  Mr Dmitry Roitman<br/>\n  150 West End Avenue<br/>\n  Apt. 6D<br/>\n  Brooklyn<br/>\n  New York<br/>\n  New York<br/>\n  11235<br/>\n  United States<br/>\n</p>\n\n\n\n\n<p>Thanks for using our site!</p>\n<p>The bowanddrape.cms.3dact.com team</p>\n	2016-08-12 17:00:37.911177-04	1
 \.
 
 
@@ -9303,7 +9937,7 @@ COPY customer_email (id, subject, body_text, body_html, date_sent, user_id) FROM
 -- Name: customer_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('customer_email_id_seq', 18, true);
+SELECT pg_catalog.setval('customer_email_id_seq', 19, true);
 
 
 --
@@ -9421,6 +10055,39 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 76	2016-08-12 16:07:32.952096-04	10	code	2	Changed depth.	114	1
 77	2016-08-12 16:19:43.33772-04	16	code	1	Added.	114	1
 78	2016-08-12 16:21:24.832434-04	1	deferred income	2	Changed depth.	114	1
+79	2016-08-12 16:26:17.041512-04	1	Packaging	1	Added.	87	1
+80	2016-08-12 16:26:31.14768-04	2	Processing	1	Added.	87	1
+81	2016-08-12 16:26:49.041484-04	3	Transit	1	Added.	87	1
+82	2016-08-12 16:26:56.076753-04	4	Returning	1	Added.	87	1
+83	2016-08-12 16:29:48.69084-04	1	Contact	1	Added.	151	1
+84	2016-08-12 17:55:49.297593-04	17	code	1	Added.	114	1
+85	2016-08-12 17:56:17.9995-04	1	deferred income	2	Changed numchild.	114	1
+86	2016-08-12 17:56:31.84615-04	16	code	2	Changed depth.	114	1
+87	2016-08-12 22:12:31.043042-04	16	code	2	Changed numchild.	114	1
+88	2016-08-12 22:13:04.53433-04	16	code	2	Changed numchild.	114	1
+89	2016-08-12 22:13:16.93807-04	16	code	2	Changed depth.	114	1
+90	2016-08-13 19:12:18.314172-04	2	About	1	Added.	151	1
+91	2016-08-13 19:12:53.450111-04	1	Contact	3		150	1
+92	2016-08-13 19:13:35.964479-04	3	Contact	1	Added.	151	1
+93	2016-08-13 19:25:36.983587-04	4	CUSTOMIZE YOUR OWN	1	Added.	151	1
+94	2016-08-13 19:28:49.44014-04	3	SHOP	2	Changed title and keywords.	151	1
+95	2016-08-13 19:29:01.695667-04	3	SHOP	2	Changed content and keywords.	151	1
+96	2016-08-13 19:29:24.881007-04	2	LIMITED EDITION	2	Changed title, content and keywords.	151	1
+97	2016-08-13 19:31:18.153312-04	5	RHONY FANS!	1	Added.	151	1
+98	2016-08-13 19:32:02.115722-04	6	BRIDAL	1	Added.	151	1
+99	2016-08-13 19:32:31.05191-04	7	PUNNY GIRLS	1	Added.	151	1
+100	2016-08-13 20:29:37.934044-04	8	FLUENT	1	Added. Added Placeholder "Main". Added Placeholder "Sidepanel".	189	1
+101	2016-08-13 20:32:38.836598-04	8	FLUENT	2	Changed keywords.	189	1
+102	2016-08-13 20:35:22.81906-04	8	FLUENT	2	Changed keywords.	189	1
+103	2016-08-13 21:01:59.130454-04	8	FLUENT	3		150	1
+104	2016-08-13 21:03:39.489703-04	4	CUSTOMIZE YOUR OWN	2	Changed content and keywords.	151	1
+105	2016-08-14 11:27:20.189791-04	16	code	2	Changed numchild.	114	1
+106	2016-08-14 11:28:00.769506-04	15	deferred_income_one	2	Changed numchild.	114	1
+107	2016-08-14 11:28:01.409589-04	15	deferred_income_one	2	No fields changed.	114	1
+108	2016-08-14 11:28:22.158984-04	1	deferred income	2	Changed numchild.	114	1
+109	2016-08-14 11:28:37.091516-04	1	deferred income	2	Changed depth.	114	1
+110	2016-08-14 11:28:37.432697-04	1	deferred income	2	No fields changed.	114	1
+111	2016-08-14 11:28:58.723704-04	1	deferred income	2	Changed numchild.	114	1
 \.
 
 
@@ -9428,7 +10095,7 @@ COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, cha
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 78, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 111, true);
 
 
 --
@@ -9629,6 +10296,28 @@ COPY django_content_type (id, app_label, model) FROM stdin;
 164	django_comments	commentflag
 165	shipping	shippingcompany
 166	shipping	shippingcontainer
+168	widgy	node
+169	widgy	unknownwidget
+170	widgy	versioncommit
+171	widgy	versiontracker
+172	fluent_contents	placeholder
+173	fluent_contents	contentitem
+174	text	textitem
+175	code	codeitem
+176	gist	gistitem
+177	iframe	iframeitem
+178	markup	markupitem
+179	markup	textilemarkupitem
+180	markup	markdownmarkupitem
+181	markup	restructuredtextmarkupitem
+182	rawhtml	rawhtmlitem
+183	picture	pictureitem
+184	oembeditem	oembeditem
+185	sharedcontent	sharedcontenttranslation
+186	sharedcontent	sharedcontent
+187	sharedcontent	sharedcontentitem
+188	googledocsviewer	googledocsvieweritem
+189	fluent	coremodulpage
 \.
 
 
@@ -9636,7 +10325,7 @@ COPY django_content_type (id, app_label, model) FROM stdin;
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 166, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 189, true);
 
 
 --
@@ -9810,6 +10499,21 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 129	twitter	0001_initial	2016-08-12 12:12:43.014588-04
 130	shipping	0004_auto_20160812_1738	2016-08-12 13:38:33.874976-04
 131	shipping	0005_auto_20160812_1741	2016-08-12 13:41:15.502151-04
+132	widgy	0001_initial	2016-08-12 18:04:56.161183-04
+133	fluent_contents	0001_initial	2016-08-13 20:09:46.238752-04
+134	code	0001_initial	2016-08-13 20:09:46.603546-04
+135	gist	0001_initial	2016-08-13 20:09:53.742414-04
+136	googledocsviewer	0001_initial	2016-08-13 20:09:54.137127-04
+137	iframe	0001_initial	2016-08-13 20:09:54.504683-04
+138	markup	0001_initial	2016-08-13 20:09:55.109212-04
+139	oembeditem	0001_initial	2016-08-13 20:09:57.615626-04
+140	picture	0001_initial	2016-08-13 20:10:05.093677-04
+141	picture	0002_auto_20160813_2009	2016-08-13 20:10:05.457793-04
+142	rawhtml	0001_initial	2016-08-13 20:10:13.94714-04
+143	sharedcontent	0001_initial	2016-08-13 20:10:18.824745-04
+144	text	0001_initial	2016-08-13 20:10:23.525814-04
+145	text	0002_textitem_text_final	2016-08-13 20:10:23.98591-04
+146	fluent	0001_initial	2016-08-13 20:17:56.389545-04
 \.
 
 
@@ -9817,7 +10521,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 131, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 146, true);
 
 
 --
@@ -9861,6 +10565,7 @@ xu3427zr30xyvbse5ret9srgzgmed319	MmU0NTdjMjkxN2U1NGE3NmNmNzgzMDkyOTQxYTM1MWJlYmZ
 rx82tnbd3ywynl19y5wgh49ppdn300kp	YWM1ODVkMzY1NzExOGQ0YTQ5NGNjZWM1NTRiNWVmYzlmNjA3MjhjNzp7ImNoZWNrb3V0X29yZGVyX2lkIjo0LCJfYXV0aF91c2VyX2JhY2tlbmQiOiJvc2Nhci5hcHBzLmN1c3RvbWVyLmF1dGhfYmFja2VuZHMuRW1haWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9oYXNoIjoiMjExMTlmYjI1NjY2NGM3NGI2Zjk1OGI3ZDFlZDU1ZjliYzU1MTUwMCIsIl9hdXRoX3VzZXJfaWQiOiIxIiwiY2hlY2tvdXRfZGF0YSI6e319	2016-08-25 00:24:02.817497-04
 t2f3kd970645bwk109aoue7n2hnsczsi	NGYyMGNjNWE1MmU1YzVhMDUyNDk0ZTA5ZjU2NGI5NDk5YjZhYzFmOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjIxMTE5ZmIyNTY2NjRjNzRiNmY5NThiN2QxZWQ1NWY5YmM1NTE1MDAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJvc2Nhci5hcHBzLmN1c3RvbWVyLmF1dGhfYmFja2VuZHMuRW1haWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6IjEifQ==	2016-08-25 08:17:53.468976-04
 zz2kfw6a86as4tbiq3npdrg3mysl0z9k	NzY3Njc0NDc1ZWJiMTA4M2M2NDNjYWVkNmVmNWE0OTJmNzljMTA1Mjp7Il9hdXRoX3VzZXJfaGFzaCI6IjU5ODYwZGRjOWE5M2U2MmJkZTVjZDY2YzkwZGNhMzk2ODUwMDEwMmEiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJtZXp6YW5pbmUuY29yZS5hdXRoX2JhY2tlbmRzLk1lenphbmluZUJhY2tlbmQiLCJfYXV0aF91c2VyX2lkIjoiMSJ9	2016-08-26 12:14:51.066545-04
+zkkynycjih8u2pjdjts1nhqol9lfrf2o	YjBkNjJlNjEwNTVmYzU0YjBlODQyODhjN2YxMDI5ODI3Njk5MmJlYjp7ImNoZWNrb3V0X2RhdGEiOnsic2hpcHBpbmciOnsidXNlcl9hZGRyZXNzX2lkIjoxLCJtZXRob2RfY29kZSI6ImZyZWUtc2hpcHBpbmcifX0sIl9hdXRoX3VzZXJfaGFzaCI6IjU5ODYwZGRjOWE5M2U2MmJkZTVjZDY2YzkwZGNhMzk2ODUwMDEwMmEiLCJfYXV0aF91c2VyX2lkIjoiMSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6Im1lenphbmluZS5jb3JlLmF1dGhfYmFja2VuZHMuTWV6emFuaW5lQmFja2VuZCJ9	2016-08-28 11:43:00.452377-04
 \.
 
 
@@ -9924,6 +10629,44 @@ COPY easy_thumbnails_thumbnaildimensions (id, thumbnail_id, width, height) FROM 
 --
 
 SELECT pg_catalog.setval('easy_thumbnails_thumbnaildimensions_id_seq', 1, false);
+
+
+--
+-- Data for Name: fluent_contents_contentitem; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY fluent_contents_contentitem (id, parent_id, language_code, sort_order, parent_type_id, placeholder_id, polymorphic_ctype_id) FROM stdin;
+\.
+
+
+--
+-- Name: fluent_contents_contentitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('fluent_contents_contentitem_id_seq', 1, false);
+
+
+--
+-- Data for Name: fluent_contents_placeholder; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY fluent_contents_placeholder (id, slot, role, parent_id, title, parent_type_id) FROM stdin;
+\.
+
+
+--
+-- Name: fluent_contents_placeholder_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('fluent_contents_placeholder_id_seq', 2, true);
+
+
+--
+-- Data for Name: fluent_coremodulpage; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY fluent_coremodulpage (page_ptr_id, template_name) FROM stdin;
+\.
 
 
 --
@@ -10178,7 +10921,7 @@ SELECT pg_catalog.setval('offer_condition_id_seq', 2, true);
 
 COPY offer_conditionaloffer (id, name, slug, description, offer_type, status, priority, start_datetime, end_datetime, max_global_applications, max_user_applications, max_basket_applications, max_discount, total_discount, num_applications, num_orders, redirect_url, date_created, benefit_id, condition_id) FROM stdin;
 2	Offer for coupon 'Test Coupon'	offer-for-coupon-test-coupon		Voucher	Open	0	\N	\N	\N	\N	\N	\N	0.00	0	0		2016-08-10 15:07:15.221899-04	2	2
-1	sample offer	sample-offer	<p>sample offer</p>	Site	Open	0	2016-08-10 00:00:00-04	2016-10-07 05:00:30-04	20	20	1	10.00	7.60	15	15		2016-08-10 00:05:40.138423-04	1	1
+1	sample offer	sample-offer	<p>sample offer</p>	Site	Open	0	2016-08-10 00:00:00-04	2016-10-07 05:00:30-04	20	20	1	10.00	8.20	16	16		2016-08-10 00:05:40.138423-04	1	1
 \.
 
 
@@ -10354,6 +11097,8 @@ COPY order_line (id, partner_name, partner_sku, partner_line_reference, partner_
 21	Our Vendor	19191			Cool T-Shirt	01231	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	15	1	6	3
 22	Our Vendor	10211			Cool Sweatshirt	10012	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	16	1	3	1
 23	Our Vendor	10211			Cool Sweatshirt	10012	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	17	1	3	1
+24	Our Vendor	19191			Cool T-Shirt	01231	1	19.80	19.80	20.00	20.00	20.00	20.00	20.00	20.00	Pending	\N	18	1	6	3
+25	Our Vendor	10211			Cool Sweatshirt	10012	2	39.60	39.60	40.00	40.00	20.00	20.00	20.00	20.00	Pending	\N	18	1	3	1
 \.
 
 
@@ -10361,7 +11106,7 @@ COPY order_line (id, partner_name, partner_sku, partner_line_reference, partner_
 -- Name: order_line_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_line_id_seq', 23, true);
+SELECT pg_catalog.setval('order_line_id_seq', 25, true);
 
 
 --
@@ -10406,6 +11151,8 @@ COPY order_lineprice (id, quantity, price_incl_tax, price_excl_tax, shipping_inc
 20	1	19.80	19.80	0.00	0.00	21	15
 21	1	19.80	19.80	0.00	0.00	22	16
 22	1	19.80	19.80	0.00	0.00	23	17
+23	1	19.80	19.80	0.00	0.00	24	18
+24	2	19.80	19.80	0.00	0.00	25	18
 \.
 
 
@@ -10413,7 +11160,7 @@ COPY order_lineprice (id, quantity, price_incl_tax, price_excl_tax, shipping_inc
 -- Name: order_lineprice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_lineprice_id_seq', 22, true);
+SELECT pg_catalog.setval('order_lineprice_id_seq', 24, true);
 
 
 --
@@ -10438,6 +11185,7 @@ COPY order_order (id, number, currency, total_incl_tax, total_excl_tax, shipping
 15	100022	USD	49.60	49.60	10.00	10.00	Fixed price shipping	fixed-price-shipping	Pending		2016-08-11 23:33:24.075184-04	22	\N	15	1	1
 16	100023	USD	29.80	29.80	10.00	10.00	Fixed price shipping	fixed-price-shipping	Pending		2016-08-12 10:37:23.639558-04	23	\N	16	1	1
 17	100024	USD	29.80	29.80	10.00	10.00	Fixed price shipping	fixed-price-shipping	Pending		2016-08-12 10:41:03.218107-04	24	\N	17	1	1
+18	100025	USD	69.40	69.40	10.00	10.00	Fixed price shipping	fixed-price-shipping	Pending		2016-08-12 17:00:37.562504-04	25	\N	18	1	1
 \.
 
 
@@ -10445,7 +11193,7 @@ COPY order_order (id, number, currency, total_incl_tax, total_excl_tax, shipping
 -- Name: order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_order_id_seq', 17, true);
+SELECT pg_catalog.setval('order_order_id_seq', 18, true);
 
 
 --
@@ -10468,6 +11216,7 @@ COPY order_orderdiscount (id, category, offer_id, offer_name, voucher_id, vouche
 13	Basket	1	sample offer	\N		1	0.40		15
 14	Basket	1	sample offer	\N		1	0.20		16
 15	Basket	1	sample offer	\N		1	0.20		17
+16	Basket	1	sample offer	\N		1	0.60		18
 \.
 
 
@@ -10475,7 +11224,7 @@ COPY order_orderdiscount (id, category, offer_id, offer_name, voucher_id, vouche
 -- Name: order_orderdiscount_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_orderdiscount_id_seq', 15, true);
+SELECT pg_catalog.setval('order_orderdiscount_id_seq', 16, true);
 
 
 --
@@ -10564,6 +11313,7 @@ COPY order_shippingaddress (id, title, first_name, last_name, line1, line2, line
 15	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 16	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 17	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
+18	Mr	Dmitry	Roitman	150 West End Avenue	Apt. 6D	Brooklyn	New York	New York	11235	Dmitry Roitman 150 West End Avenue Apt. 6D Brooklyn New York New York 11235 United States of America	+17184046471		US
 \.
 
 
@@ -10571,7 +11321,7 @@ COPY order_shippingaddress (id, title, first_name, last_name, line1, line2, line
 -- Name: order_shippingaddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_shippingaddress_id_seq', 17, true);
+SELECT pg_catalog.setval('order_shippingaddress_id_seq', 18, true);
 
 
 --
@@ -10609,6 +11359,10 @@ SELECT pg_catalog.setval('order_shippingeventquantity_id_seq', 1, false);
 --
 
 COPY order_shippingeventtype (id, name, code) FROM stdin;
+1	Packaging	packaging
+2	Processing	processing
+3	Transit	transit
+4	Returning	returning
 \.
 
 
@@ -10616,7 +11370,7 @@ COPY order_shippingeventtype (id, name, code) FROM stdin;
 -- Name: order_shippingeventtype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('order_shippingeventtype_id_seq', 1, false);
+SELECT pg_catalog.setval('order_shippingeventtype_id_seq', 4, true);
 
 
 --
@@ -10656,10 +11410,11 @@ SELECT pg_catalog.setval('oscar_accounts_account_secondary_users_id_seq', 1, fal
 
 COPY oscar_accounts_accounttype (id, path, depth, numchild, code, name) FROM stdin;
 3	accounttype	1	10	101	Deferred income
-15	accounttype/defaccount/two	1	0	c1	deferred_income_one
 10	pathtwo	1	10	code	code
-16	paththree	1	0	code_three	code
-1	accounttype/defaccount	1	30	def	deferred income
+17	test	1	0	code3	code
+16	TYPE	1	0	code_three	code
+15	accounttype/defaccount/two	1	1	c1	deferred_income_one
+1	accounttype/defaccount	1	1	def	deferred income
 \.
 
 
@@ -10667,7 +11422,7 @@ COPY oscar_accounts_accounttype (id, path, depth, numchild, code, name) FROM std
 -- Name: oscar_accounts_accounttype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('oscar_accounts_accounttype_id_seq', 16, true);
+SELECT pg_catalog.setval('oscar_accounts_accounttype_id_seq', 17, true);
 
 
 --
@@ -10773,6 +11528,12 @@ COPY pages_link (page_ptr_id) FROM stdin;
 --
 
 COPY pages_page (id, keywords_string, title, slug, _meta_title, description, gen_description, created, updated, status, publish_date, expiry_date, short_url, in_sitemap, _order, in_menus, titles, content_model, login_required, parent_id, site_id) FROM stdin;
+3		SHOP	contact		SHOP	t	2016-08-13 19:13:35.939091-04	2016-08-13 19:29:01.680601-04	2	2016-08-13 19:13:25-04	\N	\N	t	1	1,2,3	SHOP	richtextpage	f	\N	1
+2		LIMITED EDITION	about		LIMITED EDITION	t	2016-08-13 19:12:18.29872-04	2016-08-13 19:29:24.866891-04	2	2016-08-13 19:12:14-04	\N	\N	t	2	1,2,3	LIMITED EDITION	richtextpage	f	\N	1
+6		BRIDAL	bridal		BRIDAL	t	2016-08-13 19:32:02.10375-04	2016-08-13 19:32:02.10375-04	2	2016-08-13 19:31:55-04	\N	\N	t	3	1,2,3	BRIDAL	richtextpage	f	\N	1
+7		PUNNY GIRLS	punny-girls		PUNNY GIRLS	t	2016-08-13 19:32:31.034696-04	2016-08-13 19:32:31.034696-04	2	2016-08-13 19:32:24-04	\N	\N	t	4	1,2,3	PUNNY GIRLS	richtextpage	f	\N	1
+5		RHONY FANS!	rhony-fans		\nRHONY FANS!\n	t	2016-08-13 19:31:18.138598-04	2016-08-13 19:31:18.138598-04	2	2016-08-13 19:31:06-04	\N	\N	t	5	1,2,3	RHONY FANS!	richtextpage	f	\N	1
+4		CUSTOMIZE YOUR OWN	customize-your-own		CUSTOMIZE YOUR OWN	t	2016-08-13 19:25:36.971319-04	2016-08-13 21:03:39.461599-04	2	2016-08-13 19:25:36-04	\N	\N	t	0	1,2,3	CUSTOMIZE YOUR OWN	richtextpage	f	\N	1
 \.
 
 
@@ -10780,7 +11541,7 @@ COPY pages_page (id, keywords_string, title, slug, _meta_title, description, gen
 -- Name: pages_page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('pages_page_id_seq', 1, false);
+SELECT pg_catalog.setval('pages_page_id_seq', 8, true);
 
 
 --
@@ -10788,6 +11549,12 @@ SELECT pg_catalog.setval('pages_page_id_seq', 1, false);
 --
 
 COPY pages_richtextpage (page_ptr_id, content) FROM stdin;
+3	<p>SHOP</p>
+2	<p>LIMITED EDITION</p>
+5	<ul class="top-major-list" id="top-major-list">\n<li><a class="top-major-list-item" href="http://www.bowanddrape.com/c/RHONY">RHONY FANS!</a></li>\n</ul>
+6	<p>BRIDAL</p>
+7	<p>PUNNY GIRLS</p>
+4	<p><a class="top-major-list-item" href="http://www.bowanddrape.com/customize-your-own">CUSTOMIZE YOUR OWN</a></p>\r\n<div style="color:#ffaa44;width:120px;height:20px">TEST</div>
 \.
 
 
@@ -10859,8 +11626,8 @@ SELECT pg_catalog.setval('partner_stockalert_id_seq', 3, true);
 --
 
 COPY partner_stockrecord (id, partner_sku, price_currency, price_excl_tax, price_retail, cost_price, num_in_stock, num_allocated, low_stock_threshold, date_created, date_updated, partner_id, product_id) FROM stdin;
-3	19191	USD	20.00	20.00	20.00	20	8	5	2016-08-11 13:33:57.921625-04	2016-08-11 23:33:24.278823-04	1	6
-1	10211	USD	20.00	20.00	20.00	50	32	10	2016-08-09 11:51:50.864439-04	2016-08-12 10:41:03.285639-04	1	3
+3	19191	USD	20.00	20.00	20.00	20	9	5	2016-08-11 13:33:57.921625-04	2016-08-12 17:00:37.630189-04	1	6
+1	10211	USD	20.00	20.00	20.00	50	34	10	2016-08-09 11:51:50.864439-04	2016-08-12 17:00:37.709115-04	1	3
 \.
 
 
@@ -10936,6 +11703,9 @@ SELECT pg_catalog.setval('payment_transaction_id_seq', 1, false);
 --
 
 COPY paypal_expresstransaction (id, raw_request, raw_response, response_time, date_created, method, version, amount, currency, ack, correlation_id, token, error_code, error_message) FROM stdin;
+1	L_PAYMENTREQUEST_0_QTY1=2&L_PAYMENTREQUEST_0_QTY0=4&MAXAMT=118.80&L_PAYMENTREQUEST_0_QTY2=1&L_PAYMENTREQUEST_0_DESC2=Special+Offer%3A+sample+offer&L_PAYMENTREQUEST_0_DESC1=Cool+Sweatshirt&L_PAYMENTREQUEST_0_DESC0=Cool+T-Shirt&SHIPTOSTREET=150+West+End+Avenue&SHIPTOCITY=New+York&SHIPTONAME=Dmitry+Roitman&USER=sdk-three_api1.sdk.com&SIGNATURE=A-IzJhZZjhg29XQ2qnhapuwxIDzyAZQ92FRP5dqBzVesOkzbdUONzmOU&L_PAYMENTREQUEST_0_NAME1=Cool+Sweatshirt&SHIPTOCOUNTRYCODE=US&EMAIL=dmitryro%40gmail.com&SHIPTOZIP=11235&ALLOWNOTE=1&REQCONFIRMSHIPPING=0&CALLBACKTIMEOUT=3&PAYMENTREQUEST_0_AMT=128.80&PAYMENTREQUEST_0_HANDLINGAMT=0.00&PAYMENTREQUEST_0_TAXAMT=0.00&METHOD=SetExpressCheckout&PAYMENTREQUEST_0_ITEMAMT=118.80&RETURNURL=http%3A%2F%2Fbowanddrape.commerce.3dact.com%2Fcheckout%2Fpaypal%2Fpreview%2F26%2F&L_PAYMENTREQUEST_0_NAME0=Cool+T-Shirt&L_PAYMENTREQUEST_0_NAME2=Special+Offer%3A+sample+offer&PAYMENTREQUEST_0_CURRENCYCODE=USD&VERSION=119&PAYMENTREQUEST_0_MAXAMT=118.80&L_PAYMENTREQUEST_0_AMT2=-1.20&L_PAYMENTREQUEST_0_AMT1=20.00&L_PAYMENTREQUEST_0_AMT0=20.00&SHIPTOSTREET2=Apt.+6D&L_PAYMENTREQUEST_0_NUMBER1=10012&L_PAYMENTREQUEST_0_NUMBER0=01231&SHIPTOSTATE=NY&PWD=QFZCWN5HZM8VBG7Q&PAYMENTREQUEST_0_PAYMENTACTION=Sale&PAYMENTREQUEST_0_SHIPPINGAMT=10.00&CANCELURL=http%3A%2F%2Fbowanddrape.commerce.3dact.com%2Fcheckout%2Fpaypal%2Fcancel%2F26%2F&ADDROVERRIDE=1	TIMESTAMP=2016%2d08%2d14T21%3a47%3a01Z&CORRELATIONID=7fd5677c95f7c&ACK=Failure&VERSION=119&BUILD=24362847&L_ERRORCODE0=10736&L_SHORTMESSAGE0=Shipping%20Address%20Invalid%20City%20State%20Postal%20Code&L_LONGMESSAGE0=A%20match%20of%20the%20Shipping%20Address%20City%2c%20State%2c%20and%20Postal%20Code%20failed%2e&L_SEVERITYCODE0=Error	864.455938339233398	2016-08-14 17:47:01.144529-04	SetExpressCheckout	119	\N	\N	Failure	\N	\N	10736	A match of the Shipping Address City, State, and Postal Code failed.
+2	L_PAYMENTREQUEST_0_QTY1=3&L_PAYMENTREQUEST_0_QTY0=5&MAXAMT=158.40&L_PAYMENTREQUEST_0_QTY2=1&L_PAYMENTREQUEST_0_DESC2=Special+Offer%3A+sample+offer&L_PAYMENTREQUEST_0_DESC1=Cool+Sweatshirt&L_PAYMENTREQUEST_0_DESC0=Cool+T-Shirt&SHIPTOSTREET=150+West+End+Avenue&SHIPTOCITY=Brooklyn&SHIPTONAME=Dmitry+Roitman&USER=sdk-three_api1.sdk.com&SIGNATURE=A-IzJhZZjhg29XQ2qnhapuwxIDzyAZQ92FRP5dqBzVesOkzbdUONzmOU&L_PAYMENTREQUEST_0_NAME1=Cool+Sweatshirt&SHIPTOCOUNTRYCODE=US&EMAIL=dmitryro%40gmail.com&SHIPTOZIP=11235&ALLOWNOTE=1&REQCONFIRMSHIPPING=0&CALLBACKTIMEOUT=3&PAYMENTREQUEST_0_AMT=168.40&PAYMENTREQUEST_0_HANDLINGAMT=0.00&PAYMENTREQUEST_0_TAXAMT=0.00&METHOD=SetExpressCheckout&PAYMENTREQUEST_0_ITEMAMT=158.40&RETURNURL=http%3A%2F%2Fbowanddrape.commerce.3dact.com%2Fcheckout%2Fpaypal%2Fpreview%2F26%2F&L_PAYMENTREQUEST_0_NAME0=Cool+T-Shirt&L_PAYMENTREQUEST_0_NAME2=Special+Offer%3A+sample+offer&PAYMENTREQUEST_0_CURRENCYCODE=USD&VERSION=119&PAYMENTREQUEST_0_MAXAMT=158.40&L_PAYMENTREQUEST_0_AMT2=-1.60&L_PAYMENTREQUEST_0_AMT1=20.00&L_PAYMENTREQUEST_0_AMT0=20.00&SHIPTOSTREET2=Apt.+6D&L_PAYMENTREQUEST_0_NUMBER1=10012&L_PAYMENTREQUEST_0_NUMBER0=01231&SHIPTOSTATE=NY&PWD=QFZCWN5HZM8VBG7Q&PAYMENTREQUEST_0_PAYMENTACTION=Sale&PAYMENTREQUEST_0_SHIPPINGAMT=10.00&CANCELURL=http%3A%2F%2Fbowanddrape.commerce.3dact.com%2Fcheckout%2Fpaypal%2Fcancel%2F26%2F&ADDROVERRIDE=1	TOKEN=EC%2d4H772841WY856190H&TIMESTAMP=2016%2d08%2d14T23%3a25%3a45Z&CORRELATIONID=16f5769af54&ACK=Success&VERSION=119&BUILD=24362847	773.972034454345703	2016-08-14 19:25:45.446645-04	SetExpressCheckout	119	168.40	USD	Success	16f5769af54	EC-4H772841WY856190H	\N	\N
+3	L_PAYMENTREQUEST_0_QTY1=1&L_PAYMENTREQUEST_0_QTY0=1&MAXAMT=19.80&L_PAYMENTREQUEST_0_DESC1=Special+Offer%3A+sample+offer&L_PAYMENTREQUEST_0_DESC0=Cool+T-Shirt&REQCONFIRMSHIPPING=0&SHIPTOCITY=Brooklyn&SHIPTONAME=Dmitry+Roitman&USER=sdk-three_api1.sdk.com&SIGNATURE=A-IzJhZZjhg29XQ2qnhapuwxIDzyAZQ92FRP5dqBzVesOkzbdUONzmOU&L_PAYMENTREQUEST_0_NAME1=Special+Offer%3A+sample+offer&SHIPTOCOUNTRYCODE=US&ALLOWNOTE=1&SHIPTOZIP=11235&SHIPTOSTREET=150+West+End+Avenue&CALLBACKTIMEOUT=3&PAYMENTREQUEST_0_AMT=29.80&PAYMENTREQUEST_0_HANDLINGAMT=0.00&PAYMENTREQUEST_0_TAXAMT=0.00&METHOD=SetExpressCheckout&PAYMENTREQUEST_0_ITEMAMT=19.80&RETURNURL=http%3A%2F%2Fbowanddrape.3dact.com%2Fcheckout%2Fpaypal%2Fpreview%2F28%2F&L_PAYMENTREQUEST_0_NAME0=Cool+T-Shirt&PAYMENTREQUEST_0_CURRENCYCODE=USD&VERSION=119&PAYMENTREQUEST_0_MAXAMT=19.80&L_PAYMENTREQUEST_0_AMT1=-0.20&L_PAYMENTREQUEST_0_AMT0=20.00&SHIPTOSTREET2=Apt.+6D&L_PAYMENTREQUEST_0_NUMBER0=01231&SHIPTOSTATE=NY&PWD=QFZCWN5HZM8VBG7Q&PAYMENTREQUEST_0_PAYMENTACTION=Sale&PAYMENTREQUEST_0_SHIPPINGAMT=10.00&CANCELURL=http%3A%2F%2Fbowanddrape.3dact.com%2Fcheckout%2Fpaypal%2Fcancel%2F28%2F&ADDROVERRIDE=1	TOKEN=EC%2d1GM19581WH8362643&TIMESTAMP=2016%2d08%2d14T23%3a58%3a49Z&CORRELATIONID=7ba73340db6b2&ACK=Success&VERSION=119&BUILD=24362847	767.999172210693359	2016-08-14 19:58:49.286031-04	SetExpressCheckout	119	29.80	USD	Success	7ba73340db6b2	EC-1GM19581WH8362643	\N	\N
 \.
 
 
@@ -10943,7 +11713,7 @@ COPY paypal_expresstransaction (id, raw_request, raw_response, response_time, da
 -- Name: paypal_expresstransaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('paypal_expresstransaction_id_seq', 1, false);
+SELECT pg_catalog.setval('paypal_expresstransaction_id_seq', 3, true);
 
 
 --
@@ -11259,6 +12029,7 @@ COPY promotions_orderedproductlist (handpickedproductlist_ptr_id, display_order,
 --
 
 COPY promotions_pagepromotion (id, object_id, "position", display_order, clicks, date_created, page_url, content_type_id) FROM stdin;
+1	1	page	0	0	2016-08-13 19:16:01.857927-04	/about/	97
 \.
 
 
@@ -11266,7 +12037,7 @@ COPY promotions_pagepromotion (id, object_id, "position", display_order, clicks,
 -- Name: promotions_pagepromotion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('promotions_pagepromotion_id_seq', 1, false);
+SELECT pg_catalog.setval('promotions_pagepromotion_id_seq', 1, true);
 
 
 --
@@ -11374,6 +12145,36 @@ COPY reviews_vote (id, delta, date_created, review_id, user_id) FROM stdin;
 --
 
 SELECT pg_catalog.setval('reviews_vote_id_seq', 1, false);
+
+
+--
+-- Data for Name: sharedcontent_sharedcontent; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY sharedcontent_sharedcontent (id, slug, is_cross_site, parent_site_id) FROM stdin;
+\.
+
+
+--
+-- Name: sharedcontent_sharedcontent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('sharedcontent_sharedcontent_id_seq', 1, false);
+
+
+--
+-- Data for Name: sharedcontent_sharedcontent_translation; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY sharedcontent_sharedcontent_translation (id, language_code, title, master_id) FROM stdin;
+\.
+
+
+--
+-- Name: sharedcontent_sharedcontent_translation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('sharedcontent_sharedcontent_translation_id_seq', 1, false);
 
 
 --
@@ -11783,6 +12584,51 @@ COPY voucher_voucherapplication (id, date_created, order_id, user_id, voucher_id
 --
 
 SELECT pg_catalog.setval('voucher_voucherapplication_id_seq', 1, false);
+
+
+--
+-- Data for Name: widgy_node; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY widgy_node (id, path, depth, numchild, content_id, is_frozen, content_type_id) FROM stdin;
+\.
+
+
+--
+-- Name: widgy_node_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('widgy_node_id_seq', 1, false);
+
+
+--
+-- Data for Name: widgy_versioncommit; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY widgy_versioncommit (id, created_at, message, publish_at, author_id, parent_id, root_node_id, tracker_id) FROM stdin;
+\.
+
+
+--
+-- Name: widgy_versioncommit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('widgy_versioncommit_id_seq', 1, false);
+
+
+--
+-- Data for Name: widgy_versiontracker; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY widgy_versiontracker (id, head_id, working_copy_id) FROM stdin;
+\.
+
+
+--
+-- Name: widgy_versiontracker_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('widgy_versiontracker_id_seq', 1, false);
 
 
 --
@@ -12354,6 +13200,86 @@ ALTER TABLE ONLY conf_setting
 
 
 --
+-- Name: contentitem_code_codeitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_code_codeitem
+    ADD CONSTRAINT contentitem_code_codeitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_gist_gistitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_gist_gistitem
+    ADD CONSTRAINT contentitem_gist_gistitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_googledocsviewer_googledocsvieweritem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_googledocsviewer_googledocsvieweritem
+    ADD CONSTRAINT contentitem_googledocsviewer_googledocsvieweritem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_iframe_iframeitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_iframe_iframeitem
+    ADD CONSTRAINT contentitem_iframe_iframeitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_markup_markupitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_markup_markupitem
+    ADD CONSTRAINT contentitem_markup_markupitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_oembeditem_oembeditem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_oembeditem_oembeditem
+    ADD CONSTRAINT contentitem_oembeditem_oembeditem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_picture_pictureitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_picture_pictureitem
+    ADD CONSTRAINT contentitem_picture_pictureitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_rawhtml_rawhtmlitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_rawhtml_rawhtmlitem
+    ADD CONSTRAINT contentitem_rawhtml_rawhtmlitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_sharedcontent_sharedcontentitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_sharedcontent_sharedcontentitem
+    ADD CONSTRAINT contentitem_sharedcontent_sharedcontentitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
+-- Name: contentitem_text_textitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_text_textitem
+    ADD CONSTRAINT contentitem_text_textitem_pkey PRIMARY KEY (contentitem_ptr_id);
+
+
+--
 -- Name: core_sitepermission_pkey; Type: CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -12599,6 +13525,38 @@ ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions
 
 ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions
     ADD CONSTRAINT easy_thumbnails_thumbnaildimensions_thumbnail_id_key UNIQUE (thumbnail_id);
+
+
+--
+-- Name: fluent_contents_contentitem_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_contentitem
+    ADD CONSTRAINT fluent_contents_contentitem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fluent_contents_placeholder_parent_type_id_93a6e260_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_placeholder
+    ADD CONSTRAINT fluent_contents_placeholder_parent_type_id_93a6e260_uniq UNIQUE (parent_type_id, parent_id, slot);
+
+
+--
+-- Name: fluent_contents_placeholder_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_placeholder
+    ADD CONSTRAINT fluent_contents_placeholder_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: fluent_coremodulpage_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_coremodulpage
+    ADD CONSTRAINT fluent_coremodulpage_pkey PRIMARY KEY (page_ptr_id);
 
 
 --
@@ -13746,6 +14704,38 @@ ALTER TABLE ONLY reviews_vote
 
 
 --
+-- Name: sharedcontent_sharedcontent_parent_site_id_f384bc82_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent
+    ADD CONSTRAINT sharedcontent_sharedcontent_parent_site_id_f384bc82_uniq UNIQUE (parent_site_id, slug);
+
+
+--
+-- Name: sharedcontent_sharedcontent_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent
+    ADD CONSTRAINT sharedcontent_sharedcontent_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sharedcontent_sharedcontent_transla_language_code_5b41670f_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent_translation
+    ADD CONSTRAINT sharedcontent_sharedcontent_transla_language_code_5b41670f_uniq UNIQUE (language_code, master_id);
+
+
+--
+-- Name: sharedcontent_sharedcontent_translation_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent_translation
+    ADD CONSTRAINT sharedcontent_sharedcontent_translation_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: shipping_orderanditemcharg_orderanditemcharges_id_9f0c9c8f_uniq; Type: CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -14119,6 +15109,62 @@ ALTER TABLE ONLY voucher_voucher
 
 ALTER TABLE ONLY voucher_voucherapplication
     ADD CONSTRAINT voucher_voucherapplication_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: widgy_node_content_type_id_4b818ed6_uniq; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_node
+    ADD CONSTRAINT widgy_node_content_type_id_4b818ed6_uniq UNIQUE (content_type_id, content_id);
+
+
+--
+-- Name: widgy_node_path_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_node
+    ADD CONSTRAINT widgy_node_path_key UNIQUE (path);
+
+
+--
+-- Name: widgy_node_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_node
+    ADD CONSTRAINT widgy_node_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: widgy_versioncommit_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versioncommit
+    ADD CONSTRAINT widgy_versioncommit_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: widgy_versiontracker_head_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versiontracker
+    ADD CONSTRAINT widgy_versiontracker_head_id_key UNIQUE (head_id);
+
+
+--
+-- Name: widgy_versiontracker_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versiontracker
+    ADD CONSTRAINT widgy_versiontracker_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: widgy_versiontracker_working_copy_id_key; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versiontracker
+    ADD CONSTRAINT widgy_versiontracker_working_copy_id_key UNIQUE (working_copy_id);
 
 
 --
@@ -14735,6 +15781,27 @@ CREATE INDEX conf_setting_9365d6e7 ON conf_setting USING btree (site_id);
 
 
 --
+-- Name: contentitem_markup_markupitem_8512ae7d; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX contentitem_markup_markupitem_8512ae7d ON contentitem_markup_markupitem USING btree (language);
+
+
+--
+-- Name: contentitem_markup_markupitem_language_dc97746e_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX contentitem_markup_markupitem_language_dc97746e_like ON contentitem_markup_markupitem USING btree (language varchar_pattern_ops);
+
+
+--
+-- Name: contentitem_sharedcontent_sharedcontentitem_9855ad04; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX contentitem_sharedcontent_sharedcontentitem_9855ad04 ON contentitem_sharedcontent_sharedcontentitem USING btree (shared_content_id);
+
+
+--
 -- Name: core_sitepermission_sites_9365d6e7; Type: INDEX; Schema: public; Owner: root
 --
 
@@ -15019,6 +16086,69 @@ CREATE INDEX easy_thumbnails_thumbnail_name_b5882c31_like ON easy_thumbnails_thu
 --
 
 CREATE INDEX easy_thumbnails_thumbnail_storage_hash_f1435f49_like ON easy_thumbnails_thumbnail USING btree (storage_hash varchar_pattern_ops);
+
+
+--
+-- Name: fluent_contents_contentitem_2e3c0484; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_contentitem_2e3c0484 ON fluent_contents_contentitem USING btree (parent_type_id);
+
+
+--
+-- Name: fluent_contents_contentitem_60716c2f; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_contentitem_60716c2f ON fluent_contents_contentitem USING btree (language_code);
+
+
+--
+-- Name: fluent_contents_contentitem_667a6151; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_contentitem_667a6151 ON fluent_contents_contentitem USING btree (placeholder_id);
+
+
+--
+-- Name: fluent_contents_contentitem_a73f1f77; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_contentitem_a73f1f77 ON fluent_contents_contentitem USING btree (sort_order);
+
+
+--
+-- Name: fluent_contents_contentitem_d3e32c49; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_contentitem_d3e32c49 ON fluent_contents_contentitem USING btree (polymorphic_ctype_id);
+
+
+--
+-- Name: fluent_contents_contentitem_language_code_2304b6a8_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_contentitem_language_code_2304b6a8_like ON fluent_contents_contentitem USING btree (language_code varchar_pattern_ops);
+
+
+--
+-- Name: fluent_contents_placeholder_2e3c0484; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_placeholder_2e3c0484 ON fluent_contents_placeholder USING btree (parent_type_id);
+
+
+--
+-- Name: fluent_contents_placeholder_5e97994e; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_placeholder_5e97994e ON fluent_contents_placeholder USING btree (slot);
+
+
+--
+-- Name: fluent_contents_placeholder_slot_d7cb855e_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX fluent_contents_placeholder_slot_d7cb855e_like ON fluent_contents_placeholder USING btree (slot varchar_pattern_ops);
 
 
 --
@@ -16219,6 +17349,48 @@ CREATE INDEX reviews_vote_e8701ad4 ON reviews_vote USING btree (user_id);
 
 
 --
+-- Name: sharedcontent_sharedcontent_2dbcba41; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX sharedcontent_sharedcontent_2dbcba41 ON sharedcontent_sharedcontent USING btree (slug);
+
+
+--
+-- Name: sharedcontent_sharedcontent_4e147804; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX sharedcontent_sharedcontent_4e147804 ON sharedcontent_sharedcontent USING btree (parent_site_id);
+
+
+--
+-- Name: sharedcontent_sharedcontent_slug_ebe1a524_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX sharedcontent_sharedcontent_slug_ebe1a524_like ON sharedcontent_sharedcontent USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: sharedcontent_sharedcontent_transla_language_code_ab3c904c_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX sharedcontent_sharedcontent_transla_language_code_ab3c904c_like ON sharedcontent_sharedcontent_translation USING btree (language_code varchar_pattern_ops);
+
+
+--
+-- Name: sharedcontent_sharedcontent_translation_60716c2f; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX sharedcontent_sharedcontent_translation_60716c2f ON sharedcontent_sharedcontent_translation USING btree (language_code);
+
+
+--
+-- Name: sharedcontent_sharedcontent_translation_90349b61; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX sharedcontent_sharedcontent_translation_90349b61 ON sharedcontent_sharedcontent_translation USING btree (master_id);
+
+
+--
 -- Name: shipping_orderanditemcharges_code_cbeb9206_like; Type: INDEX; Schema: public; Owner: root
 --
 
@@ -16496,6 +17668,48 @@ CREATE INDEX voucher_voucherapplication_69dfcb07 ON voucher_voucherapplication U
 --
 
 CREATE INDEX voucher_voucherapplication_e8701ad4 ON voucher_voucherapplication USING btree (user_id);
+
+
+--
+-- Name: widgy_node_417f1b1c; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX widgy_node_417f1b1c ON widgy_node USING btree (content_type_id);
+
+
+--
+-- Name: widgy_node_path_6c5d7687_like; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX widgy_node_path_6c5d7687_like ON widgy_node USING btree (path varchar_pattern_ops);
+
+
+--
+-- Name: widgy_versioncommit_268dde56; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX widgy_versioncommit_268dde56 ON widgy_versioncommit USING btree (root_node_id);
+
+
+--
+-- Name: widgy_versioncommit_4f331e2f; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX widgy_versioncommit_4f331e2f ON widgy_versioncommit USING btree (author_id);
+
+
+--
+-- Name: widgy_versioncommit_6be37982; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX widgy_versioncommit_6be37982 ON widgy_versioncommit USING btree (parent_id);
+
+
+--
+-- Name: widgy_versioncommit_ca3b814c; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX widgy_versioncommit_ca3b814c ON widgy_versioncommit USING btree (tracker_id);
 
 
 --
@@ -16831,6 +18045,86 @@ ALTER TABLE ONLY promotions_orderedproductlist
 
 
 --
+-- Name: c_contentitem_ptr_id_115f19ef_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_iframe_iframeitem
+    ADD CONSTRAINT c_contentitem_ptr_id_115f19ef_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_48add792_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_sharedcontent_sharedcontentitem
+    ADD CONSTRAINT c_contentitem_ptr_id_48add792_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_4bfd1736_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_picture_pictureitem
+    ADD CONSTRAINT c_contentitem_ptr_id_4bfd1736_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_59b6f800_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_oembeditem_oembeditem
+    ADD CONSTRAINT c_contentitem_ptr_id_59b6f800_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_64ef0d49_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_markup_markupitem
+    ADD CONSTRAINT c_contentitem_ptr_id_64ef0d49_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_72bbe1af_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_code_codeitem
+    ADD CONSTRAINT c_contentitem_ptr_id_72bbe1af_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_7b33cf75_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_googledocsviewer_googledocsvieweritem
+    ADD CONSTRAINT c_contentitem_ptr_id_7b33cf75_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_88945008_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_gist_gistitem
+    ADD CONSTRAINT c_contentitem_ptr_id_88945008_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_a20d2b03_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_rawhtml_rawhtmlitem
+    ADD CONSTRAINT c_contentitem_ptr_id_a20d2b03_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: c_contentitem_ptr_id_dcbe22d0_fk_fluent_contents_contentitem_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_text_textitem
+    ADD CONSTRAINT c_contentitem_ptr_id_dcbe22d0_fk_fluent_contents_contentitem_id FOREIGN KEY (contentitem_ptr_id) REFERENCES fluent_contents_contentitem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: c_option_group_id_6b422dc2_fk_catalogue_attributeoptiongroup_id; Type: FK CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -16972,6 +18266,14 @@ ALTER TABLE ONLY catalogue_productimage
 
 ALTER TABLE ONLY catalogue_productrecommendation
     ADD CONSTRAINT catalogue_productre_primary_id_6e51a55c_fk_catalogue_product_id FOREIGN KEY (primary_id) REFERENCES catalogue_product(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: co_shared_content_id_0333a198_fk_sharedcontent_sharedcontent_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY contentitem_sharedcontent_sharedcontentitem
+    ADD CONSTRAINT co_shared_content_id_0333a198_fk_sharedcontent_sharedcontent_id FOREIGN KEY (shared_content_id) REFERENCES sharedcontent_sharedcontent(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -17140,6 +18442,46 @@ ALTER TABLE ONLY easy_thumbnails_thumbnaildimensions
 
 ALTER TABLE ONLY easy_thumbnails_thumbnail
     ADD CONSTRAINT easy_thumbnails_source_id_5b57bc77_fk_easy_thumbnails_source_id FOREIGN KEY (source_id) REFERENCES easy_thumbnails_source(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: fluen_placeholder_id_fb2e98ff_fk_fluent_contents_placeholder_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_contentitem
+    ADD CONSTRAINT fluen_placeholder_id_fb2e98ff_fk_fluent_contents_placeholder_id FOREIGN KEY (placeholder_id) REFERENCES fluent_contents_placeholder(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: fluent__polymorphic_ctype_id_8989bd3f_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_contentitem
+    ADD CONSTRAINT fluent__polymorphic_ctype_id_8989bd3f_fk_django_content_type_id FOREIGN KEY (polymorphic_ctype_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: fluent_conten_parent_type_id_01f70240_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_placeholder
+    ADD CONSTRAINT fluent_conten_parent_type_id_01f70240_fk_django_content_type_id FOREIGN KEY (parent_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: fluent_conten_parent_type_id_9a2fbcb3_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_contents_contentitem
+    ADD CONSTRAINT fluent_conten_parent_type_id_9a2fbcb3_fk_django_content_type_id FOREIGN KEY (parent_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: fluent_coremodulpage_page_ptr_id_97163616_fk_pages_page_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY fluent_coremodulpage
+    ADD CONSTRAINT fluent_coremodulpage_page_ptr_id_97163616_fk_pages_page_id FOREIGN KEY (page_ptr_id) REFERENCES pages_page(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -18151,6 +19493,22 @@ ALTER TABLE ONLY reviews_vote
 
 
 --
+-- Name: sharedcont_master_id_ff437c98_fk_sharedcontent_sharedcontent_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent_translation
+    ADD CONSTRAINT sharedcont_master_id_ff437c98_fk_sharedcontent_sharedcontent_id FOREIGN KEY (master_id) REFERENCES sharedcontent_sharedcontent(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: sharedcontent_sharedc_parent_site_id_c9ee0f73_fk_django_site_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY sharedcontent_sharedcontent
+    ADD CONSTRAINT sharedcontent_sharedc_parent_site_id_c9ee0f73_fk_django_site_id FOREIGN KEY (parent_site_id) REFERENCES django_site(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- Name: ship_shippingcompany_id_2d6c4efb_fk_shipping_shippingcompany_id; Type: FK CONSTRAINT; Schema: public; Owner: root
 --
 
@@ -18340,6 +19698,62 @@ ALTER TABLE ONLY voucher_voucherapplication
 
 ALTER TABLE ONLY voucher_voucherapplication
     ADD CONSTRAINT voucher_voucherapplication_user_id_df53a393_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_node_content_type_id_5d78c811_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_node
+    ADD CONSTRAINT widgy_node_content_type_id_5d78c811_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_versioncom_tracker_id_fe2bf1e8_fk_widgy_versiontracker_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versioncommit
+    ADD CONSTRAINT widgy_versioncom_tracker_id_fe2bf1e8_fk_widgy_versiontracker_id FOREIGN KEY (tracker_id) REFERENCES widgy_versiontracker(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_versioncommi_parent_id_0a54a581_fk_widgy_versioncommit_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versioncommit
+    ADD CONSTRAINT widgy_versioncommi_parent_id_0a54a581_fk_widgy_versioncommit_id FOREIGN KEY (parent_id) REFERENCES widgy_versioncommit(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_versioncommit_author_id_80666168_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versioncommit
+    ADD CONSTRAINT widgy_versioncommit_author_id_80666168_fk_auth_user_id FOREIGN KEY (author_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_versioncommit_root_node_id_a4c7da12_fk_widgy_node_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versioncommit
+    ADD CONSTRAINT widgy_versioncommit_root_node_id_a4c7da12_fk_widgy_node_id FOREIGN KEY (root_node_id) REFERENCES widgy_node(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_versiontracker_head_id_5b687d8d_fk_widgy_versioncommit_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versiontracker
+    ADD CONSTRAINT widgy_versiontracker_head_id_5b687d8d_fk_widgy_versioncommit_id FOREIGN KEY (head_id) REFERENCES widgy_versioncommit(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: widgy_versiontracker_working_copy_id_e7b37561_fk_widgy_node_id; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY widgy_versiontracker
+    ADD CONSTRAINT widgy_versiontracker_working_copy_id_e7b37561_fk_widgy_node_id FOREIGN KEY (working_copy_id) REFERENCES widgy_node(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --
