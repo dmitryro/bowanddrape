@@ -516,6 +516,77 @@ API_ENABLED_PAYMENT_METHODS = [
 OSCAR_SHOP_TAGLINE = 'Bow & Drape'
 
 # Add Payflow dashboard stuff to settings
+OSCAR_DASHBOARD_NAVIGATION[1].update(
+    {
+        'label': 'Catalogue',
+        'icon': 'icon-sitemap',
+        'children':[
+            {
+                'label': 'Products',
+                'url_name': 'dashboard:catalogue-product-list',
+            },
+            {
+                'label': 'Colors / Fabrics',
+                'url_name': 'dashboard:catalogue-product-list',
+            },
+            {
+                'label': 'Part Templates',
+                'url_name': 'dashboard:catalogue-product-list',
+            },
+            {
+                'label':'Product Types',
+                'url_name': 'dashboard:catalogue-class-list',
+            },
+            {
+                'label': 'Categories',
+                'url_name': 'dashboard:catalogue-category-list',
+            },
+            {
+                'label': 'Ranges',
+                'url_name': 'dashboard:range-list',
+            },
+            {
+                'label': 'Low stock alerts',
+                'url_name': 'dashboard:stock-alert-list',
+            },
+
+
+        ],
+    }
+)
+
+
+OSCAR_DASHBOARD_NAVIGATION[2].update(
+    {
+        'label': 'Fulfilment',
+        'icon': 'icon-shopping-cart',
+        'children':[
+            {
+                'label':'Orders',
+                'url_name': 'dashboard:order-list',
+            },
+            {
+                'label':'Billing & Shipping',
+                'url_name': 'dashboard:order-list',
+            },
+            {
+                'label':'Garment Info',
+                'url_name': 'dashboard:order-list',
+            },
+            {
+                'label': _('Statistics'),
+                'url_name': 'dashboard:order-stats',
+            },
+            {
+                'label': _('Partners'),
+                'url_name': 'dashboard:partner-list',
+            },
+
+        ],
+    }
+)
+
+
 OSCAR_DASHBOARD_NAVIGATION.append(
     {
         'label': 'PayPal',
