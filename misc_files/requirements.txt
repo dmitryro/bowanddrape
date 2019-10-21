@@ -95,7 +95,7 @@ djangorestframework-oauth==1.1.0
 dnspython==1.11.1
 drf-cached-instances==0.3.3
 drf-extensions==0.2.8
-ecdsa==0.13
+ecdsa==0.13.3
 factory-boy==2.7.0
 fake-factory==0.5.10
 funcsigs==1.0.2
