@@ -85,7 +85,7 @@ django-tastypie==0.13.3
 django-treebeard==4.0.1
 django-user-agents==0.3.0
 django-widget-tweaks==1.4.1
-djangorestframework==3.4.3
+djangorestframework==3.11.2
 djangorestframework-bulk==0.2.1
 djangorestframework-digestauth==1.1.0
 djangorestframework-extensions==0.0.3
