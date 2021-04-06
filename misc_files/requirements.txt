@@ -70,7 +70,7 @@ django-push==0.8
 django-pygments==0.1
 django-pyres==0.1.5
 django-redis-cache==1.6.5
-django-registration==2.1
+django-registration==3.1.2
 django-registration-rest-framework==0.3.0
 django-rest-auth==0.7.0
 django-rq==0.9.1
