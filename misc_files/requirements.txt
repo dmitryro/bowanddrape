@@ -1,5 +1,5 @@
 Babel==2.3.4
-Django==1.9.9
+Django==2.2.24
 Fabric==1.12.0
 Facebook==0.0
 Jinja2==2.8
