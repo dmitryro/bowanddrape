@@ -1,4 +1,4 @@
-Babel==2.3.4
+Babel==2.9.1
 Django==1.9.9
 Fabric==1.12.0
 Facebook==0.0
