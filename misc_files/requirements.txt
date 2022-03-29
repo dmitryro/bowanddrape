@@ -115,7 +115,7 @@ oauth2-provider==0.0
 oauthlib==1.1.2
 openpyxl==1.7.0
 pandas==0.13.1
-paramiko==1.17.2
+paramiko==2.10.1
 patsy==0.2.1
 pbr==1.10.0
 phonenumbers==7.5.1
