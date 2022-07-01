@@ -113,7 +113,7 @@ numexpr==2.2.2
 numpy==1.8.2
 oauth2-provider==0.0
 oauthlib==1.1.2
-openpyxl==1.7.0
+openpyxl==2.4.2
 pandas==0.13.1
 paramiko==1.17.2
 patsy==0.2.1
