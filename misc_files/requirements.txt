@@ -141,7 +141,7 @@ python-social-auth==0.2.19
 pytz==2012c
 rcssmin==1.0.6
 redis==2.10.5
-requests==2.2.1
+requests==2.20.0
 requests-oauthlib==0.6.1
 rest-pandas==0.4.0
 restless==2.0.1
